@@ -11,7 +11,7 @@ const Home: NextPage = () => {
     return (
         <>
             <DashboardHeader now="plan" />
-            <PageLayout></PageLayout>
+            <PageLayout minHeight="calc(100vh - 131px - 337px)"></PageLayout>
 
             <DashboardFooter />
         </>

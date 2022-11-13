@@ -19,6 +19,8 @@ import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 import C2NLogo from '../../../../assets/logo.png';
+import { useUser } from '../../../../hooks/useUser';
+import { toast } from 'react-toastify';
 
 const Img = styled(Image)`
     height: 26px;
@@ -41,20 +43,22 @@ const A = styled.a`
 `;
 
 const logout = () => {
-    localStorage.removeItem('opizeToken');
+    localStorage.removeItem('token');
     window.location.href = '/';
 };
 
 function StyledDashboardHeader({ now }: { now: Path }) {
     const router = useRouter();
+    const { user } = useUser();
+
+    useEffect(() => {
+        if (user?.status !== 'FINISHED') {
+            toast.info('먼저 연결을 완료해주세요!');
+            router.push('/connect');
+        }
+    }, [router, user?.status]);
 
     const action: ActionMenuActionType[][] = [
-        [
-            {
-                label: '내 정보',
-                onClick: () => {},
-            },
-        ],
         [
             {
                 label: '로그아웃',
@@ -63,6 +67,15 @@ function StyledDashboardHeader({ now }: { now: Path }) {
             },
         ],
     ];
+
+    if (user?.isAdmin) {
+        action.unshift([
+            {
+                label: '관리자',
+                onClick: () => router.push('/admin'),
+            },
+        ]);
+    }
 
     return (
         <Header>
@@ -84,7 +97,9 @@ function StyledDashboardHeader({ now }: { now: Path }) {
                         borderRadius={999}
                         width="fit-content"
                         actions={action}
-                        icon={<Image src={SkeletonIcon} alt="유저 프로필 사진" width={32} height={32} />}
+                        icon={
+                            <Image src={user?.imageUrl || SkeletonIcon} alt="유저 프로필 사진" width={32} height={32} />
+                        }
                     ></ActionMenu>
                 </Header.Nav.Right>
             </Header.Nav>

@@ -16,7 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <OpizeWrapper>
             <QueryClientProvider client={queryClient}>
-                <Component {...pageProps} />
+                <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}>
+                    <Component {...pageProps} />
+                </GoogleOAuthProvider>
                 <ReactQueryDevtools initialIsOpen={true} />
                 <ToastContainer
                     position="bottom-right"

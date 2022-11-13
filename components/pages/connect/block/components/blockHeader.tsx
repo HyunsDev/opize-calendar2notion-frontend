@@ -10,18 +10,9 @@ const StyledSubtitle = styled.div`
     color: ${cv.text3};
 `;
 
-export function BlockHeader({
-    title,
-    subtitle,
-    text,
-}: {
-    title: React.ReactNode;
-    subtitle: React.ReactNode;
-    text?: React.ReactNode;
-}) {
+export function BlockHeader({ title, text }: { title: React.ReactNode; text?: React.ReactNode }) {
     return (
         <Flex.Column>
-            <StyledSubtitle>{subtitle}</StyledSubtitle>
             <StyledTitle>{title}</StyledTitle>
             {text && <Text color={cv.text3}>{text}</Text>}
         </Flex.Column>

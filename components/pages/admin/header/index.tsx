@@ -19,6 +19,7 @@ import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 import C2NLogo from '../../../../assets/logo.png';
+import { useUser } from '../../../../hooks/useUser';
 
 const Img = styled(Image)`
     height: 26px;
@@ -41,18 +42,19 @@ const A = styled.a`
 `;
 
 const logout = () => {
-    localStorage.removeItem('opizeToken');
+    localStorage.removeItem('token');
     window.location.href = '/';
 };
 
 function StyledDashboardHeader({ now }: { now: Path }) {
+    const { user } = useUser();
     const router = useRouter();
 
     const action: ActionMenuActionType[][] = [
         [
             {
-                label: '내 정보',
-                onClick: () => {},
+                label: '유저 대시보드',
+                onClick: () => router.push('/dashboard'),
             },
         ],
         [
@@ -84,7 +86,9 @@ function StyledDashboardHeader({ now }: { now: Path }) {
                         borderRadius={999}
                         width="fit-content"
                         actions={action}
-                        icon={<Image src={SkeletonIcon} alt="유저 프로필 사진" width={32} height={32} />}
+                        icon={
+                            <Image src={user?.imageUrl || SkeletonIcon} alt="유저 프로필 사진" width={32} height={32} />
+                        }
                     ></ActionMenu>
                 </Header.Nav.Right>
             </Header.Nav>

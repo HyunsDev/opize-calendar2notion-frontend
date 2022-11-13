@@ -1,17 +1,34 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { PageLayout, H1, Flex, Text, cv, Button, Link as A } from 'opize-design-system';
+import { useRouter } from 'next/router';
+import { PageLayout, H1, Flex, Text, cv, Button, Link as A, useModal } from 'opize-design-system';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';
 import { DashboardFooter } from '../../components/pages/dashboard/footer';
 import { DashboardHeader } from '../../components/pages/dashboard/header';
 
+const HelloModal = <Flex.Column>Hello, Calendar2notion!</Flex.Column>;
+
 const Home: NextPage = () => {
+    const router = useRouter();
+    const modal = useModal();
+
+    useEffect(() => {
+        const hello = router.query.hello as string;
+        if (hello === 'true') {
+            router.replace('/dashboard');
+            modal.open(HelloModal, {
+                width: 400,
+            });
+        }
+    }, [modal, router, router.query.hello]);
+
     return (
         <>
             <DashboardHeader now="dashboard" />
-            <PageLayout>
+            <PageLayout minHeight="calc(100vh - 131px - 337px)">
                 <Flex.Column gap="20px">
                     <Flex.Center>
                         <GCalNotionCircle />

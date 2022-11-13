@@ -27,7 +27,7 @@ function BoxSyncNoticeEmail() {
             footer={
                 <>
                     <div />
-                    <Button variant="outlined">적용</Button>
+                    <Button variant="contained">적용</Button>
                 </>
             }
         >
@@ -90,7 +90,7 @@ const Home: NextPage = () => {
         <>
             <DashboardHeader now="setting" />
             <PageHead title="설정"></PageHead>
-            <PageLayout panPosition="start" marginTop="16px">
+            <PageLayout panPosition="start" marginTop="16px" minHeight="calc(100vh - 131px - 128px - 337px)">
                 <PageLayout.Pane>
                     <DashboardSettingSidebar now="account" />
                 </PageLayout.Pane>

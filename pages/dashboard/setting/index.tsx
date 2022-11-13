@@ -14,6 +14,7 @@ import {
     ItemsTable,
     Select,
     Link as A,
+    useModal,
 } from 'opize-design-system';
 import styled from 'styled-components';
 import { GCalNotionCircle } from '../../../components/GCalNotionCircle';
@@ -24,15 +25,25 @@ import { DashboardSettingSidebar } from '../../../components/pages/dashboard/set
 import NotionImage from '../../../assets/notion.png';
 import { GCalIcon } from '../../../components/GCalIcon';
 import { timeZones } from '../../../components/pages/dashboard/timezone';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useToast } from 'react-toastify';
+import { useUser } from '../../../hooks/useUser';
+import { client } from '../../../lib/client';
 
 function BoxSync() {
+    const { user } = useUser();
+    const [isSync, setIsSync] = useState(user?.isConnected);
+
+    const onChange = async () => {};
+
     return (
         <Box
             title="동기화"
             footer={
                 <>
                     <div />
-                    <Button variant="outlined">적용</Button>
+                    <Button variant="contained">적용</Button>
                 </>
             }
         >
@@ -41,19 +52,20 @@ function BoxSync() {
                 <br />
                 주의! 3주 이상 동기화가 중단되었다가 실행하는 경우 과거에 변경된 내용이 반영되지 않을 수 있어요
             </Text>
-            <Switch text="동기화 중" />
+            <Switch text="동기화 중" checked={isSync} onChange={onChange} />
         </Box>
     );
 }
 
 function BoxAccount() {
+    const { user } = useUser();
+
     return (
         <Box title="아래 계정과 데이터베이스에 연결되어 있어요">
             <ItemsTable>
                 <ItemsTable.Row>
                     <ItemsTable.Row.Avatar icon={GCalIcon} name="Google Calendar" label="" />
-                    <ItemsTable.Row.Text text="phw3071@gmail.com" subText="https://calendar.google.com" />
-                    <ItemsTable.Row.Buttons buttons={[]} />
+                    <ItemsTable.Row.Text text={user?.googleEmail} subText="https://calendar.google.com" />
                 </ItemsTable.Row>
                 <ItemsTable.Row>
                     <ItemsTable.Row.Avatar
@@ -61,11 +73,7 @@ function BoxAccount() {
                         name="Notion"
                         label=""
                     />
-                    <ItemsTable.Row.Text
-                        text="phw3071@gmail.com"
-                        subText="https://notion.so/7ec4de93624c4a17b8aa64cdad25889c"
-                    />
-                    <ItemsTable.Row.Buttons buttons={[]} />
+                    <ItemsTable.Row.Text subText={`https://notion.so/${user?.notionDatabaseId.replaceAll('-', '')}`} />
                 </ItemsTable.Row>
             </ItemsTable>
         </Box>
@@ -73,19 +81,21 @@ function BoxAccount() {
 }
 
 function BoxTimeZone() {
+    const { user } = useUser();
+
     return (
         <Box
             title="시간대를 선택해주세요"
             footer={
                 <>
                     <div />
-                    <Button variant="outlined">적용</Button>
+                    <Button variant="contained">적용</Button>
                 </>
             }
         >
             <Select>
                 {timeZones.map((e) => (
-                    <Select.Option value={e.value} key={e.value}>
+                    <Select.Option value={e.value} key={e.value} selected={user?.userTimeZone === e.value}>
                         {e.label}
                     </Select.Option>
                 ))}
@@ -98,13 +108,16 @@ const Width100 = styled.div`
     width: max(300px, 50%);
 `;
 function BoxProps() {
+    const { user } = useUser();
+    const props = user?.notionProps;
+
     return (
         <Box
             title="노션 데이터베이스 속성"
             footer={
                 <>
                     <A>자세히 알아보기</A>
-                    <Button variant="outlined">적용</Button>
+                    <Button variant="contained">적용</Button>
                 </>
             }
         >
@@ -164,11 +177,13 @@ function BoxProps() {
 }
 
 const Home: NextPage = () => {
+    const [isShowAdvancedSettings, setShowAdvancedSettings] = useState(false);
+
     return (
         <>
             <DashboardHeader now="setting" />
             <PageHead title="설정"></PageHead>
-            <PageLayout panPosition="start" marginTop="16px">
+            <PageLayout panPosition="start" marginTop="16px" minHeight="calc(100vh - 131px - 128px - 337px)">
                 <PageLayout.Pane>
                     <DashboardSettingSidebar now="sync" />
                 </PageLayout.Pane>
@@ -177,7 +192,12 @@ const Home: NextPage = () => {
                         <BoxAccount />
                         <BoxSync />
                         <BoxTimeZone />
-                        <BoxProps />
+                        {/* <Switch
+                            text="고급 설정 표시"
+                            checked={isShowAdvancedSettings}
+                            onChange={() => setShowAdvancedSettings((pre) => !pre)}
+                        />
+                        {isShowAdvancedSettings && <BoxProps />} */}
                     </Flex.Column>
                 </PageLayout.Content>
             </PageLayout>
