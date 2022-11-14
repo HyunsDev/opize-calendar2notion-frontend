@@ -17,6 +17,7 @@ import { client } from '../../../lib/client';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { useRouter } from 'next/router';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 
@@ -44,6 +45,7 @@ const ReadonlyTag = styled.div`
 `;
 
 function BoxCalendars() {
+    const router = useRouter();
     const { user, refetch } = useUser();
     const [loadingCalendars, setLoadingCalendars] = useState<string[]>([]);
 
@@ -51,6 +53,7 @@ function BoxCalendars() {
         if (loadingCalendars.includes(googleCalendarId)) return;
         if (user?.userPlan === 'FREE' && googleCalendarId !== user.googleEmail) {
             toast.warn('해당 캘린더는 Pro 플랜부터 이용할 수 있어요.');
+            router.push('/dashboard/plan');
             return;
         }
 

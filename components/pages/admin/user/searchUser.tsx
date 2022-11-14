@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import {
@@ -24,8 +24,10 @@ import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { client } from '../../../../lib/client';
+import { useRouter } from 'next/router';
 
 export function AdminSearchUser({ user, setUser }: { user: any; setUser: (user: any) => void }) {
+    const router = useRouter();
     const ref = useRef<HTMLInputElement>(null);
 
     const [text, setText] = useState('');
@@ -36,27 +38,39 @@ export function AdminSearchUser({ user, setUser }: { user: any; setUser: (user: 
         if (ref.current) ref.current.focus();
     }, []);
 
-    const fetchUser = async () => {
-        try {
-            setUser({});
-            setIsLoading(true);
-            const res = await client.admin.findUser({
-                [select]: text,
-            });
-            setUser(res);
-            setIsLoading(false);
-        } catch (err: any) {
-            setIsLoading(false);
-            if (err.code === 404) {
-                toast.warn(err?.message || '유저를 조회할 수 없습니다.');
-            } else {
-                toast.error(err?.message || '유저를 조회할 수 없습니다.');
+    const fetchUser = useCallback(
+        async (select: string, text: string) => {
+            try {
+                setUser({});
+                setIsLoading(true);
+                const res = await client.admin.findUser({
+                    [select]: text,
+                });
+                setUser(res);
+                setIsLoading(false);
+            } catch (err: any) {
+                setIsLoading(false);
+                if (err.code === 404) {
+                    toast.warn(err?.message || '유저를 조회할 수 없습니다.');
+                } else {
+                    toast.error(err?.message || '유저를 조회할 수 없습니다.');
+                }
             }
+        },
+        [setUser]
+    );
+
+    useEffect(() => {
+        const userId = router.query.userId as string;
+        if (userId) {
+            setSelect('id');
+            setText(userId);
+            fetchUser(userId, 'id');
         }
-    };
+    }, [fetchUser, router.query.userId]);
 
     const onkeydown = async (e: React.KeyboardEvent) => {
-        if (e.code === 'Enter') await fetchUser();
+        if (e.code === 'Enter') await fetchUser(select, text);
         if (e.code === 'Escape') setText('');
     };
 
@@ -75,7 +89,7 @@ export function AdminSearchUser({ user, setUser }: { user: any; setUser: (user: 
                 onKeyDown={onkeydown}
                 ref={ref}
             />
-            <Button variant="contained" width="100px" onClick={fetchUser} isLoading={isLoading}>
+            <Button variant="contained" width="100px" onClick={() => fetchUser(select, text)} isLoading={isLoading}>
                 조회
             </Button>
         </Flex.Between>

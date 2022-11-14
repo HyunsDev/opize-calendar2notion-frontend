@@ -69,3 +69,20 @@ export type getUserResponse = {
         foregroundColor: string;
     }[];
 };
+
+// PATCH /user/:userId
+export type patchUserParameters = {
+    userId?: 'me' | number;
+    name?: string;
+    imageUrl?: string;
+    isConnected?: boolean;
+    userTimeZone?: string;
+};
+export const patchUser: Endpoint<patchUserParameters> = {
+    method: 'patch',
+    path: (e) => `/user/${e.userId}`,
+    bodyParams: ['imageUrl', 'isConnected', 'name', 'userTimeZone'],
+    pathParams: ['userId'],
+    queryParams: [],
+};
+export type patchUserResponse = {};

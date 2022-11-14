@@ -34,25 +34,31 @@ import { client } from '../../../lib/client';
 function BoxSync() {
     const { user } = useUser();
     const [isSync, setIsSync] = useState(user?.isConnected);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const onChange = async () => {};
+    const onChange = async () => {
+        setIsLoading(true);
+        setIsSync(!isSync);
+        await client.user.patch({
+            userId: 'me',
+            isConnected: !isSync,
+        });
+        setIsLoading(false);
+    };
 
     return (
-        <Box
-            title="동기화"
-            footer={
-                <>
-                    <div />
-                    <Button variant="contained">적용</Button>
-                </>
-            }
-        >
+        <Box title="동기화">
             <Text>
                 일시적으로 동기화를 중단할 수 있어요.
                 <br />
                 주의! 3주 이상 동기화가 중단되었다가 실행하는 경우 과거에 변경된 내용이 반영되지 않을 수 있어요
             </Text>
-            <Switch text="동기화 중" checked={isSync} onChange={onChange} />
+            <Switch
+                text={isSync ? '동기화 중' : '동기화 해제됨'}
+                checked={isSync}
+                onChange={onChange}
+                disabled={isLoading}
+            />
         </Box>
     );
 }

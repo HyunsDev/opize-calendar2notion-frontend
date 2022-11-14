@@ -52,11 +52,11 @@ function StyledDashboardHeader({ now }: { now: Path }) {
     const { user } = useUser();
 
     useEffect(() => {
-        if (user?.status !== 'FINISHED') {
+        if (user && user.status !== 'FINISHED') {
             toast.info('먼저 연결을 완료해주세요!');
             router.push('/connect');
         }
-    }, [router, user?.status]);
+    }, [router, user, user?.status]);
 
     const action: ActionMenuActionType[][] = [
         [

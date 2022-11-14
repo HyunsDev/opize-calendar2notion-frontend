@@ -2,6 +2,10 @@ import Image from 'next/image';
 import styled, { keyframes } from 'styled-components';
 import NotionLogo from '../../assets/notion.png';
 
+const Divver = styled.div<{ size: number }>`
+    transform: scale(${(props) => props.size});
+`;
+
 const TitleImgDiv = styled.div`
     width: 360px;
     height: 340px;
@@ -68,14 +72,16 @@ const GoogleCalendarLogo = (
     </TitleImgGoogleCalendar>
 );
 
-export function GCalNotionCircle({ color = '#9DA2AA' }: { color?: string }) {
+export function GCalNotionCircle({ color = '#9DA2AA', size = 0.6 }: { color?: string; size?: number }) {
     return (
-        <TitleImgDiv>
-            {GoogleCalendarLogo}
-            <TitleImgNotion>
-                <Image src={NotionLogo} height={140} width={140} alt="" />
-            </TitleImgNotion>
-            <TitleImgCircle color={color} />
-        </TitleImgDiv>
+        <Divver size={size}>
+            <TitleImgDiv>
+                {GoogleCalendarLogo}
+                <TitleImgNotion>
+                    <Image src={NotionLogo} height={140} width={140} alt="" />
+                </TitleImgNotion>
+                <TitleImgCircle color={color} />
+            </TitleImgDiv>
+        </Divver>
     );
 }

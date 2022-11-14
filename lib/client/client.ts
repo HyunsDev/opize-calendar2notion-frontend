@@ -23,12 +23,32 @@ import {
     deleteAdminUserResponse,
 } from './endpoints/admin';
 import {
+    getSyncBots,
+    getSyncBotsParameters,
+    getSyncBotsResponse,
+    postSyncBot,
+    postSyncBotParameters,
+    postSyncBotResponse,
+    deleteSyncBot,
+    deleteSyncBotParameters,
+    deleteSyncBotResponse,
+    exitSyncBot,
+    exitSyncBotParameters,
+    exitSyncBotResponse,
+    stopSyncBot,
+    stopSyncBotParameters,
+    stopSyncBotResponse,
+} from './endpoints/syncbot';
+import {
     postUser,
     postUserParameters,
     postUserResponse,
     getUser,
     getUserParameters,
     getUserResponse,
+    patchUser,
+    patchUserParameters,
+    patchUserResponse,
 } from './endpoints/user';
 import {
     postUserCalendar,
@@ -154,6 +174,16 @@ export class Client {
                 method: postUser.method,
                 query: pick(args, postUser.queryParams),
                 body: pick(args, postUser.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        patch: (args: WithAuth<patchUserParameters>): Promise<patchUserResponse> => {
+            return this.request<patchUserResponse>({
+                path: patchUser.path(args),
+                method: patchUser.method,
+                query: pick(args, patchUser.queryParams),
+                body: pick(args, patchUser.bodyParams),
                 auth: args?.auth,
             });
         },
@@ -286,6 +316,58 @@ export class Client {
                 method: getAdminStatistics.method,
                 query: pick(args, getAdminStatistics.queryParams),
                 body: pick(args, getAdminStatistics.bodyParams),
+                auth: args?.auth,
+            });
+        },
+    };
+
+    public readonly syncbot = {
+        list: (args: WithAuth<getSyncBotsParameters>): Promise<getSyncBotsResponse> => {
+            return this.request<getSyncBotsResponse>({
+                path: getSyncBots.path(args),
+                method: getSyncBots.method,
+                query: pick(args, getSyncBots.queryParams),
+                body: pick(args, getSyncBots.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        post: (args: WithAuth<postSyncBotParameters>): Promise<postSyncBotResponse> => {
+            return this.request<postSyncBotResponse>({
+                path: postSyncBot.path(args),
+                method: postSyncBot.method,
+                query: pick(args, postSyncBot.queryParams),
+                body: pick(args, postSyncBot.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        delete: (args: WithAuth<deleteSyncBotParameters>): Promise<deleteSyncBotResponse> => {
+            return this.request<deleteSyncBotResponse>({
+                path: deleteSyncBot.path(args),
+                method: deleteSyncBot.method,
+                query: pick(args, deleteSyncBot.queryParams),
+                body: pick(args, deleteSyncBot.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        stop: (args: WithAuth<stopSyncBotParameters>): Promise<stopSyncBotResponse> => {
+            return this.request<stopSyncBotResponse>({
+                path: stopSyncBot.path(args),
+                method: stopSyncBot.method,
+                query: pick(args, stopSyncBot.queryParams),
+                body: pick(args, stopSyncBot.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        exit: (args: WithAuth<exitSyncBotParameters>): Promise<exitSyncBotResponse> => {
+            return this.request<exitSyncBotResponse>({
+                path: exitSyncBot.path(args),
+                method: exitSyncBot.method,
+                query: pick(args, exitSyncBot.queryParams),
+                body: pick(args, exitSyncBot.bodyParams),
                 auth: args?.auth,
             });
         },

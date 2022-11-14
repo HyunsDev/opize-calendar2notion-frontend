@@ -9,11 +9,19 @@ import { GCalNotionCircle } from '../../components/GCalNotionCircle';
 import { DashboardFooter } from '../../components/pages/dashboard/footer';
 import { DashboardHeader } from '../../components/pages/dashboard/header';
 
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { useUser } from '../../hooks/useUser';
+dayjs.extend(relativeTime);
+dayjs.locale('ko');
+
 const HelloModal = <Flex.Column>Hello, Calendar2notion!</Flex.Column>;
 
 const Home: NextPage = () => {
     const router = useRouter();
     const modal = useModal();
+    const { user } = useUser();
 
     useEffect(() => {
         const hello = router.query.hello as string;
@@ -29,22 +37,30 @@ const Home: NextPage = () => {
         <>
             <DashboardHeader now="dashboard" />
             <PageLayout minHeight="calc(100vh - 131px - 337px)">
-                <Flex.Column gap="20px">
+                <Flex.Column gap="8px">
                     <Flex.Center>
                         <GCalNotionCircle />
                     </Flex.Center>
                     <Flex.Center>
-                        <Flex.Column gap="4px">
-                            <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
-                                정상적으로 동기화되고 있어요
-                            </Text>
-                            <Text color={cv.text3} style={{ textAlign: 'center' }}>
-                                3분 전에 마지막으로 동기화 되었어요
-                            </Text>
-                        </Flex.Column>
-                    </Flex.Center>
-                    <Flex.Center>
-                        <Button variant="contained">동기화 간격 줄이기</Button>
+                        {!user?.lastCalendarSync ? (
+                            <Flex.Column gap="4px">
+                                <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
+                                    첫 동기화 대기중이에요!
+                                </Text>
+                                <Text color={cv.text3} style={{ textAlign: 'center' }}>
+                                    조금만 기다리면 동기화가 시작되요
+                                </Text>
+                            </Flex.Column>
+                        ) : (
+                            <Flex.Column gap="4px">
+                                <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
+                                    정상적으로 동기화되고 있어요
+                                </Text>
+                                <Text color={cv.text3} style={{ textAlign: 'center' }}>
+                                    {dayjs(user?.lastCalendarSync).fromNow()}에 마지막으로 동기화 되었어요
+                                </Text>
+                            </Flex.Column>
+                        )}
                     </Flex.Center>
                     <Flex.Center gap="12px">
                         <A>오류 해결 가이드</A>
