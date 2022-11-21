@@ -21,6 +21,13 @@ import {
     deleteAdminUser,
     deleteAdminUserParameter,
     deleteAdminUserResponse,
+    UserEntity,
+    getAdminErrors,
+    getAdminErrorsParameter,
+    getAdminErrorsResponse,
+    deleteAdminError,
+    deleteAdminErrorParameter,
+    deleteAdminErrorResponse,
 } from './endpoints/admin';
 import {
     getSyncBots,
@@ -316,6 +323,24 @@ export class Client {
                 method: getAdminStatistics.method,
                 query: pick(args, getAdminStatistics.queryParams),
                 body: pick(args, getAdminStatistics.bodyParams),
+                auth: args?.auth,
+            });
+        },
+        errors: (args: WithAuth<getAdminErrorsParameter>): Promise<getAdminErrorsResponse> => {
+            return this.request<getAdminErrorsResponse>({
+                path: getAdminErrors.path(args),
+                method: getAdminErrors.method,
+                query: pick(args, getAdminErrors.queryParams),
+                body: pick(args, getAdminErrors.bodyParams),
+                auth: args?.auth,
+            });
+        },
+        deleteError: (args: WithAuth<deleteAdminErrorParameter>): Promise<deleteAdminErrorResponse> => {
+            return this.request<deleteAdminErrorResponse>({
+                path: deleteAdminError.path(args),
+                method: deleteAdminError.method,
+                query: pick(args, deleteAdminError.queryParams),
+                body: pick(args, deleteAdminError.bodyParams),
                 auth: args?.auth,
             });
         },
