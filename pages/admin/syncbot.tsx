@@ -54,6 +54,7 @@ function BoxBots() {
     const { data: syncBots, refetch } = useQuery(['admin', 'syncBot'], () => client.syncbot.list({}), {});
     const modal = useModal();
     const dialog = useDialog();
+    const [isLoading, setIsLoading] = useState(false);
 
     const stop = async (prefix: string) => {
         try {
@@ -83,12 +84,20 @@ function BoxBots() {
         }
     };
 
+    const refresh = async () => {
+        setIsLoading(true);
+        await refetch();
+        setIsLoading(false);
+    };
+
     return (
         <>
             <Flex.Column>
                 <Flex.Between>
                     <Label>동기화봇</Label>
-                    <Button onClick={() => refetch()}>새로고침</Button>
+                    <Button onClick={() => refresh()} isLoading={isLoading}>
+                        새로고침
+                    </Button>
                 </Flex.Between>
                 <ItemsTable>
                     {syncBots &&
@@ -154,7 +163,7 @@ function BoxBots() {
                                                         buttons: [
                                                             {
                                                                 children: '동기화봇 강제 종료',
-                                                                onClick: () => stop(syncBot.prefix),
+                                                                onClick: () => exit(syncBot.prefix),
                                                                 color: 'red',
                                                                 variant: 'contained',
                                                             },

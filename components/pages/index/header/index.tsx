@@ -60,15 +60,23 @@ export function IndexHeader() {
 
     return (
         <SimpleHeader>
-            <Flex.Row gap="8px">
-                <Img src={C2NLogo} height={26} width={26} />
-                <Title>Calendar2notion</Title>
-            </Flex.Row>
+            <Link href={'/'} passHref>
+                <Flex.Row gap="8px" as="a" style={{ textDecoration: 'none' }}>
+                    <Img src={C2NLogo} height={26} width={26} />
+                    <Title>Calendar2notion</Title>
+                </Flex.Row>
+            </Link>
 
             <SimpleHeader.Nav>
-                <SimpleHeader.Nav.Link href="/">소개</SimpleHeader.Nav.Link>
-                <SimpleHeader.Nav.Link href="/">가이드</SimpleHeader.Nav.Link>
-                <SimpleHeader.Nav.Link href="/">플랜</SimpleHeader.Nav.Link>
+                <Link href={'/about'} passHref>
+                    <SimpleHeader.Nav.Link>소개</SimpleHeader.Nav.Link>
+                </Link>
+                <SimpleHeader.Nav.Link href="https://hyunsdev.notion.site/Calendar2notion-fcbe230f5fcb43808fbf2b5dd7a2452c">
+                    가이드
+                </SimpleHeader.Nav.Link>
+                <Link href={'/plan'} passHref>
+                    <SimpleHeader.Nav.Link>플랜</SimpleHeader.Nav.Link>
+                </Link>
             </SimpleHeader.Nav>
             <Flex.Row gap="4px">
                 {isLogin ? (

@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { GCalIcon } from '../../../components/GCalIcon';
 import { GCalNotionCircle } from '../../../components/GCalNotionCircle';
-import { DashboardFooter } from '../../../components/pages/dashboard/footer';
+import { Footer } from '../../../components/footer';
 import { DashboardHeader } from '../../../components/pages/dashboard/header';
 import { DashboardSettingSidebar } from '../../../components/pages/dashboard/setting/sidebar';
 import { useUser } from '../../../hooks/useUser';
@@ -158,7 +158,7 @@ const Home: NextPage = () => {
                     </Flex.Column>
                 </PageLayout.Content>
             </PageLayout>
-            <DashboardFooter />
+            <Footer />
         </>
     );
 };

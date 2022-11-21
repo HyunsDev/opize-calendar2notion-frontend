@@ -6,7 +6,7 @@ import { PageLayout, H1, Flex, Text, cv, Button, Link as A, useModal } from 'opi
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';
-import { DashboardFooter } from '../../components/pages/dashboard/footer';
+import { Footer } from '../../components/footer';
 import { DashboardHeader } from '../../components/pages/dashboard/header';
 
 import dayjs from 'dayjs';
@@ -68,7 +68,7 @@ const Home: NextPage = () => {
                     </Flex.Center>
                 </Flex.Column>
             </PageLayout>
-            <DashboardFooter />
+            <Footer />
         </>
     );
 };

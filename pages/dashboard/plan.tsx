@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { PageLayout, H1, Flex, Text, cv } from 'opize-design-system';
 import styled from 'styled-components';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';
-import { DashboardFooter } from '../../components/pages/dashboard/footer';
+import { Footer } from '../../components/footer';
 import { DashboardHeader } from '../../components/pages/dashboard/header';
 import { PlanCardFree } from '../../components/Plan/PlanCard/PlanCardFree';
 import { PlanCardPro } from '../../components/Plan/PlanCard/PlanCardPro';
@@ -37,7 +37,7 @@ const Home: NextPage = () => {
                     </Cards>
                 </Flex.Column>
             </PageLayout>
-            <DashboardFooter />
+            <Footer />
         </>
     );
 };

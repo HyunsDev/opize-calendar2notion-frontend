@@ -16,7 +16,7 @@ import {
 } from 'opize-design-system';
 import styled from 'styled-components';
 import { GCalNotionCircle } from '../../../components/GCalNotionCircle';
-import { DashboardFooter } from '../../../components/pages/dashboard/footer';
+import { Footer } from '../../../components/footer';
 import { DashboardHeader } from '../../../components/pages/dashboard/header';
 import { DashboardSettingSidebar } from '../../../components/pages/dashboard/setting/sidebar';
 
@@ -102,7 +102,7 @@ const Home: NextPage = () => {
                     </Flex.Column>
                 </PageLayout.Content>
             </PageLayout>
-            <DashboardFooter />
+            <Footer />
         </>
     );
 };
