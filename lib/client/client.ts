@@ -45,6 +45,15 @@ import {
     stopSyncBot,
     stopSyncBotParameters,
     stopSyncBotResponse,
+    getSyncBotLogsParameters,
+    getSyncBotLogsResponse,
+    getSyncBotLogs,
+    getSyncBotLogListResponse,
+    getSyncBotLogListParameters,
+    getSyncBotLogList,
+    getSyncBotStaticLogParameters,
+    getSyncBotStaticLogResponse,
+    getSyncBotStaticLog,
 } from './endpoints/syncbot';
 import {
     postUser,
@@ -393,6 +402,36 @@ export class Client {
                 method: exitSyncBot.method,
                 query: pick(args, exitSyncBot.queryParams),
                 body: pick(args, exitSyncBot.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        getLogs: (args: WithAuth<getSyncBotLogsParameters>): Promise<getSyncBotLogsResponse> => {
+            return this.request<getSyncBotLogsResponse>({
+                path: getSyncBotLogs.path(args),
+                method: getSyncBotLogs.method,
+                query: pick(args, getSyncBotLogs.queryParams),
+                body: pick(args, getSyncBotLogs.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        getStaticLog: (args: WithAuth<getSyncBotStaticLogParameters>): Promise<getSyncBotStaticLogResponse> => {
+            return this.request<getSyncBotStaticLogResponse>({
+                path: getSyncBotStaticLog.path(args),
+                method: getSyncBotStaticLog.method,
+                query: pick(args, getSyncBotStaticLog.queryParams),
+                body: pick(args, getSyncBotStaticLog.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        getLogList: (args: WithAuth<getSyncBotLogListParameters>): Promise<getSyncBotLogListResponse> => {
+            return this.request<getSyncBotLogListResponse>({
+                path: getSyncBotLogList.path(args),
+                method: getSyncBotLogList.method,
+                query: pick(args, getSyncBotLogList.queryParams),
+                body: pick(args, getSyncBotLogList.bodyParams),
                 auth: args?.auth,
             });
         },

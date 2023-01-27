@@ -229,7 +229,7 @@ export type deleteAdminErrorParameter = {
 };
 export const deleteAdminError: Endpoint<deleteAdminErrorParameter> = {
     method: 'delete',
-    path: (e) => `/admin/error/${e}`,
+    path: (e) => `/admin/error/${e.errorId}`,
     bodyParams: [],
     pathParams: ['errorId'],
     queryParams: [],

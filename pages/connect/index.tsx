@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { PageLayout, H1, Flex, cv, Button } from 'opize-design-system';
+import { PageLayout, H1, Flex, cv, Button, SlideBox, CenterLayout } from 'opize-design-system';
 import styled from 'styled-components';
 import { ConnectBlock0 } from '../../components/pages/connect/block/block0';
 import { ConnectBlock1 } from '../../components/pages/connect/block/block1';
@@ -31,6 +31,7 @@ const Box = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 12px;
+    width: 100%;
 
     @media (max-width: 767px) {
         border: solid 0px ${cv.border4};
@@ -59,25 +60,6 @@ const SlideBoxContainer = styled.div<{ height: number }>`
     transition: 200ms;
 `;
 
-const SlideBox = styled.div<{ pos: 'left' | 'center' | 'right' }>`
-    top: 0px;
-    left: 0px;
-    position: absolute;
-    transition: 500ms;
-    width: 100%;
-    padding: 0px 30px;
-    transform: ${(props) =>
-        props.pos === 'center'
-            ? `translateX(0px)`
-            : props.pos === 'right'
-            ? `translateX(calc(100% + 30px))`
-            : `translateX(calc(-100% - 30px))`};
-
-    @media (max-width: 767px) {
-        padding: 0px 4px;
-    }
-`;
-
 const cursorMap = {
     googleApi: 0,
     notionApi: 1,
@@ -86,13 +68,7 @@ const cursorMap = {
 };
 const Home: NextPage = () => {
     const router = useRouter();
-    const [cursor, setCursor] = useState<number>(-1);
-    const refs = useRef<HTMLDivElement[]>([]);
     const { user } = useUser();
-
-    useEffect(() => {
-        setCursor(0);
-    }, []);
 
     useEffect(() => {
         if (user?.status === 'FINISHED') {
@@ -101,39 +77,31 @@ const Home: NextPage = () => {
         }
     }, [router, user?.status]);
 
-    const getPost = (pos: number) => {
-        if (cursor === pos) return 'center';
-        if (cursor < pos) return 'right';
-        return 'left';
-    };
-
     return (
-        <Divver>
-            <PageLayout width="480px">
-                <Box>
-                    {/* <Flex.Center gap="8px">
+        <CenterLayout width="400px" minHeight="100vh">
+            <Box>
+                {/* <Flex.Center gap="8px">
                         <Button onClick={() => setCursor((i) => i - 1)}>- 1</Button>
                         {cursor}
                         <Button onClick={() => setCursor((i) => i + 1)}>+ 1</Button>
                     </Flex.Center> */}
-                    <Logo>
-                        <Image src={C2NLogo} height={24} width={24} alt="" /> Calendar2notion
-                    </Logo>
-                    <Title>바로 연결해볼까요?</Title>
-                    <SlideBoxContainer height={refs.current[cursor]?.offsetHeight || 100}>
-                        <SlideBox pos={getPost(0)} ref={(e: HTMLDivElement) => (refs.current[0] = e)}>
-                            <ConnectBlock0 setCursor={setCursor} />
-                        </SlideBox>
-                        <SlideBox pos={getPost(1)} ref={(e: HTMLDivElement) => (refs.current[1] = e)}>
-                            <ConnectBlock1 setCursor={setCursor} />
-                        </SlideBox>
-                        <SlideBox pos={getPost(2)} ref={(e: HTMLDivElement) => (refs.current[2] = e)}>
-                            <ConnectBlock2 setCursor={setCursor} />
-                        </SlideBox>
-                    </SlideBoxContainer>
-                </Box>
-            </PageLayout>
-        </Divver>
+                <Logo>
+                    <Image src={C2NLogo} height={24} width={24} alt="" /> Calendar2notion
+                </Logo>
+                <Title>바로 연결해볼까요?</Title>
+                <SlideBox>
+                    <SlideBox.Page pos={0}>
+                        <ConnectBlock0 />
+                    </SlideBox.Page>
+                    <SlideBox.Page pos={1}>
+                        <ConnectBlock1 />
+                    </SlideBox.Page>
+                    <SlideBox.Page pos={2}>
+                        <ConnectBlock2 />
+                    </SlideBox.Page>
+                </SlideBox>
+            </Box>
+        </CenterLayout>
     );
 };
 

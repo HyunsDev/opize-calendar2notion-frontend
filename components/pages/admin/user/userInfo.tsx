@@ -125,7 +125,7 @@ export function UserBox({ user, fetchUser }: { user: getAdminUserResponse; fetch
     const codeModal = useCodeModal();
 
     return (
-        <Flex.Column id="user-user">
+        <Flex.Column id="user-user" gap="8px">
             <Flex.Row gap="8px">
                 <Label>User</Label>
                 {user.user && (
@@ -204,7 +204,7 @@ export function UserBox({ user, fetchUser }: { user: getAdminUserResponse; fetch
 export function CalendarBox({ user }: { user: any }) {
     const modal = useModal();
     return (
-        <Flex.Column id="user-calendar">
+        <Flex.Column id="user-calendar" gap="8px">
             <Label>Calendars</Label>
             <ItemsTable>
                 {user.calendars && user.calendars.length !== 0 ? (
@@ -248,7 +248,7 @@ export function CalendarBox({ user }: { user: any }) {
 export function PaymentLogBox({ user }: { user: any }) {
     const modal = useModal();
     return (
-        <Flex.Column id="user-paymentLogs">
+        <Flex.Column id="user-paymentLogs" gap="8px">
             <Label>PaymentLogs</Label>
             <ItemsTable>
                 {user.paymentLogs && user.paymentLogs.length !== 0 ? (

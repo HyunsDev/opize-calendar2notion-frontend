@@ -13,6 +13,9 @@ import {
     Link as A,
     Switch,
     Span,
+    Divider,
+    H3,
+    H2,
 } from 'opize-design-system';
 import styled from 'styled-components';
 import { GCalNotionCircle } from '../../../components/GCalNotionCircle';
@@ -85,6 +88,12 @@ function BoxNotion() {
     );
 }
 
+const DangerZone = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+`;
+
 const Home: NextPage = () => {
     return (
         <>
@@ -97,6 +106,8 @@ const Home: NextPage = () => {
                 <PageLayout.Content>
                     <Flex.Column gap="16px">
                         <BoxSyncNoticeEmail />
+                        <Divider />
+                        <H2>Danger Zone</H2>
                         <BoxNotion />
                         <BoxAccount />
                     </Flex.Column>

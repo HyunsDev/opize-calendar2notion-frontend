@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { PageLayout, H1, Flex, Text, cv, Button, Link as A, useModal } from 'opize-design-system';
+import { PageLayout, H1, Flex, Text, cv, Button, Link as A, useModal, ToolTip } from 'opize-design-system';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';
@@ -13,6 +13,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useUser } from '../../hooks/useUser';
+import { Info } from 'phosphor-react';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 
@@ -44,9 +45,14 @@ const Home: NextPage = () => {
                     <Flex.Center>
                         {!user?.lastCalendarSync ? (
                             <Flex.Column gap="4px">
-                                <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
-                                    첫 동기화 대기중이에요!
-                                </Text>
+                                <Flex.Row gap="4px">
+                                    <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
+                                        첫 동기화 대기중이에요!
+                                    </Text>
+                                    <ToolTip text="구글 캘린더의 일정을 노션으로 옮기는 중이에요. 캘린더의 일정 수에 따라 수십 분에서 수 시간정도 걸릴 수 있어요.">
+                                        <Info size={20} color={cv.text2} />
+                                    </ToolTip>
+                                </Flex.Row>
                                 <Text color={cv.text3} style={{ textAlign: 'center' }}>
                                     조금만 기다리면 동기화가 시작되요
                                 </Text>

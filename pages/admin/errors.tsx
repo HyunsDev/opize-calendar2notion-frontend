@@ -140,88 +140,94 @@ function BoxErrors({ errors, refresh }: { errors?: getAdminErrorsResponse; refre
     };
 
     return (
-        <Flex.Column>
+        <Flex.Column gap="8px">
             <Label>최근 에러</Label>
             <ItemsTable>
                 {errors &&
-                    errors.map((error) => (
-                        <ItemsTable.Row key={error.id}>
-                            <ItemsTable.Row.Avatar
-                                icon={<Img src={error?.user?.imageUrl || ''} alt="" />}
-                                name={`${error.user.name} #${error.user.id}|${error.user.opizeId}`}
-                                label={`${dayjs(error.createdAt).fromNow()}`}
-                                flex={1}
-                            />
-                            <ItemsTable.Row.Text
-                                text={`[${error.id}] ${error.code}`}
-                                subText={error.description}
-                                flex={2}
-                            />
-                            <ItemsTable.Row.Text
-                                text={`from ${error.from}`}
-                                subText={`${error.showUser ? '공개' : '비공개'} ${error.archive ? '(아카이브됨)' : ''}`}
-                                flex={1}
-                            />
-                            <ItemsTable.Row.Status
-                                status={statusMap[error.level]}
-                                text={error.level}
-                                label={error.finishWork}
-                                flex={1}
-                            />
-                            <ItemsTable.Row.Status
-                                status={error.user.isConnected ? 'good' : 'warning'}
-                                text={`${error.user.isConnected ? '동기화중' : '동기화 정지'}`}
-                                label={'현재 유저 상태'}
-                                flex={1}
-                            />
-                            <ItemsTable.Row.Buttons
-                                buttons={[
-                                    [
-                                        {
-                                            label: 'Detail',
-                                            onClick: () =>
-                                                modal.open(<Pre>{error.detail}</Pre>, {
-                                                    width: 500,
-                                                }),
-                                        },
-                                        {
-                                            label: 'Stack',
-                                            onClick: () =>
-                                                modal.open(<Pre>{error.stack}</Pre>, {
-                                                    width: '80vw',
-                                                }),
-                                        },
-                                        {
-                                            label: 'Raw',
-                                            onClick: () => codeModal('Raw', error, 800),
-                                        },
-                                        {
-                                            label: '유저 조회',
-                                            onClick: () => router.push(`/admin/user?userId=${error.user.id}`),
-                                        },
-                                        {
-                                            label: '동기화 상태 변경',
-                                            onClick: () =>
-                                                modal.open(
-                                                    <ModalUserUpdate
-                                                        userId={error.user.id}
-                                                        close={modal.close}
-                                                        refresh={() => refresh()}
-                                                        initValue={error.user.isConnected}
-                                                    />,
-                                                    {
-                                                        title: '유저 동기화 상태 변경',
-                                                    }
-                                                ),
-                                        },
-                                        {
-                                            label: '에러 삭제',
-                                            onClick: () => deleteError(error.id),
-                                        },
-                                    ],
-                                ]}
-                            />
-                        </ItemsTable.Row>
+                    (errors.length === 0 ? (
+                        <ItemsTable.Row>확인된 에러가 없습니다.</ItemsTable.Row>
+                    ) : (
+                        errors.map((error) => (
+                            <ItemsTable.Row key={error.id}>
+                                <ItemsTable.Row.Avatar
+                                    icon={<Img src={error?.user?.imageUrl || ''} alt="" />}
+                                    name={`${error.user.name} #${error.user.id}|${error.user.opizeId}`}
+                                    label={`${dayjs(error.createdAt).fromNow()}`}
+                                    flex={1}
+                                />
+                                <ItemsTable.Row.Text
+                                    text={`[${error.id}] ${error.code}`}
+                                    subText={error.description}
+                                    flex={2}
+                                />
+                                <ItemsTable.Row.Text
+                                    text={`from ${error.from}`}
+                                    subText={`${error.showUser ? '공개' : '비공개'} ${
+                                        error.archive ? '(아카이브됨)' : ''
+                                    }`}
+                                    flex={1}
+                                />
+                                <ItemsTable.Row.Status
+                                    status={statusMap[error.level]}
+                                    text={error.level}
+                                    label={error.finishWork}
+                                    flex={1}
+                                />
+                                <ItemsTable.Row.Status
+                                    status={error.user.isConnected ? 'good' : 'warning'}
+                                    text={`${error.user.isConnected ? '동기화중' : '동기화 정지'}`}
+                                    label={'현재 유저 상태'}
+                                    flex={1}
+                                />
+                                <ItemsTable.Row.Buttons
+                                    buttons={[
+                                        [
+                                            {
+                                                label: 'Detail',
+                                                onClick: () =>
+                                                    modal.open(<Pre>{error.detail}</Pre>, {
+                                                        width: 500,
+                                                    }),
+                                            },
+                                            {
+                                                label: 'Stack',
+                                                onClick: () =>
+                                                    modal.open(<Pre>{error.stack}</Pre>, {
+                                                        width: '80vw',
+                                                    }),
+                                            },
+                                            {
+                                                label: 'Raw',
+                                                onClick: () => codeModal('Raw', error, 800),
+                                            },
+                                            {
+                                                label: '유저 조회',
+                                                onClick: () => router.push(`/admin/user?userId=${error.user.id}`),
+                                            },
+                                            {
+                                                label: '동기화 상태 변경',
+                                                onClick: () =>
+                                                    modal.open(
+                                                        <ModalUserUpdate
+                                                            userId={error.user.id}
+                                                            close={modal.close}
+                                                            refresh={() => refresh()}
+                                                            initValue={error.user.isConnected}
+                                                        />,
+                                                        {
+                                                            title: '유저 동기화 상태 변경',
+                                                        }
+                                                    ),
+                                            },
+                                            {
+                                                label: '에러 삭제',
+                                                onClick: () => deleteError(error.id),
+                                            },
+                                        ],
+                                    ]}
+                                />
+                            </ItemsTable.Row>
+                        ))
                     ))}
             </ItemsTable>
         </Flex.Column>
@@ -230,7 +236,7 @@ function BoxErrors({ errors, refresh }: { errors?: getAdminErrorsResponse; refre
 
 const Home: NextPage = () => {
     const [page, setPage] = useState(0);
-    const [pageSize, setPageSize] = useState(20);
+    const [pageSize, setPageSize] = useState(50);
     const [errors, setErrors] = useState<getAdminErrorsResponse>([]);
     const [now, setNow] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -248,7 +254,7 @@ const Home: NextPage = () => {
     };
 
     useEffect(() => {
-        getError(0, 20);
+        getError(0, 50);
     }, []);
 
     return (
@@ -276,12 +282,7 @@ const Home: NextPage = () => {
                         </Flex.Row>
                         <Flex.Row gap="8px">
                             <Text>{now}</Text>
-                            <Button
-                                onClick={() => getError(page, pageSize)}
-                                variant="contained"
-                                size="large"
-                                isLoading={isLoading}
-                            >
+                            <Button onClick={() => getError(page, pageSize)} variant="contained" isLoading={isLoading}>
                                 조회
                             </Button>
                         </Flex.Row>
