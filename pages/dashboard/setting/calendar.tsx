@@ -120,9 +120,6 @@ function BoxCalendars() {
                             }
                         />
 
-                        <Text color={cv.text3}>
-                            {userCalendar?.createdAt && dayjs(userCalendar?.createdAt).fromNow()}
-                        </Text>
                         {user.calendars.some((e) => calendar.id === e.googleCalendarId) ? (
                             <Button
                                 variant="outlined"

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { PageLayout, H1, Flex, cv, Button, SlideBox, CenterLayout } from 'opize-design-system';
+import { PageLayout, H1, Flex, cv, Button, SlideBox, CenterLayout, Text, Link as A } from 'opize-design-system';
 import styled from 'styled-components';
 import { ConnectBlock0 } from '../../components/pages/connect/block/block0';
 import { ConnectBlock1 } from '../../components/pages/connect/block/block1';
@@ -78,7 +78,7 @@ const Home: NextPage = () => {
     }, [router, user?.status]);
 
     return (
-        <CenterLayout width="400px" minHeight="100vh">
+        <CenterLayout width="420px" minHeight="100vh">
             <Box>
                 {/* <Flex.Center gap="8px">
                         <Button onClick={() => setCursor((i) => i - 1)}>- 1</Button>
@@ -101,6 +101,13 @@ const Home: NextPage = () => {
                     </SlideBox.Page>
                 </SlideBox>
             </Box>
+            <Flex.Center style={{ width: '100%', marginTop: '4px' }}>
+                <Flex.Row gap="16px">
+                    <A>가이드</A>
+                    <A>개인정보 처리방침</A>
+                    <A>약관</A>
+                </Flex.Row>
+            </Flex.Center>
         </CenterLayout>
     );
 };

@@ -38,7 +38,7 @@ export type getUserResponse = {
     lastSyncStatus: string;
     status: 'FIRST' | 'GOOGLE_SET' | 'NOTION_API_SET' | 'NOTION_SET' | 'FINISHED';
     isConnected: boolean;
-    userPlan: 'FREE' | 'PRO';
+    userPlan: 'FREE' | 'PRO' | 'SPONSOR';
     userTimeZone: string;
     notionProps?: {
         title?: string;
@@ -86,3 +86,29 @@ export const patchUser: Endpoint<patchUserParameters> = {
     queryParams: [],
 };
 export type patchUserResponse = {};
+
+// DELETE /user/:userId
+export type deleteUserParameters = {
+    userId?: 'me' | number;
+};
+export type deleteUserResponse = {};
+export const deleteUser: Endpoint<deleteUserParameters> = {
+    method: 'delete',
+    path: (e) => `/user/${e.userId}`,
+    bodyParams: [],
+    pathParams: ['userId'],
+    queryParams: [],
+};
+
+// POST /user/:userId/reset
+export type resetUserParameters = {
+    userId?: 'me' | number;
+};
+export type resetUserResponse = {};
+export const resetUser: Endpoint<resetUserParameters> = {
+    method: 'post',
+    path: (e) => `/user/${e.userId}/reset`,
+    bodyParams: [],
+    pathParams: ['userId'],
+    queryParams: [],
+};

@@ -65,6 +65,12 @@ import {
     patchUser,
     patchUserParameters,
     patchUserResponse,
+    deleteUserParameters,
+    deleteUserResponse,
+    deleteUser,
+    resetUserParameters,
+    resetUserResponse,
+    resetUser,
 } from './endpoints/user';
 import {
     postUserCalendar,
@@ -200,6 +206,26 @@ export class Client {
                 method: patchUser.method,
                 query: pick(args, patchUser.queryParams),
                 body: pick(args, patchUser.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        delete: (args: WithAuth<deleteUserParameters>): Promise<deleteUserResponse> => {
+            return this.request<deleteUserResponse>({
+                path: deleteUser.path(args),
+                method: deleteUser.method,
+                query: pick(args, deleteUser.queryParams),
+                body: pick(args, deleteUser.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        reset: (args: WithAuth<resetUserParameters>): Promise<resetUserResponse> => {
+            return this.request<resetUserResponse>({
+                path: resetUser.path(args),
+                method: resetUser.method,
+                query: pick(args, resetUser.queryParams),
+                body: pick(args, resetUser.bodyParams),
                 auth: args?.auth,
             });
         },

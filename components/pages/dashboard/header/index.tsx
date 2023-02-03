@@ -10,6 +10,7 @@ import {
     Header,
     PageLayout,
     Spacer,
+    Spinner,
     useTopLoading,
 } from 'opize-design-system';
 import styled from 'styled-components';
@@ -49,11 +50,10 @@ const logout = () => {
 
 function StyledDashboardHeader({ now }: { now: Path }) {
     const router = useRouter();
-    const { user } = useUser();
+    const { user, isLoading } = useUser();
 
     useEffect(() => {
         if (user && user.status !== 'FINISHED') {
-            toast.info('먼저 연결을 완료해주세요!');
             router.push('/connect');
         }
     }, [router, user, user?.status]);
@@ -98,7 +98,16 @@ function StyledDashboardHeader({ now }: { now: Path }) {
                         width="fit-content"
                         actions={action}
                         icon={
-                            <Image src={user?.imageUrl || SkeletonIcon} alt="유저 프로필 사진" width={32} height={32} />
+                            isLoading ? (
+                                <Spinner size={32} />
+                            ) : (
+                                <Image
+                                    src={user?.imageUrl || SkeletonIcon}
+                                    alt="유저 프로필 사진"
+                                    width={32}
+                                    height={32}
+                                />
+                            )
                         }
                     ></ActionMenu>
                 </Header.Nav.Right>

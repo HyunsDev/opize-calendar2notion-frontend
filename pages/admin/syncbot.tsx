@@ -396,7 +396,7 @@ function BoxRealTask() {
                 ) : (
                     logs.map((log) => (
                         <ItemsTable.Row key={log.syncLogId}>
-                            <ItemsTable.Row.Text flex={2} text={`@${log.userId}`} subText={`#${log.syncLogId}`} />
+                            <ItemsTable.Row.Text flex={2} text={`@${log.userId}`} />
                             <ItemsTable.Row.Text
                                 flex={4}
                                 text={log.simpleResponse}

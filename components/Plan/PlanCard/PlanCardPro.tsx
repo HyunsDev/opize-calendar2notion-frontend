@@ -8,6 +8,7 @@ const Divver = styled.div`
     border-radius: 8px;
     background-color: ${cv.bg_element1};
     box-shadow: 0px 6px 20px ${cv.bg_blue1};
+    color: ${cv.text1};
 `;
 
 const PlanName = styled.div`

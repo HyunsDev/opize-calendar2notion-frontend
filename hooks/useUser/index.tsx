@@ -5,7 +5,12 @@ import { toast } from 'react-toastify';
 import { APIResponseError, client } from '../../lib/client';
 
 export function useUser({ allowNonLogin = false }: { allowNonLogin?: boolean } = {}) {
-    const { data: user, error, refetch } = useQuery(['user', 'self'], () => client.user.get({ userId: 'me' }), {});
+    const {
+        data: user,
+        error,
+        refetch,
+        isLoading,
+    } = useQuery(['user', 'self'], () => client.user.get({ userId: 'me' }), {});
     const router = useRouter();
 
     useEffect(() => {
@@ -30,5 +35,6 @@ export function useUser({ allowNonLogin = false }: { allowNonLogin?: boolean } =
         isError: false,
         error: undefined,
         refetch: refetch,
+        isLoading,
     };
 }

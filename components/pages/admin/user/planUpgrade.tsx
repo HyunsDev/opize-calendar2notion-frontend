@@ -17,7 +17,11 @@ export function AdminUserPlanUpgrade({ userId, fetchUser }: { userId: number; fe
         register,
         handleSubmit,
         formState: { errors, isValid },
-    } = useForm<PlanUpgradeForm>();
+    } = useForm<PlanUpgradeForm>({
+        defaultValues: {
+            plan: 'PRO',
+        },
+    });
 
     const onSubmit = async (data: PlanUpgradeForm) => {
         if (!userId) {

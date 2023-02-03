@@ -6,6 +6,7 @@ const Divver = styled.div`
     padding: 28px;
     border: solid 2px ${cv.yellow1};
     border-radius: 8px;
+    color: ${cv.text1};
 `;
 
 const PlanName = styled.div`
@@ -56,7 +57,7 @@ export function PlanCardSponsor() {
                 20000₩ + α<span>/개월</span>
             </Price>
             <PriceByYear>240000₩ + α/연</PriceByYear>
-            <Desc>고등학교 3학년 1인 개발자를 후원하기 위한 플랜</Desc>
+            <Desc>대학교 1학년 1인 개발자를 후원하기 위한 플랜</Desc>
             <Flex.Column gap="8px" style={{ marginTop: '40px' }}>
                 <Item>
                     <Dot color={cv.yellow1} />
@@ -72,7 +73,7 @@ export function PlanCardSponsor() {
                 </Item>
             </Flex.Column>
             <Flex.Column style={{ marginTop: '40px' }}>
-                {user?.userPlan === 'PRO' ? (
+                {user?.userPlan === 'SPONSOR' ? (
                     <Button variant="outlined" width="100%" size="large" color="gray">
                         현재 사용중인 플랜입니다
                     </Button>

@@ -32,27 +32,32 @@ const StyledButton = styled.button`
 `;
 
 export function ConnectBlock2() {
-    const [templateId, setTemplateId] = useState('');
     const router = useRouter();
     const { move } = useSlideBox();
+
+    const checkTemplate = async () => {
+        try {
+            const res = await client.user.connect.getNotionDatabases({
+                userId: 'me',
+            });
+            let isFindDatabase = false;
+            for (const database of res.databases) {
+                if (database.title[0].plain_text === 'Calendar2notion Template') {
+                    isFindDatabase = true;
+                    return database.id;
+                }
+            }
+
+            return false;
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     useEffect(() => {
         (async () => {
             try {
-                const res = await client.user.connect.getNotionDatabases({
-                    userId: 'me',
-                });
-                let isFindDatabase = false;
-                for (const database of res.databases) {
-                    if (database.title[0].plain_text === 'Calendar2notion Template') {
-                        isFindDatabase = true;
-                        setTemplateId(database.id);
-                        console.log('템플릿 감지');
-                        break;
-                    }
-                }
-
-                if (!isFindDatabase) {
+                if (!(await checkTemplate())) {
                     toast.warn('"개발자가 제공한 템플릿 사용"을 체크해주세요!');
                     move(1);
                 }
@@ -69,6 +74,8 @@ export function ConnectBlock2() {
     }, [move]);
 
     const startSync = async () => {
+        const templateId = await checkTemplate();
+
         if (!templateId) return;
         await client.user.connect.notionDatabase({
             userId: 'me',
