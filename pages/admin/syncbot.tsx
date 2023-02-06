@@ -20,6 +20,8 @@ import {
     useModal,
     Token,
     useDialog,
+    TabNav,
+    Link,
 } from 'opize-design-system';
 import styled from 'styled-components';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';
@@ -36,7 +38,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { useStyleRegistry } from 'styled-jsx';
 import { useForm } from 'react-hook-form';
 import { APIResponseError, client } from '../../lib/client';
-import { getSyncBotsResponse } from '../../lib/client/endpoints/syncbot';
+import { getSyncBotLogListResponse, getSyncBotsResponse } from '../../lib/client/endpoints/syncbot';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
@@ -49,6 +51,130 @@ const Label = styled.div`
     margin-left: 4px;
     color: ${cv.text3};
 `;
+
+const LogDownload = styled.p`
+    cursor: pointer;
+
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+`;
+
+function LogModal({ prefix }: { prefix: string }) {
+    const [logs, setLogs] = useState<getSyncBotLogListResponse>();
+    const [cursor, setCursor] = useState<keyof getSyncBotLogListResponse>('workerLogs');
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const res = await client.syncbot.getLogList({
+                    prefix: prefix,
+                });
+                setLogs(res);
+            } catch (err) {
+                console.error(err);
+                toast.error('문제가 발생했어요.');
+            }
+        })();
+    }, [prefix]);
+
+    const exportTxt = useCallback((fileName: string, data: string) => {
+        const element = document.createElement('a');
+        const file = new Blob([data], {
+            type: 'text/plain',
+        });
+        element.href = URL.createObjectURL(file);
+        element.download = fileName;
+        document.body.appendChild(element); // FireFox
+        element.click();
+    }, []);
+
+    const getLog = async (fileName: string) => {
+        try {
+            let dir: string;
+            switch (cursor) {
+                case 'runnerLogs':
+                    dir = 'runner';
+                    break;
+                case 'runnerErrorLogs':
+                    dir = 'runner/error';
+                    break;
+                case 'serverLogs':
+                    dir = 'server';
+                    break;
+                case 'serverErrorLogs':
+                    dir = 'server/error';
+                    break;
+                case 'workerLogs':
+                    dir = 'worker';
+                    break;
+                case 'workerErrorLogs':
+                    dir = 'worker/error';
+                    break;
+            }
+
+            const res = await client.syncbot.getStaticLog({
+                prefix,
+                fileName: `${dir}/${fileName}`,
+            });
+
+            exportTxt(fileName, res.data);
+            console.log(res);
+        } catch (err) {
+            if (err instanceof APIResponseError) {
+                toast.warn(err.body.message);
+            } else {
+                console.error(err);
+                toast.error('서버에 연결할 수 없어요.');
+            }
+        }
+    };
+
+    return (
+        <Flex.Column gap="8px">
+            <TabNav
+                selected={cursor}
+                menu={{
+                    workerLogs: {
+                        text: 'Worker',
+                        onClick: () => setCursor('workerLogs'),
+                    },
+                    runnerLogs: {
+                        text: 'Runner',
+                        onClick: () => setCursor('runnerLogs'),
+                    },
+                    serverLogs: {
+                        text: 'Server',
+                        onClick: () => setCursor('serverLogs'),
+                    },
+                    workerErrorLogs: {
+                        text: 'Worker Error',
+                        onClick: () => setCursor('workerErrorLogs'),
+                    },
+                    runnerErrorLogs: {
+                        text: 'Runner Error',
+                        onClick: () => setCursor('runnerErrorLogs'),
+                    },
+                    serverErrorLogs: {
+                        text: 'Server Error',
+                        onClick: () => setCursor('serverErrorLogs'),
+                    },
+                }}
+            />
+            <Flex.Column gap="4px">
+                {logs &&
+                    logs[cursor]
+                        .filter((log) => log !== 'error')
+                        .map((log, i) => (
+                            <LogDownload key={i} onClick={(e) => getLog(`${log}`)}>
+                                {log}
+                            </LogDownload>
+                        ))}
+            </Flex.Column>
+        </Flex.Column>
+    );
+}
 
 function BoxBots() {
     const { data: syncBots, refetch } = useQuery(['admin', 'syncBot'], () => client.syncbot.list({}), {});
@@ -90,9 +216,15 @@ function BoxBots() {
         setIsLoading(false);
     };
 
+    const getLogs = async (prefix: string) => {
+        modal.open(<LogModal prefix={prefix} />, {
+            width: '600px',
+        });
+    };
+
     return (
         <>
-            <Flex.Column>
+            <Flex.Column gap="8px">
                 <Flex.Between>
                     <Label>동기화봇</Label>
                     <Button onClick={() => refresh()} isLoading={isLoading}>
@@ -137,6 +269,10 @@ function BoxBots() {
                                                             width: 500,
                                                         }
                                                     ),
+                                            },
+                                            {
+                                                label: '로그 보기',
+                                                onClick: () => getLogs(syncBot.prefix),
                                             },
                                             {
                                                 label: '정지',
@@ -241,59 +377,57 @@ function BoxRealTask() {
     }, [addLog]);
 
     return (
-        <Flex.Column gap="20px">
-            <Flex.Column>
-                <Flex.Row gap="8px">
-                    <Label>실시간 작업</Label>
-                    <Token variant="outlined" color={isConnected ? 'blue' : 'red'}>
-                        {isConnected ? '연결됨' : '연결 끊김'}
-                    </Token>
-                </Flex.Row>
-                <ItemsTable>
-                    {logs.length === 0 ? (
-                        <ItemsTable.Row>
-                            <ItemsTable.Row.Component flex={1}>
-                                <Flex.Center>
-                                    <Text>아직 로그가 없습니다.</Text>
-                                </Flex.Center>
-                            </ItemsTable.Row.Component>
+        <Flex.Column gap="8px">
+            <Flex.Row gap="8px">
+                <Label>실시간 작업</Label>
+                <Token variant="outlined" color={isConnected ? 'blue' : 'red'}>
+                    {isConnected ? '연결됨' : '연결 끊김'}
+                </Token>
+            </Flex.Row>
+            <ItemsTable>
+                {logs.length === 0 ? (
+                    <ItemsTable.Row>
+                        <ItemsTable.Row.Component flex={1}>
+                            <Flex.Center>
+                                <Text>아직 로그가 없습니다.</Text>
+                            </Flex.Center>
+                        </ItemsTable.Row.Component>
+                    </ItemsTable.Row>
+                ) : (
+                    logs.map((log) => (
+                        <ItemsTable.Row key={log.syncLogId}>
+                            <ItemsTable.Row.Text flex={2} text={`@${log.userId}`} />
+                            <ItemsTable.Row.Text
+                                flex={4}
+                                text={log.simpleResponse}
+                                subText={`${log.workerId} - ${dayjs(log.finishedAt).fromNow()}`}
+                            />
+                            <ItemsTable.Row.Status
+                                flex={1}
+                                status={log.fail ? 'error' : 'done'}
+                                text={log.fail ? '실패' : '완료'}
+                            />
+                            <ItemsTable.Row.Buttons
+                                buttons={[
+                                    [
+                                        {
+                                            label: '상세 정보',
+                                            onClick: () =>
+                                                modal.open(<CodeBlock>{JSON.stringify(log, null, 2)}</CodeBlock>, {
+                                                    width: 500,
+                                                }),
+                                        },
+                                        {
+                                            label: '유저 조회',
+                                            onClick: () => router.push(`/admin/user?userId=${log.userId}`),
+                                        },
+                                    ],
+                                ]}
+                            />
                         </ItemsTable.Row>
-                    ) : (
-                        logs.map((log) => (
-                            <ItemsTable.Row key={log.syncLogId}>
-                                <ItemsTable.Row.Text flex={2} text={`@${log.userId}`} subText={`#${log.syncLogId}`} />
-                                <ItemsTable.Row.Text
-                                    flex={4}
-                                    text={log.simpleResponse}
-                                    subText={`${log.workerId} - ${dayjs(log.finishedAt).fromNow()}`}
-                                />
-                                <ItemsTable.Row.Status
-                                    flex={1}
-                                    status={log.fail ? 'error' : 'done'}
-                                    text={log.fail ? '실패' : '완료'}
-                                />
-                                <ItemsTable.Row.Buttons
-                                    buttons={[
-                                        [
-                                            {
-                                                label: '상세 정보',
-                                                onClick: () =>
-                                                    modal.open(<CodeBlock>{JSON.stringify(log, null, 2)}</CodeBlock>, {
-                                                        width: 500,
-                                                    }),
-                                            },
-                                            {
-                                                label: '유저 조회',
-                                                onClick: () => router.push(`/admin/user?userId=${log.userId}`),
-                                            },
-                                        ],
-                                    ]}
-                                />
-                            </ItemsTable.Row>
-                        ))
-                    )}
-                </ItemsTable>
-            </Flex.Column>
+                    ))
+                )}
+            </ItemsTable>
         </Flex.Column>
     );
 }

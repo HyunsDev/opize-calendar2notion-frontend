@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useTopLoading } from 'opize-design-system';
+import { Box, Flex, Text, useSlideBox, useTopLoading } from 'opize-design-system';
 import { BlockHeader } from './components/blockHeader';
 import { GoogleLoginButton } from './components/googleLoginBtn';
 import Image from 'next/image';
@@ -8,10 +8,12 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { APIResponseError, client, isHTTPResponseError } from '../../../../lib/client';
 import { useUser } from '../../../../hooks/useUser';
+import { ConnectBlockBase } from './components/blockBase';
 
-export function ConnectBlock0({ setCursor }: { setCursor: (cursor: number) => void }) {
+export function ConnectBlock0({}: {}) {
     const { start: loadingStart, end: loadingEnd } = useTopLoading();
     const { user } = useUser();
+    const { move } = useSlideBox();
 
     const googleLogin = useGoogleLogin({
         onSuccess: async (data) => {
@@ -23,7 +25,7 @@ export function ConnectBlock0({ setCursor }: { setCursor: (cursor: number) => vo
                     code: data.code,
                 });
                 loadingEnd();
-                setCursor(1);
+                move(1);
             } catch (err: unknown) {
                 loadingEnd();
 
@@ -45,10 +47,10 @@ export function ConnectBlock0({ setCursor }: { setCursor: (cursor: number) => vo
     });
 
     return (
-        <Flex.Column gap="20px">
+        <ConnectBlockBase>
             <Image src={Img} height={720} width={1280} alt="" />
             <BlockHeader title="먼저 구글 캘린더에 로그인할게요." text="반드시 구글 캘린더 권한을 체크해주세요!" />
             <GoogleLoginButton onClick={() => googleLogin()}>구글로 계속하기</GoogleLoginButton>
-        </Flex.Column>
+        </ConnectBlockBase>
     );
 }

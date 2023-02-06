@@ -99,9 +99,9 @@ function BoxTimeZone() {
                 </>
             }
         >
-            <Select>
+            <Select defaultValue={user?.userTimeZone}>
                 {timeZones.map((e) => (
-                    <Select.Option value={e.value} key={e.value} selected={user?.userTimeZone === e.value}>
+                    <Select.Option value={e.value} key={e.value}>
                         {e.label}
                     </Select.Option>
                 ))}

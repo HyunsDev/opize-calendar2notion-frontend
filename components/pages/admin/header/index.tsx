@@ -32,7 +32,7 @@ const Title = styled.div`
     text-decoration: none;
 `;
 
-type Path = 'dashboard' | 'user' | 'syncbot';
+type Path = 'dashboard' | 'user' | 'syncbot' | 'errors';
 
 const A = styled.a`
     display: flex;
@@ -106,6 +106,10 @@ function StyledDashboardHeader({ now }: { now: Path }) {
                     syncbot: {
                         text: '동기화봇',
                         onClick: () => router.push('/admin/syncbot'),
+                    },
+                    errors: {
+                        text: '에러',
+                        onClick: () => router.push('/admin/errors'),
                     },
                 }}
             />

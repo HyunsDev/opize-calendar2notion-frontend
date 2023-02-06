@@ -46,6 +46,7 @@ export function AdminSearchUser({ user, setUser }: { user: any; setUser: (user: 
                 const res = await client.admin.findUser({
                     [select]: text,
                 });
+
                 setUser(res);
                 setIsLoading(false);
             } catch (err: any) {
@@ -65,7 +66,7 @@ export function AdminSearchUser({ user, setUser }: { user: any; setUser: (user: 
         if (userId) {
             setSelect('id');
             setText(userId);
-            fetchUser(userId, 'id');
+            fetchUser('id', userId);
         }
     }, [fetchUser, router.query.userId]);
 

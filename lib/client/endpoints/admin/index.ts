@@ -1,5 +1,42 @@
 import { Endpoint } from '../../types/endpoint';
 
+export type UserEntity = {
+    id: number;
+    name: string;
+    email: string;
+    imageUrl: string;
+    opizeId: number;
+    opizeAccessToken: string;
+    googleId?: string;
+    googleAccessToken?: string;
+    googleRefreshToken?: string;
+    notionAccessToken?: string;
+    notionBotId?: string;
+    notionDatabaseId?: string;
+    lastCalendarSync?: Date;
+    lastSyncStatus?: string;
+    status: 'FIRST' | 'GOOGLE_SET' | 'NOTION_API_SET' | 'NOTION_SET' | 'FINISHED';
+    isConnected: boolean;
+    syncbotId?: string;
+    userPlan: 'FREE' | 'PRO' | 'SPONSOR';
+    userTimeZone: string;
+    notionProps?: string;
+    isWork?: boolean;
+    workStartedAt?: Date;
+    isAdmin: boolean;
+    isPlanUnlimited: boolean;
+    lastPaymentTime: Date;
+    nextPaymentTime: Date;
+    createdAt: Date;
+    updatedAt: Date;
+
+    calendars?: any[];
+    events?: any[];
+    errorLogs?: any[];
+    syncLogs?: any[];
+    paymentLogs?: any[];
+};
+
 // GET /admin/find-user
 export type getAdminFindUserParameter = {
     email?: string;
@@ -39,9 +76,7 @@ export const getAdminUser: Endpoint<getAdminUserParameter> = {
     queryParams: [],
 };
 export type getAdminUserResponse = {
-    user: {
-        [key: string]: any;
-    };
+    user: UserEntity;
     calendars: any[];
     paymentLogs: any[];
 };
@@ -157,3 +192,46 @@ export type getAdminStatisticsResponse = {
     calendar: number;
     money: number;
 };
+
+// GET /admin/errors
+export type getAdminErrorsParameter = {
+    page: number;
+    pageSize: number;
+};
+export const getAdminErrors: Endpoint<getAdminErrorsParameter> = {
+    method: 'get',
+    path: () => `/admin/errors`,
+    bodyParams: [],
+    pathParams: [],
+    queryParams: ['page', 'pageSize'],
+};
+export type getAdminErrorsResponse = {
+    id: number;
+    code: string;
+    from: 'GOOGLE CALENDAR' | 'NOTION' | 'SYNCBOT' | 'COMPLEX' | 'UNKNOWN';
+    description: string;
+    detail?: string;
+    stack?: string;
+    showUser: boolean;
+    guideUrl?: string;
+    knownError?: any;
+    level: 'NOTICE' | 'WARN' | 'ERROR' | 'CRIT' | 'EMERGENCY';
+    archive: boolean;
+    finishWork: 'STOP' | 'RETRY';
+    createdAt: Date;
+    updatedAt: Date;
+    user: UserEntity;
+}[];
+
+// DELETE /admin/error/:errorId
+export type deleteAdminErrorParameter = {
+    errorId: number;
+};
+export const deleteAdminError: Endpoint<deleteAdminErrorParameter> = {
+    method: 'delete',
+    path: (e) => `/admin/error/${e.errorId}`,
+    bodyParams: [],
+    pathParams: ['errorId'],
+    queryParams: [],
+};
+export type deleteAdminErrorResponse = {};

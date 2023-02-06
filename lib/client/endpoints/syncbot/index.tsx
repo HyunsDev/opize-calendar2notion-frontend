@@ -62,7 +62,7 @@ export type deleteSyncBotParameters = {
 };
 export const deleteSyncBot: Endpoint<deleteSyncBotParameters> = {
     method: 'delete',
-    path: (e) => `/syncbot/${e.prefix}`,
+    path: (e) => `/syncbots/${e.prefix}`,
     bodyParams: [],
     pathParams: ['prefix'],
     queryParams: [],
@@ -75,7 +75,7 @@ export type stopSyncBotParameters = {
 };
 export const stopSyncBot: Endpoint<stopSyncBotParameters> = {
     method: 'post',
-    path: (e) => `/syncbot/${e.prefix}/stop`,
+    path: (e) => `/syncbots/${e.prefix}/stop`,
     bodyParams: [],
     pathParams: ['prefix'],
     queryParams: [],
@@ -88,9 +88,63 @@ export type exitSyncBotParameters = {
 };
 export const exitSyncBot: Endpoint<exitSyncBotParameters> = {
     method: 'post',
-    path: (e) => `/syncbot/${e.prefix}/exit`,
+    path: (e) => `/syncbots/${e.prefix}/exit`,
     bodyParams: [],
     pathParams: ['prefix'],
     queryParams: [],
 };
 export type exitSyncBotResponse = {};
+
+// GET /syncbot/:prefix/logs/:date
+export type getSyncBotLogsParameters = {
+    prefix: string;
+    date: 'today' | string;
+};
+export const getSyncBotLogs: Endpoint<getSyncBotLogsParameters> = {
+    path: (e) => `/syncbots/${e.prefix}/logs/${e.date}`,
+    method: 'get',
+    bodyParams: [],
+    pathParams: ['date', 'prefix'],
+    queryParams: [],
+};
+export type getSyncBotLogsResponse = {
+    runnerLog: string;
+    serverLog: string;
+    workerLog: string;
+};
+
+// GET /syncbot/:prefix/logs-static/:fileName
+export type getSyncBotStaticLogParameters = {
+    prefix: string;
+    fileName: string;
+};
+export const getSyncBotStaticLog: Endpoint<getSyncBotStaticLogParameters> = {
+    path: (e) => `/syncbots/${e.prefix}/logs-static`,
+    method: 'get',
+    bodyParams: [],
+    pathParams: ['prefix'],
+    queryParams: ['fileName'],
+};
+export type getSyncBotStaticLogResponse = {
+    data: string;
+};
+
+// GET /syncbot/:prefix/logs
+export type getSyncBotLogListParameters = {
+    prefix: string;
+};
+export const getSyncBotLogList: Endpoint<getSyncBotLogListParameters> = {
+    path: (e) => `/syncbots/${e.prefix}/logs`,
+    method: 'get',
+    bodyParams: [],
+    pathParams: ['prefix'],
+    queryParams: [],
+};
+export type getSyncBotLogListResponse = {
+    runnerLogs: string[];
+    serverLogs: string[];
+    workerLogs: string[];
+    runnerErrorLogs: string[];
+    serverErrorLogs: string[];
+    workerErrorLogs: string[];
+};

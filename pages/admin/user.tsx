@@ -47,7 +47,7 @@ const Home: NextPage = () => {
                 <PageLayout.Content>
                     <Flex.Column gap="20px">
                         <AdminSearchUser user={user} setUser={setUser} />
-                        <AdminUserInfo user={user} />
+                        <AdminUserInfo user={user} fetchUser={fetchUser} />
                         <AdminUserPlanUpgrade userId={user?.user?.id} fetchUser={fetchUser} />
                         <AdminUserDelete user={user} fetchUser={fetchUser} />
                     </Flex.Column>

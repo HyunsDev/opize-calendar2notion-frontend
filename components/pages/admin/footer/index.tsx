@@ -36,7 +36,6 @@ export function AdminFooter() {
                 <Footer.Navigation.Item>
                     <Footer.Navigation.Item.Title>개발</Footer.Navigation.Item.Title>
                     <Footer.Navigation.Item.Link to="/">개발자</Footer.Navigation.Item.Link>
-                    <Footer.Navigation.Item.Link to="/">API</Footer.Navigation.Item.Link>
                     <Footer.Navigation.Item.Link to="https://design.hyuns.dev">
                         디자인 시스템
                     </Footer.Navigation.Item.Link>

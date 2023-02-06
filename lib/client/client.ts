@@ -21,6 +21,13 @@ import {
     deleteAdminUser,
     deleteAdminUserParameter,
     deleteAdminUserResponse,
+    UserEntity,
+    getAdminErrors,
+    getAdminErrorsParameter,
+    getAdminErrorsResponse,
+    deleteAdminError,
+    deleteAdminErrorParameter,
+    deleteAdminErrorResponse,
 } from './endpoints/admin';
 import {
     getSyncBots,
@@ -38,6 +45,15 @@ import {
     stopSyncBot,
     stopSyncBotParameters,
     stopSyncBotResponse,
+    getSyncBotLogsParameters,
+    getSyncBotLogsResponse,
+    getSyncBotLogs,
+    getSyncBotLogListResponse,
+    getSyncBotLogListParameters,
+    getSyncBotLogList,
+    getSyncBotStaticLogParameters,
+    getSyncBotStaticLogResponse,
+    getSyncBotStaticLog,
 } from './endpoints/syncbot';
 import {
     postUser,
@@ -49,6 +65,12 @@ import {
     patchUser,
     patchUserParameters,
     patchUserResponse,
+    deleteUserParameters,
+    deleteUserResponse,
+    deleteUser,
+    resetUserParameters,
+    resetUserResponse,
+    resetUser,
 } from './endpoints/user';
 import {
     postUserCalendar,
@@ -188,6 +210,26 @@ export class Client {
             });
         },
 
+        delete: (args: WithAuth<deleteUserParameters>): Promise<deleteUserResponse> => {
+            return this.request<deleteUserResponse>({
+                path: deleteUser.path(args),
+                method: deleteUser.method,
+                query: pick(args, deleteUser.queryParams),
+                body: pick(args, deleteUser.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        reset: (args: WithAuth<resetUserParameters>): Promise<resetUserResponse> => {
+            return this.request<resetUserResponse>({
+                path: resetUser.path(args),
+                method: resetUser.method,
+                query: pick(args, resetUser.queryParams),
+                body: pick(args, resetUser.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
         connect: {
             googleApi: (args: WithAuth<postConnectGoogleAPIParameters>): Promise<postConnectGoogleAPIResponse> => {
                 return this.request<postConnectGoogleAPIResponse>({
@@ -319,6 +361,24 @@ export class Client {
                 auth: args?.auth,
             });
         },
+        errors: (args: WithAuth<getAdminErrorsParameter>): Promise<getAdminErrorsResponse> => {
+            return this.request<getAdminErrorsResponse>({
+                path: getAdminErrors.path(args),
+                method: getAdminErrors.method,
+                query: pick(args, getAdminErrors.queryParams),
+                body: pick(args, getAdminErrors.bodyParams),
+                auth: args?.auth,
+            });
+        },
+        deleteError: (args: WithAuth<deleteAdminErrorParameter>): Promise<deleteAdminErrorResponse> => {
+            return this.request<deleteAdminErrorResponse>({
+                path: deleteAdminError.path(args),
+                method: deleteAdminError.method,
+                query: pick(args, deleteAdminError.queryParams),
+                body: pick(args, deleteAdminError.bodyParams),
+                auth: args?.auth,
+            });
+        },
     };
 
     public readonly syncbot = {
@@ -368,6 +428,36 @@ export class Client {
                 method: exitSyncBot.method,
                 query: pick(args, exitSyncBot.queryParams),
                 body: pick(args, exitSyncBot.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        getLogs: (args: WithAuth<getSyncBotLogsParameters>): Promise<getSyncBotLogsResponse> => {
+            return this.request<getSyncBotLogsResponse>({
+                path: getSyncBotLogs.path(args),
+                method: getSyncBotLogs.method,
+                query: pick(args, getSyncBotLogs.queryParams),
+                body: pick(args, getSyncBotLogs.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        getStaticLog: (args: WithAuth<getSyncBotStaticLogParameters>): Promise<getSyncBotStaticLogResponse> => {
+            return this.request<getSyncBotStaticLogResponse>({
+                path: getSyncBotStaticLog.path(args),
+                method: getSyncBotStaticLog.method,
+                query: pick(args, getSyncBotStaticLog.queryParams),
+                body: pick(args, getSyncBotStaticLog.bodyParams),
+                auth: args?.auth,
+            });
+        },
+
+        getLogList: (args: WithAuth<getSyncBotLogListParameters>): Promise<getSyncBotLogListResponse> => {
+            return this.request<getSyncBotLogListResponse>({
+                path: getSyncBotLogList.path(args),
+                method: getSyncBotLogList.method,
+                query: pick(args, getSyncBotLogList.queryParams),
+                body: pick(args, getSyncBotLogList.bodyParams),
                 auth: args?.auth,
             });
         },

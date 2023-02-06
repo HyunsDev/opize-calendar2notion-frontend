@@ -14,6 +14,7 @@ const Title = styled.div`
     margin-top: 32px;
     font-size: 36px;
     font-weight: ${cv.fontWeightSemiBold};
+    color: ${cv.text1};
 `;
 
 const Cards = styled.div`

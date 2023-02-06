@@ -13,12 +13,18 @@ import {
     Link as A,
     Switch,
     Span,
+    Divider,
+    H3,
+    H2,
+    useDialog,
 } from 'opize-design-system';
 import styled from 'styled-components';
 import { GCalNotionCircle } from '../../../components/GCalNotionCircle';
 import { Footer } from '../../../components/footer';
 import { DashboardHeader } from '../../../components/pages/dashboard/header';
 import { DashboardSettingSidebar } from '../../../components/pages/dashboard/setting/sidebar';
+import { client } from '../../../lib/client';
+import { toast } from 'react-toastify';
 
 function BoxSyncNoticeEmail() {
     return (
@@ -40,36 +46,113 @@ function BoxSyncNoticeEmail() {
 }
 
 function BoxAccount() {
+    const dialog = useDialog();
+
+    const deleteAccount = async () => {
+        try {
+            const res = await client.user.delete({
+                userId: 'me',
+            });
+            console.log(res);
+            localStorage.removeItem('token');
+            toast.info('계정이 삭제되었어요.');
+            location.href = '/';
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const openDialog = () => {
+        dialog({
+            title: '정말로 계정을 삭제하시겠어요?',
+            content:
+                '삭제한 계정은 되돌릴 수 없어요. 또한 현재 사용중인 노션 데이터베이스는 이후 다시 가입하더라도 다시 사용할 수 없어요! 정말로 계정을 삭제하시겠어요?',
+            buttons: [
+                {
+                    children: '취소',
+                    onClick: () => {},
+                },
+                {
+                    children: '삭제',
+                    onClick: () => deleteAccount(),
+                    color: 'red',
+                    variant: 'contained',
+                },
+            ],
+        });
+    };
+
     return (
         <Box
             title="계정 삭제"
             footer={
                 <>
                     <A>자세히 알아보기</A>
-                    <Button variant="contained" color="red">
+                    <Button variant="contained" color="red" onClick={openDialog}>
                         계정 삭제
                     </Button>
                 </>
             }
         >
             <Text>
-                계정을 삭제할 경우 더 이상 동기화가 진행되지 않아요.
+                더 이상 Calendar2notion을 이용하지 않으신다면 계정을 삭제할 수 있어요.
                 <br />
                 삭제한 계정은 다시 되돌릴 수 없고, 이전 노션 데이터베이스에 다시 연결할 수 없어요. 신중하게
-                생각해주세요!
+                생각해주세요!.
+                <br /> * Opize 계정은 삭제되지 않아요. Opize 계정을 삭제하려면{' '}
+                <A href="https://opize.me" target={'_blank'}>
+                    opize
+                </A>
+                에서 삭제해주세요
             </Text>
         </Box>
     );
 }
 
 function BoxNotion() {
+    const dialog = useDialog();
+
+    const resetAccount = async () => {
+        try {
+            const res = await client.user.reset({
+                userId: 'me',
+            });
+            console.log(res);
+            localStorage.removeItem('token');
+            toast.info('초기화가 완료되었어요');
+            location.href = '/';
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const openDialog = () => {
+        dialog({
+            title: '정말로 계정을 초기화하시겠어요?',
+            content:
+                '계정을 초기화하면 구글 계정부터 노션 세팅까지, 첫 동기화 단계를 다시 시작하게 되요. 이전에 사용하던 데이터베이스는 다시 사용할 수 없어요. 정말로 초기화 하시겠어요?',
+            buttons: [
+                {
+                    children: '취소',
+                    onClick: () => {},
+                },
+                {
+                    children: '초기화',
+                    onClick: () => resetAccount(),
+                    color: 'red',
+                    variant: 'contained',
+                },
+            ],
+        });
+    };
+
     return (
         <Box
             title="노션 데이터베이스 초기화"
             footer={
                 <>
                     <A>자세히 알아보기</A>
-                    <Button variant="contained" color="red">
+                    <Button variant="contained" color="red" onClick={openDialog}>
                         초기화
                     </Button>
                 </>
@@ -85,6 +168,12 @@ function BoxNotion() {
     );
 }
 
+const DangerZone = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+`;
+
 const Home: NextPage = () => {
     return (
         <>
@@ -96,7 +185,9 @@ const Home: NextPage = () => {
                 </PageLayout.Pane>
                 <PageLayout.Content>
                     <Flex.Column gap="16px">
-                        <BoxSyncNoticeEmail />
+                        {/* <BoxSyncNoticeEmail /> */}
+                        {/* <Divider /> */}
+                        <H3>Danger Zone</H3>
                         <BoxNotion />
                         <BoxAccount />
                     </Flex.Column>

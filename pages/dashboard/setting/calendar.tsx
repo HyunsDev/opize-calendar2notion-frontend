@@ -1,8 +1,20 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { PageLayout, H1, Flex, Text, ActionList, PageHead, ItemsTable, Button, cv, Box } from 'opize-design-system';
-import { Calendar } from 'phosphor-react';
+import {
+    PageLayout,
+    H1,
+    Flex,
+    Text,
+    ActionList,
+    PageHead,
+    ItemsTable,
+    Button,
+    cv,
+    Box,
+    ToolTip,
+} from 'opize-design-system';
+import { Calendar, Info } from 'phosphor-react';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -41,7 +53,10 @@ const ReadonlyTag = styled.div`
     font-size: 12px;
     border-radius: 999px;
     background-color: ${cv.bg_element3};
-    color: ${cv.text3};
+    color: ${cv.text2};
+    display: flex;
+    align-items: center;
+    gap: 4px;
 `;
 
 function BoxCalendars() {
@@ -53,7 +68,6 @@ function BoxCalendars() {
         if (loadingCalendars.includes(googleCalendarId)) return;
         if (user?.userPlan === 'FREE' && googleCalendarId !== user.googleEmail) {
             toast.warn('해당 캘린더는 Pro 플랜부터 이용할 수 있어요.');
-            router.push('/dashboard/plan');
             return;
         }
 
@@ -95,47 +109,46 @@ function BoxCalendars() {
                             name={
                                 <Flex.Row gap="8px">
                                     {calendar.summary}{' '}
-                                    {calendar.accessRole === 'reader' && <ReadonlyTag>읽기 전용</ReadonlyTag>}{' '}
+                                    {calendar.accessRole === 'reader' && (
+                                        <ToolTip text="이 캘린더에 속한 일정은 수정할 수 없어요. 필요하다면 구글 캘린더에서 수정 권한을 확인해주세요.">
+                                            <ReadonlyTag>
+                                                읽기 전용 <Info color={cv.text3} size={14} />
+                                            </ReadonlyTag>
+                                        </ToolTip>
+                                    )}{' '}
                                 </Flex.Row>
                             }
                         />
 
-                        <ItemsTable.Row.Component>
-                            <Right>
-                                <Text color={cv.text3}>
-                                    {userCalendar?.createdAt && dayjs(userCalendar?.createdAt).fromNow()}
-                                </Text>
-                                {user.calendars.some((e) => calendar.id === e.googleCalendarId) ? (
-                                    <Button
-                                        variant="outlined"
-                                        color="red"
-                                        onClick={() => removeCalendar(userCalendar?.id as number, calendar.id)}
-                                        isLoading={loadingCalendars.includes(calendar.id)}
-                                        width="80px"
-                                    >
-                                        연결끊기
-                                    </Button>
-                                ) : user.userPlan === 'FREE' && calendar.id !== user.googleEmail ? (
-                                    <Button
-                                        variant="default"
-                                        onClick={() => addCalendar(calendar.id)}
-                                        isLoading={loadingCalendars.includes(calendar.id)}
-                                        width="150px"
-                                    >
-                                        플랜 업그레이드 필요
-                                    </Button>
-                                ) : (
-                                    <Button
-                                        variant="contained"
-                                        onClick={() => addCalendar(calendar.id)}
-                                        isLoading={loadingCalendars.includes(calendar.id)}
-                                        width="80px"
-                                    >
-                                        연결하기
-                                    </Button>
-                                )}
-                            </Right>
-                        </ItemsTable.Row.Component>
+                        {user.calendars.some((e) => calendar.id === e.googleCalendarId) ? (
+                            <Button
+                                variant="outlined"
+                                color="red"
+                                onClick={() => removeCalendar(userCalendar?.id as number, calendar.id)}
+                                isLoading={loadingCalendars.includes(calendar.id)}
+                                width="80px"
+                            >
+                                연결끊기
+                            </Button>
+                        ) : user.userPlan === 'FREE' && calendar.id !== user.googleEmail ? (
+                            <Button
+                                variant="default"
+                                onClick={() => addCalendar(calendar.id)}
+                                isLoading={loadingCalendars.includes(calendar.id)}
+                                width="150px"
+                            >
+                                플랜 업그레이드 필요
+                            </Button>
+                        ) : (
+                            <Button
+                                variant="contained"
+                                onClick={() => addCalendar(calendar.id)}
+                                isLoading={loadingCalendars.includes(calendar.id)}
+                                width="80px"
+                            >
+                                연결하기
+                            </Button>
+                        )}
                     </ItemsTable.Row>
                 );
             })}

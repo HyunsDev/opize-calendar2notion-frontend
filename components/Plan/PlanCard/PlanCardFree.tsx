@@ -61,11 +61,11 @@ export function PlanCardFree() {
             <Flex.Column gap="8px" style={{ marginTop: '40px' }}>
                 <Item>
                     <Dot color={cv.text4} />
-                    느린 동기화 (5분)
+                    느린 동기화
                 </Item>
                 <Item>
                     <Dot color={cv.text4} />
-                    다중 캘린더 X
+                    기본 캘린더만 동기화
                 </Item>
                 <Item>
                     <Dot color={cv.text4} />

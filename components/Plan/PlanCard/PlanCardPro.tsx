@@ -8,6 +8,7 @@ const Divver = styled.div`
     border-radius: 8px;
     background-color: ${cv.bg_element1};
     box-shadow: 0px 6px 20px ${cv.bg_blue1};
+    color: ${cv.text1};
 `;
 
 const PlanName = styled.div`
@@ -55,9 +56,9 @@ export function PlanCardPro() {
         <Divver>
             <PlanName>Pro</PlanName>
             <Price>
-                1000₩<span>/개월</span>
+                2000₩<span>/개월</span>
             </Price>
-            <PriceByYear>12000₩/연</PriceByYear>
+            <PriceByYear>24000₩/연</PriceByYear>
             <Desc>다양한 캘린더와 공휴일 캘린더를 포함한 노션 전문가용 플랜</Desc>
             <Flex.Column gap="8px" style={{ marginTop: '40px' }}>
                 <Item>
