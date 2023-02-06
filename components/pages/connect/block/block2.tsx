@@ -32,6 +32,7 @@ const StyledButton = styled.button`
 `;
 
 export function ConnectBlock2() {
+    const { user } = useUser();
     const router = useRouter();
     const { move } = useSlideBox();
 
@@ -57,7 +58,7 @@ export function ConnectBlock2() {
     useEffect(() => {
         (async () => {
             try {
-                if (!(await checkTemplate())) {
+                if (user && user.status === 'NOTION_API_SET' && !(await checkTemplate())) {
                     toast.warn('"개발자가 제공한 템플릿 사용"을 체크해주세요!');
                     move(1);
                 }
@@ -71,7 +72,7 @@ export function ConnectBlock2() {
                 }
             }
         })();
-    }, [move]);
+    }, [move, user]);
 
     const startSync = async () => {
         const templateId = await checkTemplate();
