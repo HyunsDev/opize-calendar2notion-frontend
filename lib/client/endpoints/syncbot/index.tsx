@@ -56,7 +56,7 @@ export type getSyncBotsResponse = {
     data: ManagerStorageMap;
 }[];
 
-// DELETE /syncbots
+// DELETE /syncbots/:prefix
 export type deleteSyncBotParameters = {
     prefix: string;
 };
