@@ -137,13 +137,13 @@ const Home: NextPage = () => {
                             ) : (
                                 <>
                                     <Button1
-                                        href={`${process.env.NEXT_PUBLIC_OPIZE}/oauth/verify/calendar2notion?redirectUrl=${process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_URL}`}
+                                        href={`${process.env.NEXT_PUBLIC_OPIZE}/oauth/verify/${process.env.NEXT_PUBLIC_OPIZE_PROJECT_CODE}?redirectUrl=${process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_URL}`}
                                     >
                                         로그인
                                     </Button1>
 
                                     <Button2
-                                        href={`${process.env.NEXT_PUBLIC_OPIZE}/oauth/verify/calendar2notion?redirectUrl=${process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_URL}`}
+                                        href={`${process.env.NEXT_PUBLIC_OPIZE}/oauth/verify/${process.env.NEXT_PUBLIC_OPIZE_PROJECT_CODE}?redirectUrl=${process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_URL}`}
                                     >
                                         무료로 시작하기
                                     </Button2>

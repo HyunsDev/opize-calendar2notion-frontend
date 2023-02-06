@@ -27,7 +27,7 @@ export function IndexHeader() {
     }, []);
 
     const login = () => {
-        window.location.href = `${process.env.NEXT_PUBLIC_OPIZE}/oauth/verify/calendar2notion?redirectUrl=${process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_URL}`;
+        window.location.href = `${process.env.NEXT_PUBLIC_OPIZE}/oauth/verify/${process.env.NEXT_PUBLIC_OPIZE_PROJECT_CODE}?redirectUrl=${process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_URL}`;
     };
 
     const router = useRouter();
