@@ -362,7 +362,7 @@ function BoxRealTask() {
     }, []);
 
     useEffect(() => {
-        const eventSource = new EventSource('http://localhost:3003/syncbot/stream/sse');
+        const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_PROJECT_API_SERVER}/syncbot/stream/sse`);
         eventSource.onopen = (event: any) => {
             setIsConnected(true);
             console.log('connection opened');
