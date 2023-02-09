@@ -151,7 +151,11 @@ function BoxErrors({ errors, refresh }: { errors?: getAdminErrorsResponse; refre
                             <ItemsTable.Row key={error.id}>
                                 <ItemsTable.Row.Avatar
                                     icon={<Img src={error?.user?.imageUrl || ''} alt="" />}
-                                    name={`${error.user.name} #${error.user.id}|${error.user.opizeId}`}
+                                    name={
+                                        error.user
+                                            ? `${error.user?.name} #${error.user.id}|${error.user.opizeId}`
+                                            : '알 수 없음'
+                                    }
                                     label={`${dayjs(error.createdAt).fromNow()}`}
                                     flex={1}
                                 />
@@ -174,8 +178,12 @@ function BoxErrors({ errors, refresh }: { errors?: getAdminErrorsResponse; refre
                                     flex={1}
                                 />
                                 <ItemsTable.Row.Status
-                                    status={error.user.isConnected ? 'good' : 'warning'}
-                                    text={`${error.user.isConnected ? '동기화중' : '동기화 정지'}`}
+                                    status={error.user ? (error.user.isConnected ? 'good' : 'warning') : 'stateless'}
+                                    text={
+                                        error.user
+                                            ? `${error.user.isConnected ? '동기화중' : '동기화 정지'}`
+                                            : '알 수 없음'
+                                    }
                                     label={'현재 유저 상태'}
                                     flex={1}
                                 />
