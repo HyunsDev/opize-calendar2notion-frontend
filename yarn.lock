@@ -7624,10 +7624,10 @@ open@^8.0.9, open@^8.4.0:
     is-docker "^2.1.1"
     is-wsl "^2.2.0"
 
-opize-design-system@^0.18.7:
-  version "0.18.7"
-  resolved "https://registry.yarnpkg.com/opize-design-system/-/opize-design-system-0.18.7.tgz#05ca97880a9e61cb5de26aea7dca3acd6850697b"
-  integrity sha512-QtNHPL3X2Ca7CJHoUwsx/pPuNQ7zFJVvqZRCG0gwa//+7CtLc4H15x6MFvcrR4kIjruMsxy8ONp+SI9HJYJVrA==
+opize-design-system@^0.19.0:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/opize-design-system/-/opize-design-system-0.19.0.tgz#7ae45ce2b23bcf8d8ca3410dd0bb7c32fbbde537"
+  integrity sha512-Lzhx5UdNS4yK+w0cMd9r7NJf/QOktQduJhNcwp0yPXnO1HeB5EdeiSa4+tXyfxoZi2O/fyZFzSGvGOeh/NOLSg==
   dependencies:
     "@testing-library/jest-dom" "^5.14.1"
     "@testing-library/react" "^13.0.0"
