@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </GoogleOAuthProvider>
                 <ReactQueryDevtools initialIsOpen={true} />
                 <ToastContainer
-                    position="bottom-right"
+                    position="top-right"
                     autoClose={3000}
                     hideProgressBar={false}
                     newestOnTop={false}
