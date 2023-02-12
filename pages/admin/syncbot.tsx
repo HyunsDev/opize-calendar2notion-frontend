@@ -44,6 +44,7 @@ import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { Info } from 'phosphor-react';
+import { Footer } from '../../components/footer';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 
@@ -554,7 +555,7 @@ const Home: NextPage = () => {
                     <BoxRealTask />
                 </Flex.Column>
             </PageLayout>
-            <AdminFooter />
+            <Footer />
         </>
     );
 };

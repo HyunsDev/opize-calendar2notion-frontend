@@ -14,6 +14,7 @@ import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useUser } from '../../hooks/useUser';
 import { Info } from 'phosphor-react';
+import Link from 'next/link';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 
@@ -71,8 +72,12 @@ const Home: NextPage = () => {
                             ))}
                     </Flex.Center>
                     <Flex.Center gap="12px">
-                        <A>오류 해결 가이드</A>
-                        <A>설정</A>
+                        <Link href={'/guide'} passHref>
+                            <A href="/guide">오류 해결 가이드</A>
+                        </Link>
+                        <Link href={'/dashboard/setting'} passHref>
+                            <A href={'/dashboard/setting'}>설정</A>
+                        </Link>
                     </Flex.Center>
                 </Flex.Column>
             </PageLayout>

@@ -10,6 +10,7 @@ import { AdminUserPlanUpgrade } from '../../components/pages/admin/user/planUpgr
 import { AdminUserDelete } from '../../components/pages/admin/user/userDelete';
 import { client } from '../../lib/client';
 import { toast } from 'react-toastify';
+import { Footer } from '../../components/footer';
 
 const Home: NextPage = () => {
     const modal = useModal();
@@ -53,7 +54,7 @@ const Home: NextPage = () => {
                     </Flex.Column>
                 </PageLayout.Content>
             </PageLayout>
-            <AdminFooter />
+            <Footer />
         </>
     );
 };

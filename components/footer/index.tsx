@@ -28,20 +28,27 @@ export function Footer() {
 
                     <StyledFooter.Navigation.Item>
                         <StyledFooter.Navigation.Item.Title>블로그</StyledFooter.Navigation.Item.Title>
-                        <StyledFooter.Navigation.Item.Link to="/">Opize 블로그</StyledFooter.Navigation.Item.Link>
-                        <StyledFooter.Navigation.Item.Link to="/">개발자 블로그</StyledFooter.Navigation.Item.Link>
+                        {/* <StyledFooter.Navigation.Item.Link to="/">Opize 블로그</StyledFooter.Navigation.Item.Link> */}
+                        <StyledFooter.Navigation.Item.Link to="https://velog.io/@phw3071">
+                            개발자 블로그
+                        </StyledFooter.Navigation.Item.Link>
                     </StyledFooter.Navigation.Item>
 
                     <StyledFooter.Navigation.Item>
                         <StyledFooter.Navigation.Item.Title>이용 및 약관</StyledFooter.Navigation.Item.Title>
-                        <StyledFooter.Navigation.Item.Link to="/">개인정보 처리방침</StyledFooter.Navigation.Item.Link>
-                        <StyledFooter.Navigation.Item.Link to="/">서비스 약관</StyledFooter.Navigation.Item.Link>
+                        <StyledFooter.Navigation.Item.Link to="/terms">
+                            개인정보 처리방침
+                        </StyledFooter.Navigation.Item.Link>
+                        <StyledFooter.Navigation.Item.Link to="/terms">서비스 약관</StyledFooter.Navigation.Item.Link>
                     </StyledFooter.Navigation.Item>
 
                     <StyledFooter.Navigation.Item>
                         <StyledFooter.Navigation.Item.Title>개발</StyledFooter.Navigation.Item.Title>
-                        <StyledFooter.Navigation.Item.Link to="/">개발자</StyledFooter.Navigation.Item.Link>
-                        <StyledFooter.Navigation.Item.Link to="/">API</StyledFooter.Navigation.Item.Link>
+                        {/* <StyledFooter.Navigation.Item.Link to="/">개발자</StyledFooter.Navigation.Item.Link> */}
+                        {/* <StyledFooter.Navigation.Item.Link to="/">API</StyledFooter.Navigation.Item.Link> */}
+                        <StyledFooter.Navigation.Item.Link to="https://github.com/HyunsDev">
+                            개발자 깃허브
+                        </StyledFooter.Navigation.Item.Link>
                         <StyledFooter.Navigation.Item.Link to="https://design.hyuns.dev">
                             디자인 시스템
                         </StyledFooter.Navigation.Item.Link>
