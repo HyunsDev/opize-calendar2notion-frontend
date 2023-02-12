@@ -8,7 +8,7 @@ const Home: NextPage = () => {
     return (
         <>
             <IndexHeader />
-            <NotionPage pageId={process.env.NEXT_PUBLIC_NOTION_PAGE_GUIDE || ''} isFullPage />
+            <NotionPage pageId={process.env.NEXT_PUBLIC_NOTION_PAGE_TERMS || ''} isFullPage />
             <Footer />
         </>
     );

@@ -43,6 +43,7 @@ import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { getAdminErrorsResponse } from '../../lib/client/endpoints/admin';
+import { Footer } from '../../components/footer';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 
@@ -298,7 +299,7 @@ const Home: NextPage = () => {
                     <BoxErrors errors={errors} refresh={() => getError(page, pageSize)} />
                 </Flex.Column>
             </PageLayout>
-            <AdminFooter />
+            <Footer />
         </>
     );
 };

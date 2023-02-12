@@ -17,20 +17,22 @@ export function AdminFooter() {
             <Footer.Navigation>
                 <Footer.Navigation.Item>
                     <Footer.Navigation.Item.Title>소개</Footer.Navigation.Item.Title>
-                    <Footer.Navigation.Item.Link to="/">소개</Footer.Navigation.Item.Link>
-                    <Footer.Navigation.Item.Link to="/">도움말</Footer.Navigation.Item.Link>
+                    <Footer.Navigation.Item.Link to="/about">소개</Footer.Navigation.Item.Link>
+                    <Footer.Navigation.Item.Link to="/guide">도움말</Footer.Navigation.Item.Link>
                 </Footer.Navigation.Item>
 
                 <Footer.Navigation.Item>
                     <Footer.Navigation.Item.Title>블로그</Footer.Navigation.Item.Title>
-                    <Footer.Navigation.Item.Link to="/">Opize 블로그</Footer.Navigation.Item.Link>
-                    <Footer.Navigation.Item.Link to="/">개발자 블로그</Footer.Navigation.Item.Link>
+                    {/* <Footer.Navigation.Item.Link to="/">Opize 블로그</Footer.Navigation.Item.Link> */}
+                    <Footer.Navigation.Item.Link to="https://velog.io/@phw3071">
+                        개발자 블로그
+                    </Footer.Navigation.Item.Link>
                 </Footer.Navigation.Item>
 
                 <Footer.Navigation.Item>
                     <Footer.Navigation.Item.Title>이용 및 약관</Footer.Navigation.Item.Title>
-                    <Footer.Navigation.Item.Link to="/">개인정보 처리방침</Footer.Navigation.Item.Link>
-                    <Footer.Navigation.Item.Link to="/">서비스 약관</Footer.Navigation.Item.Link>
+                    <Footer.Navigation.Item.Link to="/terms">개인정보 처리방침</Footer.Navigation.Item.Link>
+                    <Footer.Navigation.Item.Link to="/terms">서비스 약관</Footer.Navigation.Item.Link>
                 </Footer.Navigation.Item>
 
                 <Footer.Navigation.Item>
@@ -76,7 +78,7 @@ export function AdminFooter() {
                     </ActionMenu>
                 </Footer.Menu.Item>
                 <Footer.Menu.Item>
-                    © 2022 Opize Corp. <br />
+                    © 2022-2023 Opize Corp. <br />
                     오피즈 | 박현우
                 </Footer.Menu.Item>
             </Footer.Menu>
