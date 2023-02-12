@@ -71,9 +71,10 @@ export function IndexHeader() {
                 <Link href={'/about'} passHref>
                     <SimpleHeader.Nav.Link>소개</SimpleHeader.Nav.Link>
                 </Link>
-                <SimpleHeader.Nav.Link href="https://hyunsdev.notion.site/Calendar2notion-fcbe230f5fcb43808fbf2b5dd7a2452c">
-                    가이드
-                </SimpleHeader.Nav.Link>
+                <Link href={'/guide'} passHref>
+                    <SimpleHeader.Nav.Link>가이드</SimpleHeader.Nav.Link>
+                </Link>
+
                 <Link href={'/plan'} passHref>
                     <SimpleHeader.Nav.Link>플랜</SimpleHeader.Nav.Link>
                 </Link>

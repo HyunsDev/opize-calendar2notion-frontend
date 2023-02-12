@@ -5,7 +5,9 @@ import Link from 'next/link';
 import { CenterLayout, cv, Flex, H1, Text } from 'opize-design-system';
 import { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { Footer } from '../components/footer';
 import { GCalNotionCircle } from '../components/GCalNotionCircle';
+import { NotionPage } from '../components/notionPage';
 import { IndexOpizeToken } from '../components/opizeToken';
 import { IndexHeader } from '../components/pages/index/header';
 import { useUser } from '../hooks/useUser';
@@ -163,6 +165,8 @@ const Home: NextPage = () => {
                     </Text>
                 </Flex.Center>
             </CenterLayout>
+            <NotionPage pageId={process.env.NEXT_PUBLIC_NOTION_PAGE_INDEX || ''} isFullPage={false} />
+            <Footer />
         </>
     );
 };
