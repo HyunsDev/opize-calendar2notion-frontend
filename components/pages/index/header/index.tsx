@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { SimpleHeader, Flex, Button, cv } from 'opize-design-system';
+import { SimpleHeader, Flex, Button, cv, Token } from 'opize-design-system';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -59,11 +59,11 @@ export function IndexHeader() {
     }, [router, router.query.token]);
 
     return (
-        <SimpleHeader>
+        <SimpleHeader notice="아직 Beta 버전으로, 불안정한 부분이 있을 수 있어요.">
             <Link href={'/'} passHref>
                 <Flex.Row gap="8px" as="a" style={{ textDecoration: 'none' }}>
                     <Img src={C2NLogo} height={26} width={26} />
-                    <Title>Calendar2notion</Title>
+                    <Title>Calendar2notion (Beta)</Title>
                 </Flex.Row>
             </Link>
 
