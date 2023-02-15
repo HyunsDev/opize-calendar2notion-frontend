@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { PageLayout, H1, Flex, Text, cv, Button, Link as A, useModal, ToolTip, Spinner } from 'opize-design-system';
+import { PageLayout, H1, Flex, Text, cv, Button, useModal, ToolTip, Spinner, Callout } from 'opize-design-system';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';
@@ -19,6 +19,8 @@ dayjs.extend(relativeTime);
 dayjs.locale('ko');
 
 const HelloModal = <Flex.Column>Hello, Calendar2notion!</Flex.Column>;
+
+const A = styled.a``;
 
 const Home: NextPage = () => {
     const router = useRouter();
@@ -38,8 +40,17 @@ const Home: NextPage = () => {
     return (
         <>
             <DashboardHeader now="dashboard" />
-            <PageLayout minHeight="calc(100vh - 131px - 337px)">
+            <PageLayout minHeight="calc(100vh - 131px - 337px)" marginTop="8px">
                 <Flex.Column gap="8px">
+                    <Callout icon="📢">
+                        현재 Calendar2notion은 베타 버전이에요. 불안정한 부분도 많고, 여러 가이드가 작성 중인 상태에요.
+                        <br />
+                        혹시 베타버전을 이용하면서 문제점을 발견하거나, 추가하고 싶은 기능이 있다면 언제든{' '}
+                        <A href="https://open.kakao.com/o/gIBnhE4e" target={'_blank'} style={{ fontSize: '14px' }}>
+                            카카오톡 오픈채팅방
+                        </A>
+                        에 알려주세요.
+                    </Callout>
                     <Flex.Center>
                         <GCalNotionCircle />
                     </Flex.Center>

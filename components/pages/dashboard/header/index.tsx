@@ -79,14 +79,14 @@ function StyledDashboardHeader({ now }: { now: Path }) {
 
     return (
         <Header>
-            <Header.Notice />
+            <Header.Notice>아직 Beta 버전으로, 불안정한 부분이 있을 수 있어요.</Header.Notice>
             <Header.Nav>
                 <Header.Nav.Left>
                     <Link href={'/dashboard'} passHref>
                         <A>
                             <Flex.Row gap="8px">
                                 <Img src={C2NLogo} height={26} width={26} />
-                                <Title>Calendar2notion</Title>
+                                <Title>Calendar2notion (Beta)</Title>
                             </Flex.Row>
                         </A>
                     </Link>

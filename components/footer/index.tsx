@@ -22,8 +22,8 @@ export function Footer() {
                 <StyledFooter.Navigation>
                     <StyledFooter.Navigation.Item>
                         <StyledFooter.Navigation.Item.Title>소개</StyledFooter.Navigation.Item.Title>
-                        <StyledFooter.Navigation.Item.Link to="/">소개</StyledFooter.Navigation.Item.Link>
-                        <StyledFooter.Navigation.Item.Link to="/">도움말</StyledFooter.Navigation.Item.Link>
+                        <StyledFooter.Navigation.Item.Link to="/about">소개</StyledFooter.Navigation.Item.Link>
+                        <StyledFooter.Navigation.Item.Link to="/guide">도움말</StyledFooter.Navigation.Item.Link>
                     </StyledFooter.Navigation.Item>
 
                     <StyledFooter.Navigation.Item>
@@ -52,7 +52,7 @@ export function Footer() {
                         <StyledFooter.Navigation.Item.Link to="https://design.hyuns.dev">
                             디자인 시스템
                         </StyledFooter.Navigation.Item.Link>
-                        <StyledFooter.Navigation.Item.Link to="/">브랜드 리소스</StyledFooter.Navigation.Item.Link>
+                        {/* <StyledFooter.Navigation.Item.Link to="/">브랜드 리소스</StyledFooter.Navigation.Item.Link> */}
                     </StyledFooter.Navigation.Item>
                 </StyledFooter.Navigation>
                 <StyledFooter.Menu>
