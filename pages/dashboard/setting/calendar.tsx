@@ -13,6 +13,8 @@ import {
     cv,
     Box,
     ToolTip,
+    useDialog,
+    Callout,
 } from 'opize-design-system';
 import { Calendar, Info } from 'phosphor-react';
 import { useState } from 'react';
@@ -61,6 +63,7 @@ const ReadonlyTag = styled.div`
 
 function BoxCalendars() {
     const router = useRouter();
+    const dialog = useDialog();
     const { user, refetch } = useUser();
     const [loadingCalendars, setLoadingCalendars] = useState<string[]>([]);
 
@@ -71,9 +74,31 @@ function BoxCalendars() {
             return;
         }
 
+        // TODO
+        toast.error('현재 일시적으로 읽기전용 캘린더를 이용할 수 없어요.');
+        return;
+
+        // setLoadingCalendars((pre) => [...pre, googleCalendarId]);
+        // try {
+        //     await client.user.calendar.post({ googleCalendarId: googleCalendarId, userId: 'me' });
+        // } catch (err) {
+        //     toast.warn('문제가 발생했어요. 잠시 뒤에 다시 시도해주세요.');
+        //     if (refetch) await refetch();
+        // }
+        // if (refetch) await refetch();
+        // setLoadingCalendars((pre) => pre.filter((e) => e !== googleCalendarId));
+    };
+
+    const removeCalendar = async (calendarId: number, googleCalendarId: string) => {
+        if (loadingCalendars.includes(googleCalendarId)) return;
         setLoadingCalendars((pre) => [...pre, googleCalendarId]);
         try {
-            await client.user.calendar.post({ googleCalendarId: googleCalendarId, userId: 'me' });
+            const res = await client.user.calendar.delete({ calendarId: calendarId + '', userId: 'me' });
+            if (res.code === 'user_is_work') {
+                toast.info('현재 동기화가 진행 중이에요. 10분 정도 뒤에 다시 시도해주세요.');
+                return;
+            }
+            toast.info('캘린더 연결을 해제했어요. 노션에 반영되기까지 시간이 걸릴 수 있어요.');
         } catch (err) {
             toast.warn('문제가 발생했어요. 잠시 뒤에 다시 시도해주세요.');
             if (refetch) await refetch();
@@ -82,19 +107,23 @@ function BoxCalendars() {
         setLoadingCalendars((pre) => pre.filter((e) => e !== googleCalendarId));
     };
 
-    const removeCalendar = async (calendarId: number, googleCalendarId: string) => {
-        if (loadingCalendars.includes(googleCalendarId)) return;
-        setLoadingCalendars((pre) => [...pre, googleCalendarId]);
-        try {
-            const res = await client.user.calendar.delete({ calendarId: calendarId + '', userId: 'me' });
-            if (res.code === 'user_is_work')
-                toast.info('현재 동기화가 진행 중이에요. 10분 정도 뒤에 다시 시도해주세요.');
-        } catch (err) {
-            toast.warn('문제가 발생했어요. 잠시 뒤에 다시 시도해주세요.');
-            if (refetch) await refetch();
-        }
-        if (refetch) await refetch();
-        setLoadingCalendars((pre) => pre.filter((e) => e !== googleCalendarId));
+    const removeCalendarDialog = (calendarId: number, googleCalendarId: string, calendarName: string) => {
+        dialog({
+            title: `정말로 ${calendarName}캘린더를 삭제하시겠어요?`,
+            content: '캘린더를 삭제할 경우 노션에서 작성한 페이지도 함께 삭제되요.',
+            buttons: [
+                {
+                    onClick: () => null,
+                    children: '취소',
+                },
+                {
+                    onClick: () => removeCalendar(calendarId, googleCalendarId),
+                    children: '삭제',
+                    color: 'red',
+                    variant: 'contained',
+                },
+            ],
+        });
     };
 
     return (
@@ -112,7 +141,7 @@ function BoxCalendars() {
                                     {calendar.accessRole === 'reader' && (
                                         <ToolTip text="이 캘린더에 속한 일정은 수정할 수 없어요. 필요하다면 구글 캘린더에서 수정 권한을 확인해주세요.">
                                             <ReadonlyTag>
-                                                읽기 전용 <Info color={cv.text3} size={14} />
+                                                읽기 전용 (일시적 이용불가) <Info color={cv.text3} size={14} />
                                             </ReadonlyTag>
                                         </ToolTip>
                                     )}{' '}
@@ -124,7 +153,9 @@ function BoxCalendars() {
                             <Button
                                 variant="outlined"
                                 color="red"
-                                onClick={() => removeCalendar(userCalendar?.id as number, calendar.id)}
+                                onClick={() =>
+                                    removeCalendarDialog(userCalendar?.id as number, calendar.id, calendar.summary)
+                                }
                                 isLoading={loadingCalendars.includes(calendar.id)}
                                 width="80px"
                             >
@@ -167,6 +198,9 @@ const Home: NextPage = () => {
                 </PageLayout.Pane>
                 <PageLayout.Content>
                     <Flex.Column gap="16px">
+                        <Callout icon="📢">
+                            현재 읽기전용 캘린더에 문제가 발생하여 이용할 수 없어요. 최대한 빨리 수정할게요!
+                        </Callout>
                         <BoxCalendars />
                     </Flex.Column>
                 </PageLayout.Content>
