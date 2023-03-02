@@ -59,7 +59,7 @@ export function IndexHeader() {
     }, [router, router.query.token]);
 
     return (
-        <SimpleHeader notice="아직 Beta 버전으로, 불안정한 부분이 있을 수 있어요.">
+        <SimpleHeader>
             <Link href={'/'} passHref>
                 <Flex.Row gap="8px" as="a" style={{ textDecoration: 'none' }}>
                     <Img src={C2NLogo} height={26} width={26} />
