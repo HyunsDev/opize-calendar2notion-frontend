@@ -67,26 +67,28 @@ function BoxCalendars() {
     const { user, refetch } = useUser();
     const [loadingCalendars, setLoadingCalendars] = useState<string[]>([]);
 
-    const addCalendar = async (googleCalendarId: string) => {
+    const addCalendar = async (googleCalendarId: string, isReadonly: boolean) => {
         if (loadingCalendars.includes(googleCalendarId)) return;
         if (user?.userPlan === 'FREE' && googleCalendarId !== user.googleEmail) {
             toast.warn('해당 캘린더는 Pro 플랜부터 이용할 수 있어요.');
             return;
         }
 
-        // TODO
-        toast.error('현재 일시적으로 읽기전용 캘린더를 이용할 수 없어요.');
-        return;
+        if (isReadonly) {
+            // TODO
+            toast.error('현재 일시적으로 읽기전용 캘린더를 이용할 수 없어요.');
+            return;
+        }
 
-        // setLoadingCalendars((pre) => [...pre, googleCalendarId]);
-        // try {
-        //     await client.user.calendar.post({ googleCalendarId: googleCalendarId, userId: 'me' });
-        // } catch (err) {
-        //     toast.warn('문제가 발생했어요. 잠시 뒤에 다시 시도해주세요.');
-        //     if (refetch) await refetch();
-        // }
-        // if (refetch) await refetch();
-        // setLoadingCalendars((pre) => pre.filter((e) => e !== googleCalendarId));
+        setLoadingCalendars((pre) => [...pre, googleCalendarId]);
+        try {
+            await client.user.calendar.post({ googleCalendarId: googleCalendarId, userId: 'me' });
+        } catch (err) {
+            toast.warn('문제가 발생했어요. 잠시 뒤에 다시 시도해주세요.');
+            if (refetch) await refetch();
+        }
+        if (refetch) await refetch();
+        setLoadingCalendars((pre) => pre.filter((e) => e !== googleCalendarId));
     };
 
     const removeCalendar = async (calendarId: number, googleCalendarId: string) => {
@@ -164,7 +166,7 @@ function BoxCalendars() {
                         ) : user.userPlan === 'FREE' && calendar.id !== user.googleEmail ? (
                             <Button
                                 variant="default"
-                                onClick={() => addCalendar(calendar.id)}
+                                onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
                                 isLoading={loadingCalendars.includes(calendar.id)}
                                 width="150px"
                             >
@@ -173,7 +175,7 @@ function BoxCalendars() {
                         ) : (
                             <Button
                                 variant="contained"
-                                onClick={() => addCalendar(calendar.id)}
+                                onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
                                 isLoading={loadingCalendars.includes(calendar.id)}
                                 width="80px"
                             >
