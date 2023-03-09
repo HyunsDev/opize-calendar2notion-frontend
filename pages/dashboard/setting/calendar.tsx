@@ -74,12 +74,6 @@ function BoxCalendars() {
             return;
         }
 
-        if (isReadonly) {
-            // TODO
-            toast.error('현재 일시적으로 읽기전용 캘린더를 이용할 수 없어요.');
-            return;
-        }
-
         setLoadingCalendars((pre) => [...pre, googleCalendarId]);
         try {
             await client.user.calendar.post({ googleCalendarId: googleCalendarId, userId: 'me' });
@@ -130,7 +124,7 @@ function BoxCalendars() {
 
     return (
         <ItemsTable>
-            {user?.allCalendars?.map((calendar) => {
+            {user?.googleCalendars?.map((calendar) => {
                 const userCalendar = user.calendars.find((e) => e.googleCalendarId === calendar.id);
 
                 return (
@@ -143,7 +137,7 @@ function BoxCalendars() {
                                     {calendar.accessRole === 'reader' && (
                                         <ToolTip text="이 캘린더에 속한 일정은 수정할 수 없어요. 필요하다면 구글 캘린더에서 수정 권한을 확인해주세요.">
                                             <ReadonlyTag>
-                                                읽기 전용 (일시적 이용불가) <Info color={cv.text3} size={14} />
+                                                읽기 전용 <Info color={cv.text3} size={14} />
                                             </ReadonlyTag>
                                         </ToolTip>
                                     )}{' '}
@@ -151,37 +145,39 @@ function BoxCalendars() {
                             }
                         />
 
-                        {user.calendars.some((e) => calendar.id === e.googleCalendarId) ? (
-                            <Button
-                                variant="outlined"
-                                color="red"
-                                onClick={() =>
-                                    removeCalendarDialog(userCalendar?.id as number, calendar.id, calendar.summary)
-                                }
-                                isLoading={loadingCalendars.includes(calendar.id)}
-                                width="80px"
-                            >
-                                연결끊기
-                            </Button>
-                        ) : user.userPlan === 'FREE' && calendar.id !== user.googleEmail ? (
-                            <Button
-                                variant="default"
-                                onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
-                                isLoading={loadingCalendars.includes(calendar.id)}
-                                width="150px"
-                            >
-                                플랜 업그레이드 필요
-                            </Button>
-                        ) : (
-                            <Button
-                                variant="contained"
-                                onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
-                                isLoading={loadingCalendars.includes(calendar.id)}
-                                width="80px"
-                            >
-                                연결하기
-                            </Button>
-                        )}
+                        <Flex.Row gap="8px">
+                            {user.calendars.some((e) => calendar.id === e.googleCalendarId) ? (
+                                <Button
+                                    variant="outlined"
+                                    color="red"
+                                    onClick={() =>
+                                        removeCalendarDialog(userCalendar?.id as number, calendar.id, calendar.summary)
+                                    }
+                                    isLoading={loadingCalendars.includes(calendar.id)}
+                                    width="80px"
+                                >
+                                    연결끊기
+                                </Button>
+                            ) : user.userPlan === 'FREE' && calendar.id !== user.googleEmail ? (
+                                <Button
+                                    variant="default"
+                                    onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
+                                    isLoading={loadingCalendars.includes(calendar.id)}
+                                    width="150px"
+                                >
+                                    플랜 업그레이드 필요
+                                </Button>
+                            ) : (
+                                <Button
+                                    variant="contained"
+                                    onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
+                                    isLoading={loadingCalendars.includes(calendar.id)}
+                                    width="80px"
+                                >
+                                    연결하기
+                                </Button>
+                            )}
+                        </Flex.Row>
                     </ItemsTable.Row>
                 );
             })}
@@ -200,9 +196,6 @@ const Home: NextPage = () => {
                 </PageLayout.Pane>
                 <PageLayout.Content>
                     <Flex.Column gap="16px">
-                        <Callout icon="📢">
-                            현재 읽기전용 캘린더에 문제가 발생하여 이용할 수 없어요. 최대한 빨리 수정할게요!
-                        </Callout>
                         <BoxCalendars />
                     </Flex.Column>
                 </PageLayout.Content>

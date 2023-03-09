@@ -11,6 +11,7 @@ import { Modal } from 'react-notion-x/build/third-party/modal';
 
 import 'react-notion-x/src/styles.css';
 import axios from 'axios';
+import { notionCacher } from '../../lib/react-notion-cacher';
 
 const NotionRendererDiv = styled.div`
     position: relative;
@@ -35,16 +36,36 @@ const CenterPageOuter = styled.div`
 
 const CenterPage = styled.div``;
 
-export function NotionPage({ pageId, isFullPage = true }: { pageId: string; isFullPage?: boolean }) {
+export function NotionPage({
+    pageId,
+    pageCode,
+    isFullPage = true,
+    minHeight,
+}: {
+    pageId?: string;
+    pageCode?: string;
+    isFullPage?: boolean;
+    minHeight?: string;
+}) {
     const {
         isLoading: notionLoading,
         data: recordMap,
         error,
     } = useQuery(
-        ['notion', 'page', pageId],
+        ['notion', 'page', pageId || pageCode],
         async () => {
-            const res = await axios.get(`${process.env.NEXT_PUBLIC_OPIZE_API_SERVER}/dashboard/notion/page/${pageId}`);
-            return res.data;
+            if (pageCode) {
+                const res = await notionCacher.page.get({
+                    pageCode: pageCode,
+                    domain: 'calendar2notion',
+                });
+                return res;
+            } else {
+                const res = await notionCacher.page.get({
+                    pageId: pageId,
+                });
+                return res;
+            }
         },
         { retry: 1 }
     );
@@ -90,14 +111,14 @@ export function NotionPage({ pageId, isFullPage = true }: { pageId: string; isFu
     try {
         return (
             <>
-                <PageLayout backgroundColor={cv.bg_page2} marginTop="32px">
+                <PageLayout backgroundColor={cv.bg_page2} marginTop="32px" minHeight={minHeight}>
                     {page}
                 </PageLayout>
             </>
         );
     } catch (err) {
         return (
-            <PageLayout backgroundColor={cv.bg_page2} marginTop="32px">
+            <PageLayout backgroundColor={cv.bg_page2} marginTop="32px" minHeight={minHeight}>
                 <CenterPageOuter>
                     <CenterPage>문제가 발생했어요</CenterPage>
                 </CenterPageOuter>

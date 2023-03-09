@@ -34,7 +34,7 @@ const Title = styled.div`
     text-decoration: none;
 `;
 
-type Path = 'dashboard' | 'plan' | 'setting';
+type Path = 'dashboard' | 'plan' | 'setting' | 'roadmap';
 
 const A = styled.a`
     display: flex;
@@ -122,6 +122,10 @@ function StyledDashboardHeader({ now }: { now: Path }) {
                     plan: {
                         text: '구독',
                         onClick: () => router.push('/dashboard/plan'),
+                    },
+                    roadmap: {
+                        text: '로드맵',
+                        onClick: () => router.push('/dashboard/roadmap'),
                     },
                     setting: {
                         text: '설정',

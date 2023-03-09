@@ -38,13 +38,14 @@ import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useStyleRegistry } from 'styled-jsx';
 import { useForm } from 'react-hook-form';
-import { APIResponseError, client } from '../../lib/client';
-import { getSyncBotLogListResponse, getSyncBotsResponse } from '../../lib/client/endpoints/syncbot';
+import { client } from '../../lib/client';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { Info } from 'phosphor-react';
 import { Footer } from '../../components/footer';
+import { getSyncBotLogListResponse } from '../../lib/client/endpoint';
+import { APIResponseError } from '../../lib/old-client';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 

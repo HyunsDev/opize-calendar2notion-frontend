@@ -30,7 +30,15 @@ export type UserEntity = {
     createdAt: Date;
     updatedAt: Date;
 
-    calendars?: any[];
+    calendars: {
+        id: number;
+        googleCalendarId: string;
+        googleCalendarName: string;
+        status: 'DISCONNECTED' | 'CONNECTED';
+        accessRole: 'none' | 'freeBusyReader' | 'reader' | 'writer' | 'owner';
+        notionPropertyId: string;
+        createdAt: string;
+    }[];
     events?: any[];
     errorLogs?: any[];
     syncLogs?: any[];

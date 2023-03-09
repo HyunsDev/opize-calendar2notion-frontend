@@ -54,9 +54,9 @@ export function PlanCardFree() {
         <Divver>
             <PlanName>Free</PlanName>
             <Price>
-                0₩<span>/개월</span>
+                0₩<span>/연</span>
             </Price>
-            <PriceByYear>0₩/연</PriceByYear>
+            <PriceByYear>0₩/개월</PriceByYear>
             <Desc>누구나 자유롭게 사용할 수 있는 무료 플랜</Desc>
             <Flex.Column gap="8px" style={{ marginTop: '40px' }}>
                 <Item>
