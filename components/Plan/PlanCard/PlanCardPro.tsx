@@ -56,7 +56,7 @@ export function PlanCardPro() {
         <Divver>
             <PlanName>Pro</PlanName>
             <Price>
-                2000₩<span>/개월</span>
+                24000₩<span>/개월</span>
             </Price>
             <PriceByYear>24000₩/연</PriceByYear>
             <Desc>다양한 캘린더와 공휴일 캘린더를 포함한 노션 전문가용 플랜</Desc>

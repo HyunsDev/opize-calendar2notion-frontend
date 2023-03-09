@@ -124,7 +124,7 @@ function BoxCalendars() {
 
     return (
         <ItemsTable>
-            {user?.allCalendars?.map((calendar) => {
+            {user?.googleCalendars?.map((calendar) => {
                 const userCalendar = user.calendars.find((e) => e.googleCalendarId === calendar.id);
 
                 return (
@@ -145,37 +145,39 @@ function BoxCalendars() {
                             }
                         />
 
-                        {user.calendars.some((e) => calendar.id === e.googleCalendarId) ? (
-                            <Button
-                                variant="outlined"
-                                color="red"
-                                onClick={() =>
-                                    removeCalendarDialog(userCalendar?.id as number, calendar.id, calendar.summary)
-                                }
-                                isLoading={loadingCalendars.includes(calendar.id)}
-                                width="80px"
-                            >
-                                연결끊기
-                            </Button>
-                        ) : user.userPlan === 'FREE' && calendar.id !== user.googleEmail ? (
-                            <Button
-                                variant="default"
-                                onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
-                                isLoading={loadingCalendars.includes(calendar.id)}
-                                width="150px"
-                            >
-                                플랜 업그레이드 필요
-                            </Button>
-                        ) : (
-                            <Button
-                                variant="contained"
-                                onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
-                                isLoading={loadingCalendars.includes(calendar.id)}
-                                width="80px"
-                            >
-                                연결하기
-                            </Button>
-                        )}
+                        <Flex.Row gap="8px">
+                            {user.calendars.some((e) => calendar.id === e.googleCalendarId) ? (
+                                <Button
+                                    variant="outlined"
+                                    color="red"
+                                    onClick={() =>
+                                        removeCalendarDialog(userCalendar?.id as number, calendar.id, calendar.summary)
+                                    }
+                                    isLoading={loadingCalendars.includes(calendar.id)}
+                                    width="80px"
+                                >
+                                    연결끊기
+                                </Button>
+                            ) : user.userPlan === 'FREE' && calendar.id !== user.googleEmail ? (
+                                <Button
+                                    variant="default"
+                                    onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
+                                    isLoading={loadingCalendars.includes(calendar.id)}
+                                    width="150px"
+                                >
+                                    플랜 업그레이드 필요
+                                </Button>
+                            ) : (
+                                <Button
+                                    variant="contained"
+                                    onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
+                                    isLoading={loadingCalendars.includes(calendar.id)}
+                                    width="80px"
+                                >
+                                    연결하기
+                                </Button>
+                            )}
+                        </Flex.Row>
                     </ItemsTable.Row>
                 );
             })}

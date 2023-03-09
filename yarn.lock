@@ -3146,6 +3146,14 @@ axe-core@^4.4.3:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.4.3.tgz#11c74d23d5013c0fa5d183796729bc3482bd2f6f"
   integrity sha512-32+ub6kkdhhWick/UjvEwRchgoetXqTK14INLqbGm5U2TzBkBNF3nQtLYm8ovxSkQWArjEQvftCKryjZaATu3w==
 
+axios@^0.27.2:
+  version "0.27.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
+  integrity sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==
+  dependencies:
+    follow-redirects "^1.14.9"
+    form-data "^4.0.0"
+
 axios@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.1.2.tgz#8b6f6c540abf44ab98d9904e8daf55351ca4a331"
@@ -4370,6 +4378,11 @@ dotenv@^10.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
 
+dotenv@^16.0.1:
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
+  integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
+
 duplexer@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.2.tgz#3abe43aef3835f8ae077d136ddce0f276b0400e6"
@@ -4421,6 +4434,15 @@ encodeurl@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
   integrity sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w==
+
+endpoint-client@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/endpoint-client/-/endpoint-client-0.1.1.tgz#49d828f9c079006cf39e79c92b5e26f82cb39d32"
+  integrity sha512-/Cgbj2XOtuMBGLj3y5goqgOVEj9Pp+o0oI4N9PIK17Am+yuuWt8y4IO4Z/lHKiApU1XRRsSglkiqy3GZ3GzTog==
+  dependencies:
+    axios "^0.27.2"
+    dayjs "^1.11.5"
+    dotenv "^16.0.1"
 
 enhanced-resolve@^5.10.0:
   version "5.10.0"
@@ -5230,7 +5252,7 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.7.tgz#609f39207cb614b89d0765b477cb2d437fbf9787"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
-follow-redirects@^1.0.0, follow-redirects@^1.15.0:
+follow-redirects@^1.0.0, follow-redirects@^1.14.9, follow-redirects@^1.15.0:
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
@@ -7624,10 +7646,10 @@ open@^8.0.9, open@^8.4.0:
     is-docker "^2.1.1"
     is-wsl "^2.2.0"
 
-opize-design-system@^0.19.0:
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/opize-design-system/-/opize-design-system-0.19.0.tgz#7ae45ce2b23bcf8d8ca3410dd0bb7c32fbbde537"
-  integrity sha512-Lzhx5UdNS4yK+w0cMd9r7NJf/QOktQduJhNcwp0yPXnO1HeB5EdeiSa4+tXyfxoZi2O/fyZFzSGvGOeh/NOLSg==
+opize-design-system@^0.19.1:
+  version "0.19.1"
+  resolved "https://registry.yarnpkg.com/opize-design-system/-/opize-design-system-0.19.1.tgz#df0c0522ad2d40c514fb84e94515b465c810b166"
+  integrity sha512-0RMF5Q+0D+akCHDvI74Pb9lUrF8mfNGEoDw/pZDEdkVeN8x1e5/0o+VogWiAB968TWVaH5tBHhyIqnwYtJyzQQ==
   dependencies:
     "@testing-library/jest-dom" "^5.14.1"
     "@testing-library/react" "^13.0.0"
@@ -8748,6 +8770,16 @@ react-modal@^3.14.3:
     prop-types "^15.7.2"
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
+
+react-notion-cacher-client@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-notion-cacher-client/-/react-notion-cacher-client-1.0.1.tgz#6d3dde789f6bf4fec948f046e916f92f22bcca02"
+  integrity sha512-C2SvbmOBvWDBl6jO8EZg8n69QrFm8Hv27BAaa+givX4H1iM2rsfqgd2B0kY+eq2xE6Yg06o+hD/XJlx62XtiOQ==
+  dependencies:
+    axios "^0.27.2"
+    dayjs "^1.11.5"
+    dotenv "^16.0.1"
+    endpoint-client "^0.1.1"
 
 react-notion-x@^6.15.7:
   version "6.15.7"
