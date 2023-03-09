@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import C2NLogo from '../../../../assets/logo.png';
-import { APIResponseError, client } from '../../../../lib/client';
+import { client } from '../../../../lib/client';
+import { APIResponseError } from '../../../../lib/old-client';
 import { isClient } from '../../../../utils/isClient';
 
 const Img = styled(Image)`

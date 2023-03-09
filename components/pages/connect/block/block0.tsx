@@ -6,9 +6,10 @@ import Img from '../../../../assets/connect/placeholder.png';
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import { APIResponseError, client, isHTTPResponseError } from '../../../../lib/client';
+import { client } from '../../../../lib/client';
 import { useUser } from '../../../../hooks/useUser';
 import { ConnectBlockBase } from './components/blockBase';
+import { APIResponseError } from '../../../../lib/old-client';
 
 export function ConnectBlock0({}: {}) {
     const { start: loadingStart, end: loadingEnd } = useTopLoading();

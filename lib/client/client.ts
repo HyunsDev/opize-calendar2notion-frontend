@@ -26,6 +26,8 @@ import {
     exitSyncBot,
     getSyncBotLogs,
     getSyncBotStaticLog,
+    deleteAdminUser,
+    getSyncBots,
 } from './endpoint';
 
 export class Client extends EndpointClient {
@@ -53,7 +55,7 @@ export class Client extends EndpointClient {
         findUser: this.endpointBuilder(getAdminFindUser),
         getWorkingUser: this.endpointBuilder(getAdminWorkingUsers),
         getUser: this.endpointBuilder(getAdminUser),
-        deleteUser: this.endpointBuilder(deleteAdminError),
+        deleteUser: this.endpointBuilder(deleteAdminUser),
         patchUser: this.endpointBuilder(patchAdminUser),
         userPlanUpdate: this.endpointBuilder(postAdminUserPlanUpdate),
         statistics: this.endpointBuilder(getAdminStatistics),
@@ -62,7 +64,7 @@ export class Client extends EndpointClient {
     };
 
     readonly syncbot = {
-        list: this.endpointBuilder(getSyncBotLogList),
+        list: this.endpointBuilder(getSyncBots),
         post: this.endpointBuilder(postSyncBot),
         delete: this.endpointBuilder(deleteSyncBot),
         stop: this.endpointBuilder(stopSyncBot),

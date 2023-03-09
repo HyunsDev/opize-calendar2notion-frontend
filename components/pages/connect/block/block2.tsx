@@ -1,6 +1,6 @@
 import { Box, Button, cv, Flex, Link, Text, TextField, useSlideBox } from 'opize-design-system';
 import { useEffect, useState } from 'react';
-import { APIResponseError, client } from '../../../../lib/client';
+import { client } from '../../../../lib/client';
 import { BlockHeader } from './components/blockHeader';
 import { NotionButton } from './components/notionBtn';
 import Image from 'next/image';
@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { useUser } from '../../../../hooks/useUser';
 import { ConnectBlockBase } from './components/blockBase';
+import { APIResponseError } from '../../../../lib/old-client';
 
 const StyledButton = styled.button`
     width: 100%;

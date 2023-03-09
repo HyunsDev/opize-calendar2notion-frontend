@@ -2,7 +2,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
-import { APIResponseError, client } from '../../lib/client';
+import { client } from '../../lib/client';
+import { APIResponseError } from '../../lib/old-client';
 
 export function useUser({ allowNonLogin = false }: { allowNonLogin?: boolean } = {}) {
     const {

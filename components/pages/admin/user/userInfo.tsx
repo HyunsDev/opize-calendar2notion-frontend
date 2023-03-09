@@ -18,9 +18,10 @@ import styled from 'styled-components';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { getAdminUserResponse } from '../../../../lib/client/endpoints/admin';
 import { toast } from 'react-toastify';
-import { APIResponseError, client } from '../../../../lib/client';
+import { getAdminUserResponse } from '../../../../lib/client/endpoint';
+import { client } from '../../../../lib/client';
+import { APIResponseError } from '../../../../lib/old-client';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 
