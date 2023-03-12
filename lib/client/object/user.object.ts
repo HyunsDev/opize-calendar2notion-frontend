@@ -1,4 +1,5 @@
 import { CalendarObject, GoogleCalendarObject } from './calendar.object';
+import { ErrorLogObject } from './errorLog.object';
 
 export type UserObject = {
     id: number;
@@ -27,4 +28,5 @@ export type UserObject = {
     createdAt: string;
     calendars: CalendarObject[];
     googleCalendars: GoogleCalendarObject[];
+    errorLogs?: ErrorLogObject[];
 };

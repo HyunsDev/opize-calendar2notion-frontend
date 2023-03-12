@@ -13,6 +13,8 @@ import {
     Switch,
     Select,
     Token,
+    Table,
+    ActionMenu,
 } from 'opize-design-system';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
@@ -22,6 +24,8 @@ import { toast } from 'react-toastify';
 import { getAdminUserResponse } from '../../../../lib/client/endpoint';
 import { client } from '../../../../lib/client';
 import { APIResponseError } from '../../../../lib/old-client';
+import { CalendarObject, UserObject } from '../../../../lib/client/object';
+import { DotsThreeVertical } from 'phosphor-react';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 
@@ -142,80 +146,106 @@ export function UserBox({ user, fetchUser }: { user: getAdminUserResponse; fetch
                     </Token>
                 )}
             </Flex.Row>
-            <ItemsTable>
-                {user.user ? (
-                    Object.entries(user?.user).map(([key, value]) => (
-                        <ItemsTable.Row key={key}>
-                            <ItemsTable.Row.Text
-                                flex={1}
-                                text={`${key}${Object.keys(editableUserAttr).includes(key) ? '' : '*'}`}
-                            />
-                            <ItemsTable.Row.Text flex={2} subText={`${value}`} />
-                            {
-                                <ItemsTable.Row.Buttons
-                                    buttons={
-                                        Object.keys(editableUserAttr).includes(key)
-                                            ? [
-                                                  [
-                                                      {
-                                                          label: '값',
-                                                          onClick: () => codeModal(key, value, '500px'),
-                                                      },
-                                                      {
-                                                          label: '수정',
-                                                          onClick: () =>
-                                                              modal.open(
-                                                                  <ModalUserUpdate
-                                                                      user={user}
-                                                                      userKey={key as keyof typeof editableUserAttr}
-                                                                      initValue={value}
-                                                                      fetchUser={fetchUser}
-                                                                      close={modal.close}
-                                                                  />,
-                                                                  {
-                                                                      width: '500px',
-                                                                  }
-                                                              ),
-                                                      },
-                                                  ],
-                                              ]
-                                            : [
-                                                  [
-                                                      {
-                                                          label: 'Value',
-                                                          onClick: () => codeModal(key, value, '500px'),
-                                                      },
-                                                  ],
-                                              ]
-                                    }
-                                />
-                            }
-                        </ItemsTable.Row>
-                    ))
-                ) : (
-                    <ItemsTable.Row>
-                        <Text size="14px">유저 정보가 없습니다</Text>
-                    </ItemsTable.Row>
-                )}
-            </ItemsTable>
+            <Table>
+                <Table.THead>
+                    <Table.Row>
+                        <Table.Head width="200px">Key</Table.Head>
+                        <Table.Head>Value</Table.Head>
+                        <Table.Head $align="flex-end" width="50px"></Table.Head>
+                    </Table.Row>
+                </Table.THead>
+                <Table.TBody>
+                    {user.user ? (
+                        Object.entries(user?.user).map(([key, value]) => (
+                            <Table.Row key={key}>
+                                <Table.Data width="200px">
+                                    {key}
+                                    {Object.keys(editableUserAttr).includes(key) ? '' : '*'}
+                                </Table.Data>
+                                <Table.Data>
+                                    <Text
+                                        style={{
+                                            wordBreak: 'break-all',
+                                        }}
+                                    >
+                                        {JSON.stringify(value)}
+                                    </Text>
+                                </Table.Data>
+                                <Table.Data $align="flex-end" width="50px">
+                                    <ActionMenu
+                                        icon={<DotsThreeVertical />}
+                                        variant="text"
+                                        actions={
+                                            Object.keys(editableUserAttr).includes(key)
+                                                ? [
+                                                      [
+                                                          {
+                                                              label: '값',
+                                                              onClick: () => codeModal(key, value, '500px'),
+                                                          },
+                                                          {
+                                                              label: '수정',
+                                                              onClick: () =>
+                                                                  modal.open(
+                                                                      <ModalUserUpdate
+                                                                          user={user}
+                                                                          userKey={key as keyof typeof editableUserAttr}
+                                                                          initValue={value}
+                                                                          fetchUser={fetchUser}
+                                                                          close={modal.close}
+                                                                      />,
+                                                                      {
+                                                                          width: '500px',
+                                                                      }
+                                                                  ),
+                                                          },
+                                                      ],
+                                                  ]
+                                                : [
+                                                      [
+                                                          {
+                                                              label: 'Value',
+                                                              onClick: () => codeModal(key, value, '500px'),
+                                                          },
+                                                      ],
+                                                  ]
+                                        }
+                                    />
+                                </Table.Data>
+                            </Table.Row>
+                        ))
+                    ) : (
+                        <Table.Row>
+                            <Table.Data>
+                                <Text size="14px">유저 정보가 없습니다</Text>
+                            </Table.Data>
+                        </Table.Row>
+                    )}
+                </Table.TBody>
+            </Table>
         </Flex.Column>
     );
 }
 
-export function CalendarBox({ user }: { user: any }) {
+export function CalendarBox({
+    user,
+}: {
+    user: {
+        user: UserObject;
+        calendars: CalendarObject[];
+    };
+}) {
     const modal = useModal();
     return (
         <Flex.Column id="user-calendar" gap="8px">
-            <Label>Calendars</Label>
+            <Label>Calendars - {user?.calendars?.length || 0}</Label>
             <ItemsTable>
                 {user.calendars && user.calendars.length !== 0 ? (
-                    user?.calendars.map((calendar: any) => (
+                    user?.calendars.map((calendar) => (
                         <ItemsTable.Row key={calendar.id}>
-                            <ItemsTable.Row.Text text={`${calendar.googleCalendarName}`} subText={calendar.id + ''} />
-                            <ItemsTable.Row.Text text={calendar.googleCalendarId} subText={'googleCalendarId'} />
                             <ItemsTable.Row.Text
-                                text={calendar.notionPropertyId || 'not yet'}
-                                subText={'notionPropertyId'}
+                                text={`${calendar.googleCalendarName}`}
+                                subText={calendar.id + ` ${calendar.accessRole === 'reader' && '(읽기 전용)'}`}
                             />
                             <ItemsTable.Row.Status
                                 status={calendar.status === 'CONNECTED' ? 'good' : 'stateless'}

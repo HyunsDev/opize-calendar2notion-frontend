@@ -32,7 +32,7 @@ const Title = styled.div`
     text-decoration: none;
 `;
 
-type Path = 'dashboard' | 'user' | 'syncbot' | 'errors';
+type Path = 'dashboard' | 'users' | 'user' | 'syncbot' | 'errors';
 
 const A = styled.a`
     display: flex;
@@ -98,6 +98,10 @@ function StyledDashboardHeader({ now }: { now: Path }) {
                     dashboard: {
                         text: '대시보드',
                         onClick: () => router.push('/admin'),
+                    },
+                    users: {
+                        text: '유저 리스트',
+                        onClick: () => router.push('/admin/users'),
                     },
                     user: {
                         text: '유저',

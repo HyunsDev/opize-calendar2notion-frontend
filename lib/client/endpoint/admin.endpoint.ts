@@ -1,49 +1,5 @@
 import { Endpoint } from 'endpoint-client';
-
-export type UserEntity = {
-    id: number;
-    name: string;
-    email: string;
-    imageUrl: string;
-    opizeId: number;
-    opizeAccessToken: string;
-    googleId?: string;
-    googleAccessToken?: string;
-    googleRefreshToken?: string;
-    notionAccessToken?: string;
-    notionBotId?: string;
-    notionDatabaseId?: string;
-    lastCalendarSync?: Date;
-    lastSyncStatus?: string;
-    status: 'FIRST' | 'GOOGLE_SET' | 'NOTION_API_SET' | 'NOTION_SET' | 'FINISHED';
-    isConnected: boolean;
-    syncbotId?: string;
-    userPlan: 'FREE' | 'PRO' | 'SPONSOR';
-    userTimeZone: string;
-    notionProps?: string;
-    isWork?: boolean;
-    workStartedAt?: Date;
-    isAdmin: boolean;
-    isPlanUnlimited: boolean;
-    lastPaymentTime: Date;
-    nextPaymentTime: Date;
-    createdAt: Date;
-    updatedAt: Date;
-
-    calendars: {
-        id: number;
-        googleCalendarId: string;
-        googleCalendarName: string;
-        status: 'DISCONNECTED' | 'CONNECTED';
-        accessRole: 'none' | 'freeBusyReader' | 'reader' | 'writer' | 'owner';
-        notionPropertyId: string;
-        createdAt: string;
-    }[];
-    events?: any[];
-    errorLogs?: any[];
-    syncLogs?: any[];
-    paymentLogs?: any[];
-};
+import { CalendarObject, PaymentLogObject, UserObject } from '../object';
 
 // GET /admin/find-user
 export type getAdminFindUserParameter = {
@@ -59,7 +15,11 @@ export const getAdminFindUser: Endpoint<getAdminFindUserParameter, getAdminFindU
     pathParams: [],
     queryParams: ['email', 'googleEmail', 'id', 'opizeId'],
 };
-export type getAdminFindUserResponse = any;
+export type getAdminFindUserResponse = {
+    user: UserObject;
+    calendar: CalendarObject;
+    paymentLogs: PaymentLogObject[];
+};
 
 // GET /admin/working-users
 export type getAdminWorkingUsersParameter = {};
@@ -84,7 +44,7 @@ export const getAdminUser: Endpoint<getAdminUserParameter, getAdminUserResponse>
     queryParams: [],
 };
 export type getAdminUserResponse = {
-    user: UserEntity;
+    user: UserObject;
     calendars: any[];
     paymentLogs: any[];
 };
@@ -205,13 +165,14 @@ export type getAdminStatisticsResponse = {
 export type getAdminErrorsParameter = {
     page: number;
     pageSize: number;
+    userId?: number;
 };
 export const getAdminErrors: Endpoint<getAdminErrorsParameter, getAdminErrorsResponse> = {
     method: 'GET',
     path: () => `/admin/errors`,
     bodyParams: [],
     pathParams: [],
-    queryParams: ['page', 'pageSize'],
+    queryParams: ['page', 'pageSize', 'userId'],
 };
 export type getAdminErrorsResponse = {
     id: number;
@@ -228,7 +189,7 @@ export type getAdminErrorsResponse = {
     finishWork: 'STOP' | 'RETRY';
     createdAt: Date;
     updatedAt: Date;
-    user: UserEntity;
+    user: UserObject;
 }[];
 
 // DELETE /admin/error/:errorId
@@ -243,3 +204,25 @@ export const deleteAdminError: Endpoint<deleteAdminErrorParameter, deleteAdminEr
     queryParams: [],
 };
 export type deleteAdminErrorResponse = {};
+
+// POST /admin/find-users
+export type postAdminFindUsersWhere = {
+    status?: 'FIRST' | 'GOOGLE_SET' | 'NOTION_API_SET' | 'NOTION_SET' | 'FINISHED';
+    isConnected?: boolean;
+    userPlan?: 'FREE' | 'PRO' | 'SPONSOR';
+    isWork?: boolean;
+    isAdmin?: boolean;
+};
+export type postAdminFindUsersParameter = {
+    page: number;
+    where: postAdminFindUsersWhere;
+};
+export type postAdminFindUsersResponse = {
+    page: number;
+    users: UserObject[];
+};
+export const postAdminFindUsers: Endpoint<postAdminFindUsersParameter, postAdminFindUsersResponse> = {
+    method: 'POST',
+    path: '/admin/find-users',
+    bodyParams: ['page', 'where'],
+};

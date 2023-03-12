@@ -28,6 +28,7 @@ import {
     getSyncBotStaticLog,
     deleteAdminUser,
     getSyncBots,
+    postAdminFindUsers,
 } from './endpoint';
 
 export class Client extends EndpointClient {
@@ -53,6 +54,7 @@ export class Client extends EndpointClient {
 
     readonly admin = {
         findUser: this.endpointBuilder(getAdminFindUser),
+        findUsers: this.endpointBuilder(postAdminFindUsers),
         getWorkingUser: this.endpointBuilder(getAdminWorkingUsers),
         getUser: this.endpointBuilder(getAdminUser),
         deleteUser: this.endpointBuilder(deleteAdminUser),

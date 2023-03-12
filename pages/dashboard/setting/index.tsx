@@ -32,17 +32,16 @@ import { useUser } from '../../../hooks/useUser';
 import { client } from '../../../lib/client';
 
 function BoxSync() {
-    const { user } = useUser();
-    const [isSync, setIsSync] = useState(user?.isConnected);
+    const { user, refetch } = useUser();
     const [isLoading, setIsLoading] = useState(false);
 
     const onChange = async () => {
         setIsLoading(true);
-        setIsSync(!isSync);
         await client.user.patch({
             userId: 'me',
-            isConnected: !isSync,
+            isConnected: !user?.isConnected,
         });
+        refetch && (await refetch());
         setIsLoading(false);
     };
 
@@ -54,8 +53,8 @@ function BoxSync() {
                 주의! 3주 이상 동기화가 중단되었다가 실행하는 경우 과거에 변경된 내용이 반영되지 않을 수 있어요
             </Text>
             <Switch
-                text={isSync ? '동기화 중' : '동기화 해제됨'}
-                checked={isSync}
+                text={isLoading ? '동기화 상태 변경 중' : user?.isConnected ? '동기화 중' : '동기화 해제됨'}
+                checked={user?.isConnected}
                 onChange={onChange}
                 disabled={isLoading}
             />
@@ -71,7 +70,14 @@ function BoxAccount() {
             <ItemsTable>
                 <ItemsTable.Row>
                     <ItemsTable.Row.Avatar icon={GCalIcon} name="Google Calendar" label="" />
-                    <ItemsTable.Row.Text text={user?.googleEmail} subText="https://calendar.google.com" />
+                    <ItemsTable.Row.Text
+                        text={user?.googleEmail}
+                        subText={
+                            <A to="https://calendar.google.com" target={'_blank'}>
+                                https://calendar.google.com
+                            </A>
+                        }
+                    />
                 </ItemsTable.Row>
                 <ItemsTable.Row>
                     <ItemsTable.Row.Avatar
@@ -79,7 +85,13 @@ function BoxAccount() {
                         name="Notion"
                         label=""
                     />
-                    <ItemsTable.Row.Text subText={`https://notion.so/${user?.notionDatabaseId.replaceAll('-', '')}`} />
+                    <ItemsTable.Row.Text
+                        subText={
+                            <A to={`https://notion.so/${user?.notionDatabaseId.replaceAll('-', '')}`} target={'_blank'}>
+                                https://notion.so/{user?.notionDatabaseId.replaceAll('-', '')}
+                            </A>
+                        }
+                    />
                 </ItemsTable.Row>
             </ItemsTable>
         </Box>
@@ -197,7 +209,8 @@ const Home: NextPage = () => {
                     <Flex.Column gap="16px">
                         <BoxAccount />
                         <BoxSync />
-                        <BoxTimeZone />
+
+                        {/* <BoxTimeZone /> */}
                         {/* <Switch
                             text="고급 설정 표시"
                             checked={isShowAdvancedSettings}

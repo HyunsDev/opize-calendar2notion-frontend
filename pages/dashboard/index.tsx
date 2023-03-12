@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { PageLayout, H1, Flex, Text, cv, Button, useModal, ToolTip, Spinner, Callout } from 'opize-design-system';
+import { PageLayout, H1, Flex, Text, cv, Button, useModal, ToolTip, Spinner, Callout, A } from 'opize-design-system';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';
@@ -20,12 +20,10 @@ dayjs.locale('ko');
 
 const HelloModal = <Flex.Column>Hello, Calendar2notion!</Flex.Column>;
 
-const A = styled.a``;
-
 const Home: NextPage = () => {
     const router = useRouter();
     const modal = useModal();
-    const { user, isLoading } = useUser();
+    const { user, isLoading, refetch } = useUser();
 
     useEffect(() => {
         const hello = router.query.hello as string;
@@ -36,6 +34,16 @@ const Home: NextPage = () => {
             });
         }
     }, [modal, router, router.query.hello]);
+
+    useEffect(() => {
+        // 30초 마다 정보 가져오기
+        const intervalId = setInterval(async () => {
+            refetch && (await refetch());
+        }, 1000 * 30);
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [refetch]);
 
     return (
         <>
