@@ -50,7 +50,7 @@ const Circle = styled.div<{ color: string }>`
     background-color: ${(props) => props.color};
 `;
 
-const ReadonlyTag = styled.div`
+const NotiTag = styled.div`
     padding: 4px 8px;
     font-size: 12px;
     border-radius: 999px;
@@ -136,9 +136,9 @@ function BoxCalendars() {
                                     {calendar.summary}{' '}
                                     {calendar.accessRole === 'reader' && (
                                         <ToolTip text="이 캘린더에 속한 일정은 수정할 수 없어요. 필요하다면 구글 캘린더에서 수정 권한을 확인해주세요.">
-                                            <ReadonlyTag>
+                                            <NotiTag>
                                                 읽기 전용 <Info color={cv.text3} size={14} />
-                                            </ReadonlyTag>
+                                            </NotiTag>
                                         </ToolTip>
                                     )}{' '}
                                 </Flex.Row>
@@ -146,18 +146,30 @@ function BoxCalendars() {
                         />
 
                         <Flex.Row gap="8px">
-                            {user.calendars.some((e) => calendar.id === e.googleCalendarId) ? (
-                                <Button
-                                    variant="outlined"
-                                    color="red"
-                                    onClick={() =>
-                                        removeCalendarDialog(userCalendar?.id as number, calendar.id, calendar.summary)
-                                    }
-                                    isLoading={loadingCalendars.includes(calendar.id)}
-                                    width="80px"
-                                >
-                                    연결끊기
-                                </Button>
+                            {user.calendars.some((e) => calendar.id === e.googleCalendarId) &&
+                            userCalendar?.status !== 'DISCONNECTED' ? (
+                                <>
+                                    {userCalendar?.status === 'PENDING' && (
+                                        <ToolTip text="현재 캘린더가 동기화되기 위해 대기중이에요.">
+                                            <NotiTag>동기화 대기중</NotiTag>
+                                        </ToolTip>
+                                    )}
+                                    <Button
+                                        variant="outlined"
+                                        color="red"
+                                        onClick={() =>
+                                            removeCalendarDialog(
+                                                userCalendar?.id as number,
+                                                calendar.id,
+                                                calendar.summary
+                                            )
+                                        }
+                                        isLoading={loadingCalendars.includes(calendar.id)}
+                                        width="80px"
+                                    >
+                                        연결끊기
+                                    </Button>
+                                </>
                             ) : user.userPlan === 'FREE' && calendar.id !== user.googleEmail ? (
                                 <Button
                                     variant="default"

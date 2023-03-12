@@ -313,12 +313,14 @@ const Home: NextPage = () => {
     const [errors, setErrors] = useState<getAdminErrorsResponse>([]);
     const [now, setNow] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [userId, setUserId] = useState(-1);
 
     const getError = async (page: number, pageSize: number) => {
         setIsLoading(true);
         const res = await client.admin.errors({
             page,
             pageSize,
+            userId: userId === -1 ? undefined : userId,
         });
         setErrors(res);
         setNow(`${page} 페이지 (${page * pageSize} ~ ${(page + 1) * pageSize - 1})`);
@@ -351,6 +353,13 @@ const Home: NextPage = () => {
                                 value={pageSize}
                                 onChange={(e) => setPageSize(+e.target.value)}
                                 label="PageSize"
+                            />
+                            <TextField
+                                type="number"
+                                min={-1}
+                                value={userId}
+                                onChange={(e) => setUserId(+e.target.value)}
+                                label="userId (-1 is All)"
                             />
                         </Flex.Row>
                         <Flex.Row gap="8px">
