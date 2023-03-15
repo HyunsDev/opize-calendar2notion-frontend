@@ -2,7 +2,20 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { PageLayout, H1, Flex, Text, cv, Button, useModal, ToolTip, Spinner, Callout, A } from 'opize-design-system';
+import {
+    PageLayout,
+    H1,
+    Flex,
+    Text,
+    cv,
+    Button,
+    useModal,
+    ToolTip,
+    Spinner,
+    Callout,
+    A,
+    Box,
+} from 'opize-design-system';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';
@@ -25,15 +38,15 @@ const Home: NextPage = () => {
     const modal = useModal();
     const { user, isLoading, refetch } = useUser();
 
-    useEffect(() => {
-        const hello = router.query.hello as string;
-        if (hello === 'true') {
-            router.replace('/dashboard');
-            modal.open(HelloModal, {
-                width: 400,
-            });
-        }
-    }, [modal, router, router.query.hello]);
+    // useEffect(() => {
+    //     const hello = router.query.hello as string;
+    //     if (hello === 'true') {
+    //         router.replace('/dashboard');
+    //         modal.open(HelloModal, {
+    //             width: 400,
+    //         });
+    //     }
+    // }, [modal, router, router.query.hello]);
 
     useEffect(() => {
         // 30초 마다 정보 가져오기
@@ -59,6 +72,19 @@ const Home: NextPage = () => {
                         </A>
                         에 알려주세요.
                     </Callout>
+                    {dayjs(user?.lastCalendarSync) < dayjs().add(-2, 'hours') && user?.isWork && (
+                        <Callout icon="💡" color="yellow">
+                            교착 상태에 빠진 것 같나요?
+                            <br />
+                            일반적으로 <b>첫 동기화가 아닌 동기화</b>는 1분 내로 완료되는 것이 정상이에요. 그러나 현재
+                            2시간 이상 동기화가 진행중이에요. 만약 노션이나 구글 캘린더에서 동기화가 정상적으로
+                            이루어지지 않고 있다고 생각되면 설정에서 교착상태를 해결해주세요.
+                            <br />
+                            <Link href={'/dashboard/setting'} passHref>
+                                <A href={'/dashboard/setting'}>설정 바로가기</A>
+                            </Link>
+                        </Callout>
+                    )}
                     <Flex.Center>
                         <GCalNotionCircle />
                     </Flex.Center>

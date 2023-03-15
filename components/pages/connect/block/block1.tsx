@@ -7,7 +7,7 @@ import { useUser } from '../../../../hooks/useUser';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { client } from '../../../../lib/client';
-import { ConnectBlockBase } from './components/blockBase';
+import { ConnectBlockBase, ConnectBlockYoutubeDiv } from './components/blockBase';
 
 export function ConnectBlock1() {
     const { start: loadingStart, end: loadingEnd } = useTopLoading();
@@ -38,7 +38,14 @@ export function ConnectBlock1() {
 
     return (
         <ConnectBlockBase>
-            <Image src={Img} height={720} width={1280} alt="" />
+            <ConnectBlockYoutubeDiv>
+                <iframe
+                    src="https://www.youtube.com/embed/IHtn-xdFr0g"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                ></iframe>
+            </ConnectBlockYoutubeDiv>
             <BlockHeader title="노션 통합을 추가해주세요" text='반드시 "개발자가 제공한 템플릿 사용"을 체크해주세요.' />
             <NotionButton
                 onClick={() => {

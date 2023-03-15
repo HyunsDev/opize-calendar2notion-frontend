@@ -6,3 +6,15 @@ export const ConnectBlockBase = styled.div`
     gap: 20px;
     padding: 0px 32px;
 `;
+
+export const ConnectBlockYoutubeDiv = styled.div`
+    width: 100%;
+    height: 229px;
+
+    iframe {
+        border: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+    }
+`;

@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { client } from '../../../../lib/client';
 import { useUser } from '../../../../hooks/useUser';
-import { ConnectBlockBase } from './components/blockBase';
+import { ConnectBlockBase, ConnectBlockYoutubeDiv } from './components/blockBase';
 import { APIResponseError } from '../../../../lib/old-client';
 
 export function ConnectBlock0({}: {}) {
@@ -49,7 +49,15 @@ export function ConnectBlock0({}: {}) {
 
     return (
         <ConnectBlockBase>
-            <Image src={Img} height={720} width={1280} alt="" />
+            <ConnectBlockYoutubeDiv>
+                <iframe
+                    src="https://www.youtube.com/embed/hdu19m0xMr4"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                ></iframe>
+            </ConnectBlockYoutubeDiv>
+
             <BlockHeader title="먼저 구글 캘린더에 로그인할게요." text="반드시 구글 캘린더 권한을 체크해주세요!" />
             <GoogleLoginButton onClick={() => googleLogin()}>구글로 계속하기</GoogleLoginButton>
         </ConnectBlockBase>

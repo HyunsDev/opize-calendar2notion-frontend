@@ -36,11 +36,12 @@ export type patchUserParameters = {
     imageUrl?: string;
     isConnected?: boolean;
     userTimeZone?: string;
+    isWork?: boolean;
 };
 export const patchUser: Endpoint<patchUserParameters, patchUserResponse> = {
     method: 'PATCH',
     path: (e) => `/user/${e.userId}`,
-    bodyParams: ['imageUrl', 'isConnected', 'name', 'userTimeZone'],
+    bodyParams: ['imageUrl', 'isConnected', 'name', 'userTimeZone', 'isWork'],
     pathParams: ['userId'],
     queryParams: [],
 };
