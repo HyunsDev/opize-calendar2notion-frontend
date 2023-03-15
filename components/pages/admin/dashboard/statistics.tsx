@@ -47,25 +47,29 @@ export function AdminDashboardStatistics() {
                 <ItemsTable.Row.Avatar icon={<User />} name="유저 수" flex={2} />
                 <ItemsTable.Row.Text text={statistics.user.all + ''} subText="전체 유저 수" flex={1} />
                 <ItemsTable.Row.Text
-                    text={`${statistics.user.plan.free} (${(statistics.user.plan.free / statistics.user.all) * 100}%)`}
+                    text={`${statistics.user.plan.free} (${
+                        Math.round((statistics.user.plan.free / statistics.user.all) * 1000) / 10
+                    }%)`}
                     subText="Free 플랜"
                     flex={1}
                 />
                 <ItemsTable.Row.Text
-                    text={`${statistics.user.plan.pro} (${(statistics.user.plan.pro / statistics.user.all) * 100}%)`}
+                    text={`${statistics.user.plan.pro} (${
+                        Math.round((statistics.user.plan.pro / statistics.user.all) * 1000) / 10
+                    }%)`}
                     subText="Pro 플랜"
                     flex={1}
                 />
                 <ItemsTable.Row.Text
                     text={`${statistics.user.connect.connected} (${
-                        (statistics.user.connect.connected / statistics.user.all) * 100
+                        Math.round((statistics.user.connect.connected / statistics.user.all) * 1000) / 10
                     }%)`}
                     subText="연결 유저"
                     flex={1}
                 />
                 <ItemsTable.Row.Text
                     text={`${statistics.user.connect.disconnected} (${
-                        (statistics.user.connect.disconnected / statistics.user.all) * 100
+                        Math.round((statistics.user.connect.disconnected / statistics.user.all) * 1000) / 10
                     }%)`}
                     subText="비연결 유저"
                     flex={1}

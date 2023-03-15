@@ -92,23 +92,48 @@ const Home: NextPage = () => {
                         {isLoading && <Spinner />}
                         {!isLoading &&
                             (!user?.lastCalendarSync ? (
-                                <Flex.Column gap="4px">
-                                    <Flex.Row gap="4px">
-                                        <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
-                                            첫 동기화 대기중이에요!
+                                user?.isWork ? (
+                                    <Flex.Column gap="4px">
+                                        <Flex.Row gap="4px">
+                                            <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
+                                                첫 동기화 진행중이에요!!
+                                            </Text>
+                                            <ToolTip text="구글 캘린더의 일정을 노션으로 옮기는 중이에요. 캘린더의 일정 수에 따라 수십 분에서 수 시간정도 걸릴 수 있어요.">
+                                                <Info size={20} color={cv.text2} />
+                                            </ToolTip>
+                                        </Flex.Row>
+                                        <Text color={cv.text3} style={{ textAlign: 'center' }}>
+                                            첫 동기화이므로, 오랜 시간이 걸릴 수 있어요.
                                         </Text>
-                                        <ToolTip text="구글 캘린더의 일정을 노션으로 옮기는 중이에요. 캘린더의 일정 수에 따라 수십 분에서 수 시간정도 걸릴 수 있어요.">
-                                            <Info size={20} color={cv.text2} />
-                                        </ToolTip>
-                                    </Flex.Row>
+                                    </Flex.Column>
+                                ) : (
+                                    <Flex.Column gap="4px">
+                                        <Flex.Row gap="4px">
+                                            <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
+                                                첫 동기화 대기중이에요!
+                                            </Text>
+                                            <ToolTip text="구글 캘린더의 일정을 노션으로 옮기는 중이에요. 캘린더의 일정 수에 따라 수십 분에서 수 시간정도 걸릴 수 있어요.">
+                                                <Info size={20} color={cv.text2} />
+                                            </ToolTip>
+                                        </Flex.Row>
+                                        <Text color={cv.text3} style={{ textAlign: 'center' }}>
+                                            조금만 기다리면 동기화가 시작되요
+                                        </Text>
+                                    </Flex.Column>
+                                )
+                            ) : user?.isConnected ? (
+                                <Flex.Column gap="4px">
+                                    <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
+                                        {user.isWork ? '지금 동기화가 진행중이에요' : '정상적으로 동기화되고 있어요'}
+                                    </Text>
                                     <Text color={cv.text3} style={{ textAlign: 'center' }}>
-                                        조금만 기다리면 동기화가 시작되요
+                                        {dayjs(user?.lastCalendarSync).fromNow()}에 마지막으로 동기화 되었어요
                                     </Text>
                                 </Flex.Column>
                             ) : (
                                 <Flex.Column gap="4px">
                                     <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
-                                        {user.isWork ? '지금 동기화가 진행중이에요' : '정상적으로 동기화되고 있어요'}
+                                        {'동기화가 중단되었어요.'}
                                     </Text>
                                     <Text color={cv.text3} style={{ textAlign: 'center' }}>
                                         {dayjs(user?.lastCalendarSync).fromNow()}에 마지막으로 동기화 되었어요
