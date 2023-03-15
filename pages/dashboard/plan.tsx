@@ -38,17 +38,6 @@ const Home: NextPage = () => {
             <DashboardHeader now="plan" />
             <BoxLayout minHeight="calc(100vh - 131px - 337px)" width="1000px" marginTop="8px">
                 <Flex.Column>
-                    <Callout icon="📢">
-                        베타 버전에서는 플랜을 구독할 수 없어요. <br /> 테스트를 위한 플랜을 지급해드리니 필요하신 분은{' '}
-                        <A href="https://open.kakao.com/me/hyunsdev" target={'_blank'} style={{ fontSize: '14px' }}>
-                            1:1 오픈채팅방
-                        </A>
-                        이나{' '}
-                        <A href="https://open.kakao.com/o/gIBnhE4e" target={'_blank'} style={{ fontSize: '14px' }}>
-                            베타 오픈채팅방
-                        </A>
-                        에서 알려주세요!
-                    </Callout>
                     <Title>더 빠르게, 더 다양하게 동기화 해보세요.</Title>
                     <Cards>
                         <PlanCardFree />

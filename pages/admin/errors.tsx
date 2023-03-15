@@ -165,7 +165,6 @@ function BoxErrors({ errors, refresh }: { errors?: getAdminErrorsResponse; refre
                         <Table.Head>에러 코드 및 설명</Table.Head>
                         <Table.Head>에러 위치</Table.Head>
                         <Table.Head>레벨</Table.Head>
-                        <Table.Head>종료후 단계</Table.Head>
                         <Table.Head>발생한 시간</Table.Head>
                         <Table.Head $align="flex-end" width="50px"></Table.Head>
                     </Table.Row>
@@ -194,7 +193,6 @@ function BoxErrors({ errors, refresh }: { errors?: getAdminErrorsResponse; refre
                                             )}
                                         </Flex.Row>
                                     </Table.Data>
-
                                     <Table.Data>
                                         <ToolTip text={error.description}>{error.code}</ToolTip>
                                     </Table.Data>
@@ -202,7 +200,6 @@ function BoxErrors({ errors, refresh }: { errors?: getAdminErrorsResponse; refre
                                     <Table.Data>
                                         <StatusBadge color={colorMap[error.level]} text={error.level} />
                                     </Table.Data>
-                                    <Table.Data>{error.finishWork}</Table.Data>
                                     <Table.Data>
                                         {dayjs(error.createdAt).format('MM.DD HH:mm:ss')} (
                                         {dayjs(error.createdAt).fromNow()})
@@ -259,45 +256,6 @@ function BoxErrors({ errors, refresh }: { errors?: getAdminErrorsResponse; refre
                                             variant="text"
                                         />
                                     </Table.Data>
-
-                                    {/* <ItemsTable.Row.Avatar
-                                    icon={<Img src={error?.user?.imageUrl || ''} alt="" />}
-                                    name={
-                                        error.user
-                                            ? `${error.user?.name} #${error.user.id}|${error.user.opizeId}`
-                                            : '알 수 없음'
-                                    }
-                                    label={`${dayjs(error.createdAt).fromNow()}`}
-                                    flex={1}
-                                />
-                                <ItemsTable.Row.Text
-                                    text={`[${error.id}] ${error.code}`}
-                                    subText={error.description}
-                                    flex={2}
-                                />
-                                <ItemsTable.Row.Text
-                                    text={`from ${error.from}`}
-                                    subText={`${error.showUser ? '공개' : '비공개'} ${
-                                        error.archive ? '(아카이브됨)' : ''
-                                    }`}
-                                    flex={1}
-                                />
-                                <ItemsTable.Row.Status
-                                    status={statusMap[error.level]}
-                                    text={error.level}
-                                    label={error.finishWork}
-                                    flex={1}
-                                />
-                                <ItemsTable.Row.Status
-                                    status={error.user ? (error.user.isConnected ? 'good' : 'warning') : 'stateless'}
-                                    text={
-                                        error.user
-                                            ? `${error.user.isConnected ? '동기화중' : '동기화 정지'}`
-                                            : '알 수 없음'
-                                    }
-                                    label={'현재 유저 상태'}
-                                    flex={1}
-                                /> */}
                                 </Table.Row>
                             ))
                         ))}

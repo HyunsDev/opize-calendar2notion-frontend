@@ -54,9 +54,9 @@ export function PlanCardSponsor() {
         <Divver>
             <PlanName>Sponsor</PlanName>
             <Price>
-                20000₩ + α<span>/개월</span>
+                240000₩ + α<span>/연</span>
             </Price>
-            <PriceByYear>240000₩ + α/연</PriceByYear>
+            <PriceByYear>20000₩ + α/개월</PriceByYear>
             <Desc>대학교 1학년 1인 개발자를 후원하기 위한 플랜</Desc>
             <Flex.Column gap="8px" style={{ marginTop: '40px' }}>
                 <Item>

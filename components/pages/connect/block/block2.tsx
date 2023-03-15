@@ -4,7 +4,7 @@ import { client } from '../../../../lib/client';
 import { BlockHeader } from './components/blockHeader';
 import { NotionButton } from './components/notionBtn';
 import Image from 'next/image';
-import Img from '../../../../assets/connect/placeholder.png';
+import Img from '../../../../assets/connect/Calendar2notion.png';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
