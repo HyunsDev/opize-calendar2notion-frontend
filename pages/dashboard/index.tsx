@@ -105,10 +105,19 @@ const Home: NextPage = () => {
                                         조금만 기다리면 동기화가 시작되요
                                     </Text>
                                 </Flex.Column>
-                            ) : (
+                            ) : user?.isConnected ? (
                                 <Flex.Column gap="4px">
                                     <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
                                         {user.isWork ? '지금 동기화가 진행중이에요' : '정상적으로 동기화되고 있어요'}
+                                    </Text>
+                                    <Text color={cv.text3} style={{ textAlign: 'center' }}>
+                                        {dayjs(user?.lastCalendarSync).fromNow()}에 마지막으로 동기화 되었어요
+                                    </Text>
+                                </Flex.Column>
+                            ) : (
+                                <Flex.Column gap="4px">
+                                    <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
+                                        {'동기화가 중단되었어요.'}
                                     </Text>
                                     <Text color={cv.text3} style={{ textAlign: 'center' }}>
                                         {dayjs(user?.lastCalendarSync).fromNow()}에 마지막으로 동기화 되었어요
