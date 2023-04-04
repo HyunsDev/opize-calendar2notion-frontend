@@ -185,7 +185,13 @@ function BoxErrors({ errors, refresh }: { errors?: getAdminErrorsResponse; refre
                                             {error.user && <Avatar src={error.user?.imageUrl} size={28} />}
                                             {error.user ? (
                                                 <StatusBadge
-                                                    color={error.user.isConnected ? 'green' : 'yellow'}
+                                                    color={
+                                                        error.user.isConnected
+                                                            ? 'green'
+                                                            : error.user.lastSyncStatus
+                                                            ? 'red'
+                                                            : 'yellow'
+                                                    }
                                                     text={error.user.name}
                                                 />
                                             ) : (
