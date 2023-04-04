@@ -218,7 +218,13 @@ const Home: NextPage = () => {
                                                 {user && <Avatar src={user?.imageUrl} size={28} />}
                                                 {user ? (
                                                     <StatusBadge
-                                                        color={user.isConnected ? 'green' : 'yellow'}
+                                                        color={
+                                                            user.isConnected
+                                                                ? 'green'
+                                                                : user.lastSyncStatus
+                                                                ? 'red'
+                                                                : 'yellow'
+                                                        }
                                                         text={user.name}
                                                     />
                                                 ) : (

@@ -129,22 +129,44 @@ export function UserBox({ user, fetchUser }: { user: getAdminUserResponse; fetch
     const modal = useModal();
     const codeModal = useCodeModal();
 
+    let userStatusToken: React.ReactNode = <></>;
+    if (user.user) {
+        if (user.user.isConnected) {
+            if (user.user.isWork) {
+                userStatusToken = (
+                    <Token variant="outlined" color="blue">
+                        동기화 작업 중
+                    </Token>
+                );
+            } else {
+                userStatusToken = (
+                    <Token variant="outlined" color="green">
+                        연결됨
+                    </Token>
+                );
+            }
+        } else {
+            if (!user.user.lastSyncStatus) {
+                userStatusToken = (
+                    <Token variant="outlined" color="yellow">
+                        연결 해제됨
+                    </Token>
+                );
+            } else {
+                userStatusToken = (
+                    <Token variant="outlined" color="red">
+                        오류로 인한 정지
+                    </Token>
+                );
+            }
+        }
+    }
+
     return (
         <Flex.Column id="user-user" gap="8px">
             <Flex.Row gap="8px">
                 <Label>User</Label>
-                {user.user && (
-                    <Token
-                        variant="outlined"
-                        color={user.user && !user.user.isConnected ? 'yellow' : user.user.isWork ? 'blue' : 'green'}
-                    >
-                        {user.user && !user.user.isConnected
-                            ? '연결 해제됨'
-                            : user.user.isWork
-                            ? '동기화 작업 중'
-                            : '연결됨'}
-                    </Token>
-                )}
+                {userStatusToken}
             </Flex.Row>
             <Table>
                 <Table.THead>
