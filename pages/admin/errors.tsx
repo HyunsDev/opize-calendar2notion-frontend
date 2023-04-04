@@ -210,10 +210,23 @@ function BoxErrors({ errors, refresh }: { errors?: getAdminErrorsResponse; refre
                                                 [
                                                     {
                                                         label: 'Detail',
-                                                        onClick: () =>
-                                                            modal.open(<Pre>{error.detail}</Pre>, {
+                                                        onClick: () => {
+                                                            let code: string;
+                                                            try {
+                                                                code = JSON.stringify(
+                                                                    JSON.parse(error.detail || ''),
+                                                                    null,
+                                                                    2
+                                                                );
+                                                            } catch (err) {
+                                                                code =
+                                                                    error.detail || '(Detail이 포함되어 있지 않습니다)';
+                                                            }
+
+                                                            modal.open(<Pre>{code}</Pre>, {
                                                                 width: 500,
-                                                            }),
+                                                            });
+                                                        },
                                                     },
                                                     {
                                                         label: 'Stack',
