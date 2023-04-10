@@ -77,7 +77,7 @@ export function AdminUserPlanUpgrade({ userId, fetchUser }: { userId: number; fe
                         {...register('price', {
                             required: '필수 항목이에요.',
                         })}
-                        defaultValue="12000"
+                        defaultValue="24000"
                         error={errors.price?.message}
                     ></TextField>
                     <TextField
