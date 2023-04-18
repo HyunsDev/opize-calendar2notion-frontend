@@ -32,6 +32,8 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
+import { CalendarObject, GoogleCalendarObject } from '../../../lib/client/object';
+import { APIResponseError } from 'endpoint-client';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 
@@ -61,33 +63,52 @@ const NotiTag = styled.div`
     gap: 4px;
 `;
 
-function BoxCalendars() {
+function CalendarItem({ calendar, userCalendar }: { calendar: GoogleCalendarObject; userCalendar?: CalendarObject }) {
     const router = useRouter();
     const dialog = useDialog();
     const { user, refetch } = useUser();
-    const [loadingCalendars, setLoadingCalendars] = useState<string[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    if (!user) return <></>;
 
     const addCalendar = async (googleCalendarId: string, isReadonly: boolean) => {
-        if (loadingCalendars.includes(googleCalendarId)) return;
+        if (isLoading) return;
         if (user?.userPlan === 'FREE' && googleCalendarId !== user.googleEmail) {
             toast.warn('해당 캘린더는 Pro 플랜부터 이용할 수 있어요.');
             return;
         }
 
-        setLoadingCalendars((pre) => [...pre, googleCalendarId]);
+        setIsLoading(true);
         try {
             await client.user.calendar.post({ googleCalendarId: googleCalendarId, userId: 'me' });
         } catch (err) {
-            toast.warn('문제가 발생했어요. 잠시 뒤에 다시 시도해주세요.');
-            if (refetch) await refetch();
+            setIsLoading(false);
+            if (err instanceof APIResponseError) {
+                if (err.body.code === 'same_name_calendar_exist') {
+                    dialog({
+                        title: '이미 같은 이름의 캘린더가 연결되어 있어요.',
+                        content: '연결하러는 캘린더의 이름을 구글 캘린더에서 변경한 뒤 다시 시도해주세요.',
+                        buttons: [
+                            {
+                                children: '확인',
+                                onClick: () => null,
+                            },
+                        ],
+                    });
+                    return;
+                }
+            } else {
+                toast.warn('문제가 발생했어요. 잠시 뒤에 다시 시도해주세요.');
+                if (refetch) await refetch();
+            }
         }
         if (refetch) await refetch();
-        setLoadingCalendars((pre) => pre.filter((e) => e !== googleCalendarId));
+        setIsLoading(false);
     };
 
     const removeCalendar = async (calendarId: number, googleCalendarId: string) => {
-        if (loadingCalendars.includes(googleCalendarId)) return;
-        setLoadingCalendars((pre) => [...pre, googleCalendarId]);
+        if (isLoading) return;
+        setIsLoading(true);
         try {
             const res = await client.user.calendar.delete({ calendarId: calendarId + '', userId: 'me' });
             if (res.code === 'user_is_work') {
@@ -100,12 +121,12 @@ function BoxCalendars() {
             if (refetch) await refetch();
         }
         if (refetch) await refetch();
-        setLoadingCalendars((pre) => pre.filter((e) => e !== googleCalendarId));
+        setIsLoading(false);
     };
 
     const removeCalendarDialog = (calendarId: number, googleCalendarId: string, calendarName: string) => {
         dialog({
-            title: `정말로 ${calendarName}캘린더를 삭제하시겠어요?`,
+            title: `정말로 ${calendarName} 캘린더를 삭제하시겠어요?`,
             content: '캘린더를 삭제할 경우 노션에서 작성한 페이지도 함께 삭제되요.',
             buttons: [
                 {
@@ -123,75 +144,88 @@ function BoxCalendars() {
     };
 
     return (
+        <ItemsTable.Row key={calendar.id}>
+            <ItemsTable.Row.Avatar
+                icon={<Circle color={calendar.backgroundColor} />}
+                name={
+                    <Flex.Row gap="8px">
+                        {calendar.summary}{' '}
+                        {userCalendar &&
+                            calendar.summary !== userCalendar.googleCalendarName &&
+                            `(${userCalendar.googleCalendarName})`}{' '}
+                        {userCalendar && calendar.summary !== userCalendar.googleCalendarName && (
+                            <ToolTip text="구글 캘린더의 이름이 변경되었어요. 노션에는 반영되지 않아요. 해당 기능은 추후 제공될 예정이에요.">
+                                <NotiTag>
+                                    이름 변경됨 <Info color={cv.text3} size={14} />
+                                </NotiTag>
+                            </ToolTip>
+                        )}{' '}
+                        {calendar.accessRole === 'reader' && (
+                            <ToolTip text="이 캘린더에 속한 일정은 수정할 수 없어요. 필요하다면 구글 캘린더에서 수정 권한을 확인해주세요.">
+                                <NotiTag>
+                                    읽기 전용 <Info color={cv.text3} size={14} />
+                                </NotiTag>
+                            </ToolTip>
+                        )}{' '}
+                    </Flex.Row>
+                }
+            />
+
+            <Flex.Row gap="8px">
+                {calendar && userCalendar && userCalendar?.status !== 'DISCONNECTED' ? (
+                    <>
+                        {userCalendar?.status === 'PENDING' && (
+                            <ToolTip text="현재 캘린더가 동기화되기 위해 대기중이에요.">
+                                <NotiTag>동기화 대기중</NotiTag>
+                            </ToolTip>
+                        )}
+                        <Button
+                            variant="outlined"
+                            color="red"
+                            onClick={() =>
+                                removeCalendarDialog(userCalendar?.id as number, calendar.id, calendar.summary)
+                            }
+                            isLoading={isLoading}
+                            width="80px"
+                        >
+                            연결끊기
+                        </Button>
+                    </>
+                ) : user.userPlan === 'FREE' && calendar.id !== user.googleEmail ? (
+                    <Button
+                        variant="default"
+                        onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
+                        isLoading={isLoading}
+                        width="150px"
+                    >
+                        플랜 업그레이드 필요
+                    </Button>
+                ) : (
+                    <Button
+                        variant="contained"
+                        onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
+                        isLoading={isLoading}
+                        width="80px"
+                    >
+                        연결하기
+                    </Button>
+                )}
+            </Flex.Row>
+        </ItemsTable.Row>
+    );
+}
+
+function BoxCalendars() {
+    const router = useRouter();
+    const dialog = useDialog();
+    const { user, refetch } = useUser();
+
+    return (
         <ItemsTable>
             {user?.googleCalendars?.map((calendar) => {
                 const userCalendar = user.calendars.find((e) => e.googleCalendarId === calendar.id);
 
-                return (
-                    <ItemsTable.Row key={calendar.id}>
-                        <ItemsTable.Row.Avatar
-                            icon={<Circle color={calendar.backgroundColor} />}
-                            name={
-                                <Flex.Row gap="8px">
-                                    {calendar.summary}{' '}
-                                    {calendar.accessRole === 'reader' && (
-                                        <ToolTip text="이 캘린더에 속한 일정은 수정할 수 없어요. 필요하다면 구글 캘린더에서 수정 권한을 확인해주세요.">
-                                            <NotiTag>
-                                                읽기 전용 <Info color={cv.text3} size={14} />
-                                            </NotiTag>
-                                        </ToolTip>
-                                    )}{' '}
-                                </Flex.Row>
-                            }
-                        />
-
-                        <Flex.Row gap="8px">
-                            {user.calendars.some((e) => calendar.id === e.googleCalendarId) &&
-                            userCalendar?.status !== 'DISCONNECTED' ? (
-                                <>
-                                    {userCalendar?.status === 'PENDING' && (
-                                        <ToolTip text="현재 캘린더가 동기화되기 위해 대기중이에요.">
-                                            <NotiTag>동기화 대기중</NotiTag>
-                                        </ToolTip>
-                                    )}
-                                    <Button
-                                        variant="outlined"
-                                        color="red"
-                                        onClick={() =>
-                                            removeCalendarDialog(
-                                                userCalendar?.id as number,
-                                                calendar.id,
-                                                calendar.summary
-                                            )
-                                        }
-                                        isLoading={loadingCalendars.includes(calendar.id)}
-                                        width="80px"
-                                    >
-                                        연결끊기
-                                    </Button>
-                                </>
-                            ) : user.userPlan === 'FREE' && calendar.id !== user.googleEmail ? (
-                                <Button
-                                    variant="default"
-                                    onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
-                                    isLoading={loadingCalendars.includes(calendar.id)}
-                                    width="150px"
-                                >
-                                    플랜 업그레이드 필요
-                                </Button>
-                            ) : (
-                                <Button
-                                    variant="contained"
-                                    onClick={() => addCalendar(calendar.id, calendar.accessRole === 'reader')}
-                                    isLoading={loadingCalendars.includes(calendar.id)}
-                                    width="80px"
-                                >
-                                    연결하기
-                                </Button>
-                            )}
-                        </Flex.Row>
-                    </ItemsTable.Row>
-                );
+                return <CalendarItem calendar={calendar} userCalendar={userCalendar} key={calendar.id} />;
             })}
         </ItemsTable>
     );
