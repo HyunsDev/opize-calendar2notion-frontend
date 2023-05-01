@@ -78,7 +78,7 @@ function ModalUserUpdate({
     const apply = async () => {
         try {
             const _value = editableUserAttr[userKey] === 'number' ? +value : value;
-            await client.admin.patchUser({
+            await client.admin.user.patch({
                 userId: user.user.id,
                 [userKey]: _value,
             });
@@ -125,7 +125,7 @@ function ModalUserUpdate({
     );
 }
 
-export function UserBox({ user, fetchUser }: { user: getAdminUserResponse; fetchUser: () => void }) {
+export function UserTable({ user, fetchUser }: { user: getAdminUserResponse; fetchUser: () => void }) {
     const modal = useModal();
     const codeModal = useCodeModal();
 
@@ -349,7 +349,7 @@ export function PaymentLogBox({ user }: { user: any }) {
 export function AdminUserInfo({ user, fetchUser }: { user: any; fetchUser: () => void }) {
     return (
         <Flex.Column gap="60px">
-            <UserBox user={user} fetchUser={fetchUser} />
+            <UserTable user={user} fetchUser={fetchUser} />
             <CalendarBox user={user} />
             <PaymentLogBox user={user} />
         </Flex.Column>

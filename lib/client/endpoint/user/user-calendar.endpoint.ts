@@ -7,7 +7,7 @@ export type postUserCalendarParameter = {
 };
 export const postUserCalendar: Endpoint<postUserCalendarParameter, postUserCalendarResponse> = {
     method: 'POST',
-    path: (e) => `/user/${e.userId}/calendar`,
+    path: (e) => `/users/${e.userId}/calendar`,
     bodyParams: ['googleCalendarId'],
     pathParams: ['userId'],
     queryParams: [],
@@ -21,7 +21,7 @@ export type deleteUserCalendarParameter = {
 };
 export const deleteUserCalendar: Endpoint<deleteUserCalendarParameter, deleteUserCalendarResponse> = {
     method: 'DELETE',
-    path: (e) => `/user/${e.userId}/calendar/${e.calendarId}`,
+    path: (e) => `/users/${e.userId}/calendar/${e.calendarId}`,
     bodyParams: [],
     pathParams: ['userId', 'calendarId'],
     queryParams: [],

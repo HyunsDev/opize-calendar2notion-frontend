@@ -104,7 +104,7 @@ function ModalUserUpdate({
 
     const apply = async () => {
         try {
-            await client.admin.patchUser({
+            await client.admin.user.patch({
                 userId,
                 isConnected: value,
             });
@@ -132,14 +132,14 @@ function ModalUserUpdate({
     );
 }
 
-function BoxErrors({ errors, refresh }: { errors?: getAdminErrorsResponse; refresh: () => void }) {
+function BoxErrors({ errors, refresh }: { errors?: getAdminErrorsResponse['errorLogs']; refresh: () => void }) {
     const codeModal = useCodeModal();
     const modal = useModal();
     const router = useRouter();
 
     const deleteError = async (id: number) => {
         try {
-            await client.admin.deleteError({
+            await client.admin.error.delete({
                 errorId: id,
             });
             refresh();
@@ -285,28 +285,36 @@ function BoxErrors({ errors, refresh }: { errors?: getAdminErrorsResponse; refre
 }
 
 const Home: NextPage = () => {
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(50);
-    const [errors, setErrors] = useState<getAdminErrorsResponse>([]);
+    const [errors, setErrors] = useState<getAdminErrorsResponse['errorLogs']>([]);
     const [now, setNow] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [userId, setUserId] = useState(-1);
+    const [userId, setUserId] = useState('');
 
     const getError = async (page: number, pageSize: number) => {
         setIsLoading(true);
-        const res = await client.admin.errors({
+        const res = await client.admin.error.list({
             page,
             pageSize,
-            userId: userId === -1 ? undefined : userId,
+            userId: userId ? +userId : undefined,
         });
-        setErrors(res);
+        setErrors(res.errorLogs);
+        console.log(res);
+
         setNow(`${page} 페이지 (${page * pageSize} ~ ${(page + 1) * pageSize - 1})`);
 
         setIsLoading(false);
     };
 
+    const inputUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (/^[0-9]*$/.test(e.target.value)) {
+            setUserId(e.target.value);
+        }
+    };
+
     useEffect(() => {
-        getError(0, 50);
+        getError(1, 50);
     }, []);
 
     return (
@@ -325,18 +333,10 @@ const Home: NextPage = () => {
                                 label="Page"
                             />
                             <TextField
-                                type="number"
-                                min={1}
-                                value={pageSize}
-                                onChange={(e) => setPageSize(+e.target.value)}
-                                label="PageSize"
-                            />
-                            <TextField
-                                type="number"
-                                min={-1}
+                                type="text"
                                 value={userId}
-                                onChange={(e) => setUserId(+e.target.value)}
-                                label="userId (-1 is All)"
+                                onChange={(e) => inputUserId(e)}
+                                label="Search User"
                             />
                         </Flex.Row>
                         <Flex.Row gap="8px">

@@ -7,7 +7,7 @@ export type postConnectGoogleAPIParameters = {
 };
 export const postConnectGoogleAPI: Endpoint<postConnectGoogleAPIParameters, postConnectGoogleAPIResponse> = {
     method: 'POST',
-    path: (e) => `/user/${e.userId}/connect/google-api`,
+    path: (e) => `/users/${e.userId}/connect/google-api`,
     bodyParams: ['code'],
     pathParams: ['userId'],
     queryParams: [],
@@ -21,7 +21,7 @@ export type postConnectNotionAPIParameters = {
 };
 export const postConnectNotionAPI: Endpoint<postConnectNotionAPIParameters, postConnectNotionAPIResponse> = {
     method: 'POST',
-    path: (e) => `/user/${e.userId}/connect/notion-api`,
+    path: (e) => `/users/${e.userId}/connect/notion-api`,
     bodyParams: ['code'],
     pathParams: ['userId'],
     queryParams: [],
@@ -37,7 +37,7 @@ export const getConnectNotionDatabases: Endpoint<
     getConnectNotionDatabasesResponse
 > = {
     method: 'GET',
-    path: (e) => `/user/${e.userId}/connect/notion-database`,
+    path: (e) => `/users/${e.userId}/connect/notion-database`,
     bodyParams: [],
     pathParams: ['userId'],
     queryParams: [],
@@ -54,7 +54,7 @@ export const postConnectNotionDatabase: Endpoint<
     postConnectNotionDatabaseResponse
 > = {
     method: 'POST',
-    path: (e) => `/user/${e.userId}/connect/notion-database`,
+    path: (e) => `/users/${e.userId}/connect/notion-database`,
     bodyParams: ['id'],
     pathParams: ['userId'],
     queryParams: [],

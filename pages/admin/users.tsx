@@ -29,10 +29,10 @@ import { AdminUserDelete } from '../../components/pages/admin/user/userDelete';
 import { client } from '../../lib/client';
 import { toast } from 'react-toastify';
 import { Footer } from '../../components/footer';
-import { postAdminFindUsersWhere } from '../../lib/client/endpoint';
 import { UserObject } from '../../lib/client/object';
 import { Check, DotsThreeVertical } from 'phosphor-react';
 import { useRouter } from 'next/router';
+import { getAdminFindUsersWhere } from '../../lib/client/endpoint';
 
 const Home: NextPage = () => {
     const modal = useModal();
@@ -40,14 +40,14 @@ const Home: NextPage = () => {
     const router = useRouter();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [page, setPage] = useState(0);
-    const [where, setWhere] = useState<postAdminFindUsersWhere>({});
+    const [page, setPage] = useState(1);
+    const [where, setWhere] = useState<getAdminFindUsersWhere>({});
     const [users, setUsers] = useState<UserObject[]>([]);
 
     const findUsers = async () => {
         try {
             setIsLoading(true);
-            const res = await client.admin.findUsers({
+            const res = await client.admin.user.find({
                 page: page,
                 where: where,
             });
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
                                         }
                                         return {
                                             ...where,
-                                            status: e.target.value as postAdminFindUsersWhere['status'],
+                                            status: e.target.value as getAdminFindUsersWhere['status'],
                                         };
                                     })
                                 }
@@ -128,7 +128,7 @@ const Home: NextPage = () => {
                                         }
                                         return {
                                             ...where,
-                                            userPlan: e.target.value as postAdminFindUsersWhere['userPlan'],
+                                            userPlan: e.target.value as getAdminFindUsersWhere['userPlan'],
                                         };
                                     })
                                 }

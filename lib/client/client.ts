@@ -12,7 +12,6 @@ import {
     postUserCalendar,
     deleteUserCalendar,
     getAdminFindUser,
-    getAdminWorkingUsers,
     getAdminUser,
     deleteAdminError,
     patchAdminUser,
@@ -28,7 +27,7 @@ import {
     getSyncBotStaticLog,
     deleteAdminUser,
     getSyncBots,
-    postAdminFindUsers,
+    getAdminFindUsers,
 } from './endpoint';
 
 export class Client extends EndpointClient {
@@ -53,16 +52,23 @@ export class Client extends EndpointClient {
     };
 
     readonly admin = {
-        findUser: this.endpointBuilder(getAdminFindUser),
-        findUsers: this.endpointBuilder(postAdminFindUsers),
-        getWorkingUser: this.endpointBuilder(getAdminWorkingUsers),
-        getUser: this.endpointBuilder(getAdminUser),
-        deleteUser: this.endpointBuilder(deleteAdminUser),
-        patchUser: this.endpointBuilder(patchAdminUser),
-        userPlanUpdate: this.endpointBuilder(postAdminUserPlanUpdate),
-        statistics: this.endpointBuilder(getAdminStatistics),
-        errors: this.endpointBuilder(getAdminErrors),
-        deleteError: this.endpointBuilder(deleteAdminError),
+        user: {
+            findOne: this.endpointBuilder(getAdminFindUser),
+            find: this.endpointBuilder(getAdminFindUsers),
+            get: this.endpointBuilder(getAdminUser),
+            delete: this.endpointBuilder(deleteAdminUser),
+            patch: this.endpointBuilder(patchAdminUser),
+            plan: {
+                upgrade: this.endpointBuilder(postAdminUserPlanUpdate),
+            },
+        },
+        statistics: {
+            get: this.endpointBuilder(getAdminStatistics),
+        },
+        error: {
+            list: this.endpointBuilder(getAdminErrors),
+            delete: this.endpointBuilder(deleteAdminError),
+        },
     };
 
     readonly syncbot = {

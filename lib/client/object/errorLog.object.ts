@@ -1,3 +1,5 @@
+import { UserObject } from './user.object';
+
 export type ErrorLogObject = {
     id: number;
     code: string;
@@ -12,5 +14,4 @@ export type ErrorLogObject = {
     finishWork: 'STOP' | 'RETRY';
     userId: number;
     createdAt: Date;
-    updatedAt: Date;
 };
