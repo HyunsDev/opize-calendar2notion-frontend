@@ -1,5 +1,5 @@
 import { Endpoint } from 'endpoint-client';
-import { CalendarObject, PaymentLogObject, UserObject } from '../../../object';
+import { UserObject } from '../../../object';
 
 // GET /admin/users/search
 export type getAdminFindUserParameter = {

@@ -7,7 +7,7 @@ export type postUserParameters = {
 };
 export const postUser: Endpoint<postUserParameters, postUserResponse> = {
     method: 'POST',
-    path: () => `/user`,
+    path: () => `/users`,
     bodyParams: ['token'],
     pathParams: [],
     queryParams: [],
@@ -22,7 +22,7 @@ export type getUserParameters = {
 };
 export const getUser: Endpoint<getUserParameters, getUserResponse> = {
     method: 'GET',
-    path: (e) => `/user/${e.userId}`,
+    path: (e) => `/users/${e.userId}`,
     bodyParams: [],
     pathParams: ['userId'],
     queryParams: [],
@@ -40,7 +40,7 @@ export type patchUserParameters = {
 };
 export const patchUser: Endpoint<patchUserParameters, patchUserResponse> = {
     method: 'PATCH',
-    path: (e) => `/user/${e.userId}`,
+    path: (e) => `/users/${e.userId}`,
     bodyParams: ['imageUrl', 'isConnected', 'name', 'userTimeZone', 'isWork'],
     pathParams: ['userId'],
     queryParams: [],
@@ -54,7 +54,7 @@ export type deleteUserParameters = {
 export type deleteUserResponse = {};
 export const deleteUser: Endpoint<deleteUserParameters, deleteUserResponse> = {
     method: 'DELETE',
-    path: (e) => `/user/${e.userId}`,
+    path: (e) => `/users/${e.userId}`,
     bodyParams: [],
     pathParams: ['userId'],
     queryParams: [],
@@ -67,7 +67,7 @@ export type resetUserParameters = {
 export type resetUserResponse = {};
 export const resetUser: Endpoint<resetUserParameters, resetUserResponse> = {
     method: 'POST',
-    path: (e) => `/user/${e.userId}/reset`,
+    path: (e) => `/users/${e.userId}/reset`,
     bodyParams: [],
     pathParams: ['userId'],
     queryParams: [],
