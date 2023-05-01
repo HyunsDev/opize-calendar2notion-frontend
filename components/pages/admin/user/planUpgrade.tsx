@@ -30,7 +30,7 @@ export function AdminUserPlanUpgrade({ userId, fetchUser }: { userId: number; fe
         }
 
         try {
-            await client.admin.userPlanUpdate({
+            await client.admin.user.plan.upgrade({
                 userId: userId,
                 months: data.months,
                 paymentKind: data.paymentKind,

@@ -18,7 +18,7 @@ const Home: NextPage = () => {
 
     const fetchUser = async () => {
         try {
-            const res = await client.admin.findUser({
+            const res = await client.admin.user.findOne({
                 id: user.user.id,
             });
             setUser(res);

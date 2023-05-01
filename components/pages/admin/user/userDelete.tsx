@@ -14,7 +14,7 @@ export function AdminUserDelete({ user, fetchUser }: { user: getAdminFindUserRes
             return;
         }
         try {
-            await client.admin.deleteUser({ userId: user.user.id });
+            await client.admin.user.delete({ userId: user.user.id });
             await fetchUser();
             toast.info('유저를 성공적으로 삭제했어요.');
         } catch (err: any) {

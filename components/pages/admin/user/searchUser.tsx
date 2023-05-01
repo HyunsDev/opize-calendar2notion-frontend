@@ -43,7 +43,7 @@ export function AdminSearchUser({ user, setUser }: { user: any; setUser: (user: 
             try {
                 setUser({});
                 setIsLoading(true);
-                const res = await client.admin.findUser({
+                const res = await client.admin.user.findOne({
                     [select]: text,
                 });
 

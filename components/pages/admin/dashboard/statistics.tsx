@@ -36,7 +36,7 @@ export function AdminDashboardStatistics() {
 
     useEffect(() => {
         (async () => {
-            const res = await client.admin.statistics({});
+            const res = await client.admin.statistics.get({});
             setStatistics(res);
         })();
     }, []);
