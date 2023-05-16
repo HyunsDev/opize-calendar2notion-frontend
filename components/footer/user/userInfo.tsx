@@ -67,7 +67,7 @@ function ModalUserUpdate({
     fetchUser,
     close,
 }: {
-    user: getAdminUserResponse;
+    user: UserObject;
     userKey: keyof typeof editableUserAttr;
     initValue: any;
     fetchUser: () => void;
@@ -79,7 +79,7 @@ function ModalUserUpdate({
         try {
             const _value = editableUserAttr[userKey] === 'number' ? +value : value;
             await client.admin.user.patch({
-                userId: user.user.id,
+                userId: user.id,
                 [userKey]: _value,
             });
             fetchUser();
@@ -125,14 +125,14 @@ function ModalUserUpdate({
     );
 }
 
-export function UserTable({ user, fetchUser }: { user: getAdminUserResponse; fetchUser: () => void }) {
+export function UserTable({ user, fetchUser }: { user: UserObject; fetchUser: () => void }) {
     const modal = useModal();
     const codeModal = useCodeModal();
 
     let userStatusToken: React.ReactNode = <></>;
-    if (user.user) {
-        if (user.user.isConnected) {
-            if (user.user.isWork) {
+    if (user) {
+        if (user.isConnected) {
+            if (user.isWork) {
                 userStatusToken = (
                     <Token variant="outlined" color="blue">
                         동기화 작업 중
@@ -146,7 +146,7 @@ export function UserTable({ user, fetchUser }: { user: getAdminUserResponse; fet
                 );
             }
         } else {
-            if (!user.user.lastSyncStatus) {
+            if (!user.lastSyncStatus) {
                 userStatusToken = (
                     <Token variant="outlined" color="yellow">
                         연결 해제됨
@@ -177,8 +177,8 @@ export function UserTable({ user, fetchUser }: { user: getAdminUserResponse; fet
                     </Table.Row>
                 </Table.THead>
                 <Table.TBody>
-                    {user.user ? (
-                        Object.entries(user?.user).map(([key, value]) => (
+                    {user ? (
+                        Object.entries(user).map(([key, value]) => (
                             <Table.Row key={key}>
                                 <Table.Data width="200px">
                                     {key}
@@ -249,15 +249,9 @@ export function UserTable({ user, fetchUser }: { user: getAdminUserResponse; fet
     );
 }
 
-export function CalendarBox({
-    user,
-}: {
-    user: {
-        user: UserObject;
-        calendars: CalendarObject[];
-    };
-}) {
+export function CalendarBox({ user }: { user: UserObject }) {
     const modal = useModal();
+
     return (
         <Flex.Column id="user-calendar" gap="8px">
             <Label>Calendars - {user?.calendars?.length || 0}</Label>
@@ -298,7 +292,7 @@ export function CalendarBox({
     );
 }
 
-export function PaymentLogBox({ user }: { user: any }) {
+export function PaymentLogBox({ user }: { user: UserObject }) {
     const modal = useModal();
     return (
         <Flex.Column id="user-paymentLogs" gap="8px">

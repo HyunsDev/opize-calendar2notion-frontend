@@ -21,7 +21,7 @@ const Home: NextPage = () => {
             const res = await client.admin.user.findOne({
                 id: user.user.id,
             });
-            setUser(res);
+            setUser(res.user);
         } catch (err: any) {
             if (err.code === 404) {
                 toast.warn(err?.message || '유저를 조회할 수 없습니다.');

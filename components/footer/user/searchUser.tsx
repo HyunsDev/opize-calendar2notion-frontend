@@ -47,7 +47,7 @@ export function AdminSearchUser({ user, setUser }: { user: any; setUser: (user: 
                     [select]: text,
                 });
 
-                setUser(res);
+                setUser(res.user);
                 setIsLoading(false);
             } catch (err: any) {
                 setIsLoading(false);
