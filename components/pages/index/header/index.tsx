@@ -64,7 +64,7 @@ export function IndexHeader() {
             <Link href={'/'} passHref>
                 <Flex.Row gap="8px" as="a" style={{ textDecoration: 'none' }}>
                     <Img src={C2NLogo} height={26} width={26} />
-                    <Title>Calendar2notion (Beta)</Title>
+                    <Title>Calendar2notion</Title>
                 </Flex.Row>
             </Link>
 

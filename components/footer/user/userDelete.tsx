@@ -1,9 +1,9 @@
 import { Box, Button, useDialog, useModal } from 'opize-design-system';
 import { Warning } from 'phosphor-react';
 import { toast } from 'react-toastify';
-import { client } from '../../../../lib/client';
-import { getAdminFindUserResponse } from '../../../../lib/client/endpoint';
-import { UserObject } from '../../../../lib/client/object';
+import { client } from '../../../lib/client';
+import { getAdminFindUserResponse } from '../../../lib/client/endpoint';
+import { UserObject } from '../../../lib/client/object';
 
 export function AdminUserDelete({ user, fetchUser }: { user: getAdminFindUserResponse; fetchUser: () => void }) {
     const dialog = useDialog();

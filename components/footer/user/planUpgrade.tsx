@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Flex, Button, Link as A, TextField, Box, Select } from 'opize-design-system';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { client } from '../../../../lib/client';
+import { client } from '../../../lib/client';
 
 type PlanUpgradeForm = {
     months: string;

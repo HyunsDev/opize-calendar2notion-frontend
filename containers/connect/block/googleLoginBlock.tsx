@@ -1,32 +1,35 @@
-import { Box, Flex, Text, useSlideBox, useTopLoading } from 'opize-design-system';
-import { BlockHeader } from './components/blockHeader';
-import { GoogleLoginButton } from './components/googleLoginBtn';
+import { Box, Button, Flex, SlideBox, Text, useSlideBox, useTopLoading } from 'opize-design-system';
 import Image from 'next/image';
 import Img from '../../../../assets/connect/placeholder.png';
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import { client } from '../../../../lib/client';
-import { useUser } from '../../../../hooks/useUser';
-import { ConnectBlockBase, ConnectBlockYoutubeDiv } from './components/blockBase';
-import { APIResponseError } from '../../../../lib/old-client';
+import { client } from '../../../lib/client';
+import { useUser } from '../../../hooks/useUser';
+import { ConnectBlockBase } from '../components/blockBase';
+import { APIResponseError } from '../../../lib/old-client';
+import { useMigrationModal } from '../../../components/pages/connect/hook/useMigrationModal';
+import { YoutubeEmbed } from '../components/youtubeEmbed';
+import { BlockHeader } from '../components/blockHeader';
+import { GoogleLoginButton } from '../components/googleLoginBtn';
+import { connectPageIndex } from '../connectPageIndex';
 
-export function ConnectBlock0({}: {}) {
+export function GoogleLoginConnectBlock() {
+    const page = connectPageIndex.GOOGLE_LOGIN;
+
     const { start: loadingStart, end: loadingEnd } = useTopLoading();
-    const { user } = useUser();
     const { move } = useSlideBox();
 
     const googleLogin = useGoogleLogin({
         onSuccess: async (data) => {
             try {
                 loadingStart();
-                console.log(data.code, data.scope);
                 await client.user.connect.googleApi({
                     userId: 'me',
                     code: data.code,
                 });
                 loadingEnd();
-                move(1);
+                move(connectPageIndex.CHECK_MIGRATION);
             } catch (err: unknown) {
                 loadingEnd();
 
@@ -48,18 +51,12 @@ export function ConnectBlock0({}: {}) {
     });
 
     return (
-        <ConnectBlockBase>
-            <ConnectBlockYoutubeDiv>
-                <iframe
-                    src="https://www.youtube.com/embed/hdu19m0xMr4"
-                    title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                ></iframe>
-            </ConnectBlockYoutubeDiv>
-
-            <BlockHeader title="먼저 구글 캘린더에 로그인할게요." text="반드시 구글 캘린더 권한을 체크해주세요!" />
-            <GoogleLoginButton onClick={() => googleLogin()}>구글로 계속하기</GoogleLoginButton>
-        </ConnectBlockBase>
+        <SlideBox.Page pos={page}>
+            <ConnectBlockBase>
+                <YoutubeEmbed url={'https://www.youtube.com/embed/hdu19m0xMr4?autoplay=1&loop=1'} />
+                <BlockHeader title="먼저 구글 캘린더에 로그인할게요." text="반드시 구글 캘린더 권한을 체크해주세요!" />
+                <GoogleLoginButton onClick={() => googleLogin()}>구글로 계속하기</GoogleLoginButton>
+            </ConnectBlockBase>
+        </SlideBox.Page>
     );
 }

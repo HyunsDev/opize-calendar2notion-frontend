@@ -23,7 +23,7 @@ import {
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
-import { client } from '../../../../lib/client';
+import { client } from '../../../lib/client';
 import { useRouter } from 'next/router';
 
 export function AdminSearchUser({ user, setUser }: { user: any; setUser: (user: any) => void }) {

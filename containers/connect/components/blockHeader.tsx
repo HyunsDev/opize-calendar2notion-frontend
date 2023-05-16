@@ -5,16 +5,11 @@ const StyledTitle = styled.div`
     font-size: 22px;
 `;
 
-const StyledSubtitle = styled.div`
-    font-size: 14px;
-    color: ${cv.text3};
-`;
-
 export function BlockHeader({ title, text }: { title: React.ReactNode; text?: React.ReactNode }) {
     return (
         <Flex.Column>
             <StyledTitle>{title}</StyledTitle>
-            {text && <Text color={cv.text3}>{text}</Text>}
+            {text && <Text color={cv.text2}>{text}</Text>}
         </Flex.Column>
     );
 }

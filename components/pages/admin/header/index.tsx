@@ -32,7 +32,7 @@ const Title = styled.div`
     text-decoration: none;
 `;
 
-type Path = 'dashboard' | 'users' | 'user' | 'syncbot' | 'errors';
+type Path = 'dashboard' | 'users' | 'user' | 'syncbot' | 'errors' | 'tools';
 
 const A = styled.a`
     display: flex;
@@ -114,6 +114,10 @@ function StyledDashboardHeader({ now }: { now: Path }) {
                     errors: {
                         text: '에러',
                         onClick: () => router.push('/admin/errors'),
+                    },
+                    tools: {
+                        text: '툴',
+                        onClick: () => router.push('/admin/tools'),
                     },
                 }}
             />

@@ -94,16 +94,15 @@ const Home: NextPage = () => {
                             (!user?.lastCalendarSync ? (
                                 user?.isWork ? (
                                     <Flex.Column gap="4px">
-                                        <Flex.Row gap="4px">
+                                        <Flex.Center gap="4px">
                                             <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
-                                                첫 동기화 진행중이에요!!
+                                                첫 동기화가 진행중이에요!
                                             </Text>
-                                            <ToolTip text="구글 캘린더의 일정을 노션으로 옮기는 중이에요. 캘린더의 일정 수에 따라 수십 분에서 수 시간정도 걸릴 수 있어요.">
-                                                <Info size={20} color={cv.text2} />
-                                            </ToolTip>
-                                        </Flex.Row>
+                                        </Flex.Center>
                                         <Text color={cv.text3} style={{ textAlign: 'center' }}>
-                                            첫 동기화이므로, 오랜 시간이 걸릴 수 있어요.
+                                            구글 캘린더의 일정을 노션으로 옮기는 중이에요.
+                                            <br />
+                                            캘린더의 일정 수에 따라 수십 분에서 수 시간정도 걸릴 수 있어요.
                                         </Text>
                                     </Flex.Column>
                                 ) : (

@@ -29,6 +29,7 @@ import {
     getSyncBots,
     getAdminFindUsers,
 } from './endpoint';
+import { getMigrateV1Check, postMigrateV1AccountMigrate, postMigrateV1CalendarMigrate } from './endpoint/migrate/v1';
 
 export class Client extends EndpointClient {
     readonly user = {
@@ -80,5 +81,13 @@ export class Client extends EndpointClient {
         getLogs: this.endpointBuilder(getSyncBotLogs),
         getStaticLog: this.endpointBuilder(getSyncBotStaticLog),
         getLogList: this.endpointBuilder(getSyncBotLogList),
+    };
+
+    readonly migrate = {
+        v1: {
+            check: this.endpointBuilder(getMigrateV1Check),
+            accountMigrate: this.endpointBuilder(postMigrateV1AccountMigrate),
+            calendarMigrate: this.endpointBuilder(postMigrateV1CalendarMigrate),
+        },
     };
 }
