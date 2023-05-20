@@ -3,11 +3,12 @@ import { client } from '../../../lib/client';
 import { ConnectBlockBase } from '../components/blockBase';
 import { BlockHeader } from '../components/blockHeader';
 import { ConnectButton } from '../components/connectBtn';
-import { Button, Flex, SlideBox, Spinner, useSlideBox } from 'opize-design-system';
+import { Button, Flex, Link, SlideBox, Spinner, useSlideBox } from 'opize-design-system';
 import { MigrateV1CheckUser } from '../../../lib/client/endpoint/migrate/v1';
 import { MigrationPreview, MigrationPreviewSkeleton } from '../components/migratePreview';
 import { connectPageIndex } from '../connectPageIndex';
 import { toast } from 'react-toastify';
+import { MigrationGuideLink } from '../components/migrationGuideLink';
 
 export function MigrateCheckConnectBlock({
     setConnectMode,
@@ -85,6 +86,7 @@ export function MigrateCheckConnectBlock({
                     <Button onClick={() => onClick('migrate')} width="100%" size="large" variant="contained">
                         기존 데이터베이스 사용
                     </Button>
+                    <MigrationGuideLink />
                 </Flex.Column>
             </ConnectBlockBase>
         </SlideBox.Page>

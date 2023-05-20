@@ -1,4 +1,4 @@
-import { Button, SlideBox, useSlideBox, useTopLoading } from 'opize-design-system';
+import { Button, Flex, Link, SlideBox, useSlideBox, useTopLoading } from 'opize-design-system';
 import { useUser } from '../../../../hooks/useUser';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -8,6 +8,7 @@ import { YoutubeEmbed } from '../../components/youtubeEmbed';
 import { BlockHeader } from '../../components/blockHeader';
 import { connectPageIndex } from '../../connectPageIndex';
 import { NotionSVG } from '../../components/notionSVG';
+import { MigrationGuideLink } from '../../components/migrationGuideLink';
 
 const NOTION_API_STATE = 'migrate_connect';
 export function MigrateConnectNotionApiBlock({}) {
@@ -39,23 +40,26 @@ export function MigrateConnectNotionApiBlock({}) {
     return (
         <SlideBox.Page pos={connectPageIndex.MIGRATE_CONNECT.NOTION_API}>
             <ConnectBlockBase>
-                <YoutubeEmbed url="https://www.youtube.com/embed/IHtn-xdFr0g" />
+                <YoutubeEmbed url="https://www.youtube.com/embed/S9A5o_enKak" />
                 <BlockHeader
                     title="노션 통합을 추가해주세요"
                     text="Opize Calendar2notion 통합과 공유할 페이지를 선택한 다음 이전에 사용하던 데이터베이스를 선택해주세요."
                 />
-                <Button
-                    onClick={() => {
-                        window.location.href = notion_auth_url;
-                    }}
-                    icon={NotionSVG}
-                    iconPosition="start"
-                    size="large"
-                    width="100%"
-                    variant="outlined"
-                >
-                    노션 통합 추가하기
-                </Button>
+                <Flex.Column gap="8px">
+                    <Button
+                        onClick={() => {
+                            window.location.href = notion_auth_url;
+                        }}
+                        icon={NotionSVG}
+                        iconPosition="start"
+                        size="large"
+                        width="100%"
+                        variant="outlined"
+                    >
+                        노션 통합 추가하기
+                    </Button>
+                    <MigrationGuideLink />
+                </Flex.Column>
             </ConnectBlockBase>
         </SlideBox.Page>
     );

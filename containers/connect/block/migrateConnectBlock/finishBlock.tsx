@@ -1,4 +1,4 @@
-import { Button, SlideBox } from 'opize-design-system';
+import { Button, Flex, Link, SlideBox } from 'opize-design-system';
 import { useState } from 'react';
 
 import Image from 'next/image';
@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { ConnectBlockBase } from '../../components/blockBase';
 import { BlockHeader } from '../../components/blockHeader';
 import { connectPageIndex } from '../../connectPageIndex';
+import { MigrationGuideLink } from '../../components/migrationGuideLink';
 
 export function MigrateConnectFinishBlock() {
     const page = connectPageIndex.MIGRATE_CONNECT.FINISH;
@@ -30,16 +31,19 @@ export function MigrateConnectFinishBlock() {
             <ConnectBlockBase>
                 <Image src={Img} height={720} width={1280} alt="" />
                 <BlockHeader title={'모든 준비가 완료되었어요!'} />
-                <Button
-                    onClick={startSync}
-                    disabled={isLoading}
-                    isLoading={isLoading}
-                    width="100%"
-                    size="large"
-                    variant="outlined"
-                >
-                    {'동기화 시작하기'}
-                </Button>
+                <Flex.Column gap="8px">
+                    <Button
+                        onClick={startSync}
+                        disabled={isLoading}
+                        isLoading={isLoading}
+                        width="100%"
+                        size="large"
+                        variant="outlined"
+                    >
+                        {'동기화 시작하기'}
+                    </Button>
+                    <MigrationGuideLink />
+                </Flex.Column>
             </ConnectBlockBase>
         </SlideBox.Page>
     );

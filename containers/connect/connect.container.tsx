@@ -85,7 +85,7 @@ export function SlideBoxContainer() {
                     <NewConnectFinishBlock />
 
                     <MigrateConnectNotionApiBlock />
-                    <MigrateConnectMigrationBlock notionDatabaseId={`https://notion.so/${notionDatabaseId}` || ''} />
+                    <MigrateConnectMigrationBlock />
                     <MigrateConnectFinishBlock />
                 </SlideBox>
             </Box>
@@ -97,12 +97,12 @@ export function SlideBoxContainer() {
                 </Flex.Row>
             </Flex.Center>
 
-            <Flex.Center>
+            {/* <Flex.Center>
                 <Button onClick={() => move(now - 1)}>+1</Button>
                 <Text style={{ width: '100px', textAlign: 'center' }}>{connectMode}</Text>
                 <TextField value={now} onChange={(e) => move(+e.target.value)} />
                 <Button onClick={() => move(now + 1)}>+1</Button>
-            </Flex.Center>
+            </Flex.Center> */}
         </CenterLayout>
     );
 }
