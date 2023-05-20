@@ -4,10 +4,10 @@ import { PageLayout, Flex, PageHead, ActionList, useModal } from 'opize-design-s
 import styled from 'styled-components';
 import { AdminFooter } from '../../components/pages/admin/footer';
 import { AdminHeader } from '../../components/pages/admin/header';
-import { AdminSearchUser } from '../../components/pages/admin/user/searchUser';
-import { AdminUserInfo } from '../../components/pages/admin/user/userInfo';
-import { AdminUserPlanUpgrade } from '../../components/pages/admin/user/planUpgrade';
-import { AdminUserDelete } from '../../components/pages/admin/user/userDelete';
+import { AdminSearchUser } from '../../components/footer/user/searchUser';
+import { AdminUserInfo } from '../../components/footer/user/userInfo';
+import { AdminUserPlanUpgrade } from '../../components/footer/user/planUpgrade';
+import { AdminUserDelete } from '../../components/footer/user/userDelete';
 import { client } from '../../lib/client';
 import { toast } from 'react-toastify';
 import { Footer } from '../../components/footer';
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
             const res = await client.admin.user.findOne({
                 id: user.user.id,
             });
-            setUser(res);
+            setUser(res.user);
         } catch (err: any) {
             if (err.code === 404) {
                 toast.warn(err?.message || '유저를 조회할 수 없습니다.');

@@ -89,7 +89,7 @@ export function Footer() {
                         </ActionMenu>
                     </StyledFooter.Menu.Item>
                     <StyledFooter.Menu.Item>
-                        © 2022 Opize Corp. <br />
+                        © 2023 Opize Corp. <br />
                         오피즈 | 박현우
                     </StyledFooter.Menu.Item>
                 </StyledFooter.Menu>

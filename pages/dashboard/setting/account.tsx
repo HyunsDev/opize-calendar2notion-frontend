@@ -25,6 +25,7 @@ import { DashboardHeader } from '../../../components/pages/dashboard/header';
 import { DashboardSettingSidebar } from '../../../components/pages/dashboard/setting/sidebar';
 import { client } from '../../../lib/client';
 import { toast } from 'react-toastify';
+import { APIResponseError } from 'endpoint-client';
 
 function BoxSyncNoticeEmail() {
     return (
@@ -53,12 +54,20 @@ function BoxAccount() {
             const res = await client.user.delete({
                 userId: 'me',
             });
-            console.log(res);
-            localStorage.removeItem('token');
-            toast.info('계정이 삭제되었어요.');
-            location.href = '/';
+
+            if (res.success === false) {
+                toast.warn(`${res.message}`);
+            } else {
+                localStorage.removeItem('token');
+                toast.info('계정이 삭제되었어요.');
+                location.href = '/';
+            }
         } catch (err) {
-            console.error(err);
+            if (err instanceof APIResponseError) {
+                toast.warn(`${err.body.message}`);
+            } else {
+                console.log(err);
+            }
         }
     };
 
@@ -117,10 +126,15 @@ function BoxNotion() {
             const res = await client.user.reset({
                 userId: 'me',
             });
-            console.log(res);
-            localStorage.removeItem('token');
-            toast.info('초기화가 완료되었어요');
-            location.href = '/';
+
+            if (res.success === false) {
+                toast.warn(`${res.message}`);
+            } else {
+                console.log(res);
+                localStorage.removeItem('token');
+                toast.info('초기화가 완료되었어요');
+                location.href = '/';
+            }
         } catch (err) {
             console.error(err);
         }

@@ -22,10 +22,10 @@ import {
 import styled from 'styled-components';
 import { AdminFooter } from '../../components/pages/admin/footer';
 import { AdminHeader } from '../../components/pages/admin/header';
-import { AdminSearchUser } from '../../components/pages/admin/user/searchUser';
-import { AdminUserInfo } from '../../components/pages/admin/user/userInfo';
-import { AdminUserPlanUpgrade } from '../../components/pages/admin/user/planUpgrade';
-import { AdminUserDelete } from '../../components/pages/admin/user/userDelete';
+import { AdminSearchUser } from '../../components/footer/user/searchUser';
+import { AdminUserInfo } from '../../components/footer/user/userInfo';
+import { AdminUserPlanUpgrade } from '../../components/footer/user/planUpgrade';
+import { AdminUserDelete } from '../../components/footer/user/userDelete';
 import { client } from '../../lib/client';
 import { toast } from 'react-toastify';
 import { Footer } from '../../components/footer';

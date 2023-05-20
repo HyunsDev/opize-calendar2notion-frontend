@@ -29,4 +29,5 @@ export type UserObject = {
     calendars: CalendarObject[];
     googleCalendars: GoogleCalendarObject[];
     errorLogs?: ErrorLogObject[];
+    paymentLogs?: any[];
 };

@@ -51,7 +51,10 @@ export type patchUserResponse = {};
 export type deleteUserParameters = {
     userId?: 'me' | number;
 };
-export type deleteUserResponse = {};
+export type deleteUserResponse = {
+    success: false;
+    message: string;
+};
 export const deleteUser: Endpoint<deleteUserParameters, deleteUserResponse> = {
     method: 'DELETE',
     path: (e) => `/users/${e.userId}`,
@@ -64,7 +67,14 @@ export const deleteUser: Endpoint<deleteUserParameters, deleteUserResponse> = {
 export type resetUserParameters = {
     userId?: 'me' | number;
 };
-export type resetUserResponse = {};
+export type resetUserResponse =
+    | {
+          success: true;
+      }
+    | {
+          success: false;
+          message: string;
+      };
 export const resetUser: Endpoint<resetUserParameters, resetUserResponse> = {
     method: 'POST',
     path: (e) => `/users/${e.userId}/reset`,
