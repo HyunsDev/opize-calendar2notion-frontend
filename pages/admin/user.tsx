@@ -19,7 +19,7 @@ const Home: NextPage = () => {
     const fetchUser = async () => {
         try {
             const res = await client.admin.user.findOne({
-                id: user.user.id,
+                id: user.id,
             });
             setUser(res.user);
         } catch (err: any) {
@@ -49,7 +49,7 @@ const Home: NextPage = () => {
                     <Flex.Column gap="20px">
                         <AdminSearchUser user={user} setUser={setUser} />
                         <AdminUserInfo user={user} fetchUser={fetchUser} />
-                        <AdminUserPlanUpgrade userId={user?.user?.id} fetchUser={fetchUser} />
+                        <AdminUserPlanUpgrade userId={user?.id} fetchUser={fetchUser} />
                         <AdminUserDelete user={user} fetchUser={fetchUser} />
                     </Flex.Column>
                 </PageLayout.Content>
