@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import { cv } from 'opize-design-system';
 import styled from 'styled-components';
-import OpizeFoxImage from '../../assets/opize_fox.png';
+import OpizeFoxImage from '../../assets/opize_fox_transparent.png';
 
 const Divver = styled.a`
-    background: linear-gradient(90deg, #293c3a 19.44%, #2d6560 101.39%);
+    background: linear-gradient(90deg, #649dff 19.44%, #9764ff 101.39%);
     border-radius: 100px;
     display: flex;
     padding-right: 20px;
@@ -18,13 +18,13 @@ const Icon = styled.div`
     height: 32px;
     border-radius: 32px;
     overflow: hidden;
-    background-color: #24685f;
+    background-color: rgba(255, 255, 255, 0.1);
 `;
 
 const Text = styled.div`
     display: flex;
     align-items: center;
-    color: #dae7d3;
+    color: #ffffff;
     font-weight: ${cv.fontWeightSemiBold};
 `;
 
