@@ -4,10 +4,9 @@ import { IndexHeader } from '../components/pages/index/header';
 import React from 'react';
 import { NotionPage } from '../components/notionPage';
 import { BoxLayout, cv, Flex, PageLayout } from 'opize-design-system';
-import { PlanCardFree } from '../components/Plan/PlanCard/PlanCardFree';
 import styled from 'styled-components';
-import { PlanCardPro } from '../components/Plan/PlanCard/PlanCardPro';
-import { PlanCardSponsor } from '../components/Plan/PlanCard/PlanCardSponsor';
+import { useUser } from '../hooks/useUser';
+import { PlanCardFree, PlanCardPro, PlanCardSponsor } from '../components/Plan/PlanCard/planCard';
 
 const Title = styled.div`
     margin-top: 32px;
@@ -24,6 +23,8 @@ const Cards = styled.div`
 `;
 
 const Home: NextPage = () => {
+    const { user } = useUser({ allowNonLogin: true });
+
     return (
         <>
             <IndexHeader />
@@ -31,14 +32,13 @@ const Home: NextPage = () => {
                 <Flex.Column>
                     <Title>더 빠르게, 더 다양하게 동기화 해보세요.</Title>
                     <Cards>
-                        <PlanCardFree />
-                        <PlanCardPro />
-                        <PlanCardSponsor />
+                        <PlanCardFree userPlan={user?.userPlan} />
+                        <PlanCardPro userPlan={user?.userPlan} />
+                        <PlanCardSponsor userPlan={user?.userPlan} />
                     </Cards>
                 </Flex.Column>
                 <NotionPage pageId={process.env.NEXT_PUBLIC_NOTION_PAGE_PLAN || ''} isFullPage={false} />
             </BoxLayout>
-
             <Footer />
         </>
     );

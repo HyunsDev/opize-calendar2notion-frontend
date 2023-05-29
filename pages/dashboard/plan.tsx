@@ -6,10 +6,9 @@ import styled from 'styled-components';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';
 import { Footer } from '../../components/footer';
 import { DashboardHeader } from '../../components/pages/dashboard/header';
-import { PlanCardFree } from '../../components/Plan/PlanCard/PlanCardFree';
-import { PlanCardPro } from '../../components/Plan/PlanCard/PlanCardPro';
-import { PlanCardSponsor } from '../../components/Plan/PlanCard/PlanCardSponsor';
 import { NotionPage } from '../../components/notionPage';
+import { PlanCardFree, PlanCardPro, PlanCardSponsor } from '../../components/Plan/PlanCard/planCard';
+import { useUser } from '../../hooks/useUser';
 
 const Title = styled.div`
     margin-top: 32px;
@@ -30,9 +29,9 @@ const Cards = styled.div`
     }
 `;
 
-const A = styled.a``;
-
 const Home: NextPage = () => {
+    const { user } = useUser();
+
     return (
         <>
             <DashboardHeader now="plan" />
@@ -40,9 +39,9 @@ const Home: NextPage = () => {
                 <Flex.Column>
                     <Title>더 빠르게, 더 다양하게 동기화 해보세요.</Title>
                     <Cards>
-                        <PlanCardFree />
-                        <PlanCardPro />
-                        <PlanCardSponsor />
+                        <PlanCardFree {...user} />
+                        <PlanCardPro {...user} />
+                        <PlanCardSponsor {...user} />
                     </Cards>
                 </Flex.Column>
                 <NotionPage pageId={process.env.NEXT_PUBLIC_NOTION_PAGE_PLAN || ''} isFullPage={false} />
