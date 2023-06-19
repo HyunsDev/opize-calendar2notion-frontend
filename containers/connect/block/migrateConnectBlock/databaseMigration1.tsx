@@ -58,7 +58,6 @@ export function MigrateConnectMigrationBlock() {
             setIsLoading(false);
 
             if (err instanceof APIResponseError) {
-                console.log(err.body);
                 dialog({
                     title: err.body.message,
                     content: err.body.videoId ? (

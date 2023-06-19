@@ -27,6 +27,7 @@
     "react-notion-x": "^6.15.7",
     "react-query": "^3.39.2",
     "react-toastify": "^9.0.8",
+    "recoil": "^0.7.7",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
