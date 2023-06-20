@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { client } from '../../../lib/client';
 import { ConnectBlockBase } from '../components/blockBase';
 import { BlockHeader } from '../components/blockHeader';
@@ -23,6 +23,20 @@ export function MigrateCheckConnectBlock({
     const [isLoading, setIsLoading] = useState(false);
     const [migrateUser, setMigrateUser] = useState<MigrateV1CheckUser>();
 
+    const onClick = useCallback(
+        async (mode: 'new' | 'migrate' | 'exist') => {
+            await accountMigrate();
+
+            setConnectMode(mode);
+            if (mode === 'new') {
+                move(connectPageIndex.NEW_CONNECT.NOTION_API);
+            } else if (mode === 'migrate') {
+                move(connectPageIndex.MIGRATE_CONNECT.NOTION_API);
+            }
+        },
+        [move, setConnectMode]
+    );
+
     useEffect(() => {
         (async () => {
             if (now === page) {
@@ -31,13 +45,18 @@ export function MigrateCheckConnectBlock({
                 setIsLoading(false);
                 if (canMigration.canMigrate) {
                     setMigrateUser(canMigration.user);
-                    setNotionDatabaseId(canMigration.user.notionDatabaseId);
+
+                    if (canMigration.user?.status === 'finish' && canMigration.user?.notionDatabaseId) {
+                        setNotionDatabaseId(canMigration.user.notionDatabaseId);
+                    } else {
+                        onClick('new');
+                    }
                 } else {
                     move(connectPageIndex.NEW_CONNECT.NOTION_API);
                 }
             }
         })();
-    }, [move, now, page, setNotionDatabaseId]);
+    }, [move, now, onClick, page, setNotionDatabaseId]);
 
     const accountMigrate = async () => {
         setIsLoading(true);
@@ -59,17 +78,6 @@ export function MigrateCheckConnectBlock({
         setIsLoading(false);
     };
 
-    const onClick = async (mode: 'new' | 'migrate' | 'exist') => {
-        await accountMigrate();
-
-        setConnectMode(mode);
-        if (mode === 'new') {
-            move(connectPageIndex.NEW_CONNECT.NOTION_API);
-        } else if (mode === 'migrate') {
-            move(connectPageIndex.MIGRATE_CONNECT.NOTION_API);
-        }
-    };
-
     return (
         <SlideBox.Page pos={page}>
             <ConnectBlockBase>
@@ -86,6 +94,7 @@ export function MigrateCheckConnectBlock({
                     <Button onClick={() => onClick('migrate')} width="100%" size="large" variant="contained">
                         기존 데이터베이스 사용
                     </Button>
+
                     <MigrationGuideLink />
                 </Flex.Column>
             </ConnectBlockBase>
