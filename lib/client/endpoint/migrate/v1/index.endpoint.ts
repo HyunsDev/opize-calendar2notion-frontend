@@ -46,6 +46,7 @@ export type postMigrateV1AccountMigrateParameters = {
 export type postMigrateV1AccountMigrateResponse =
     | {
           success: true;
+          canCalendarMigration: boolean;
           userPlan: string;
           paymentLogLength: number;
       }
