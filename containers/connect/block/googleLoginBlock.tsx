@@ -24,9 +24,14 @@ export function GoogleLoginConnectBlock() {
         onSuccess: async (data) => {
             try {
                 loadingStart();
+                const callbackVersion = JSON.parse(process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_VERSION_MAP || '{}')[
+                    window.location.host
+                ];
+
                 await client.user.connect.googleApi({
                     userId: 'me',
                     code: data.code,
+                    callbackVersion,
                 });
                 loadingEnd();
                 move(connectPageIndex.CHECK_MIGRATION);
@@ -43,6 +48,7 @@ export function GoogleLoginConnectBlock() {
                     }
                 } else {
                     toast.error('알 수 없는 문제가 발생했어요.');
+                    console.error(err);
                 }
             }
         },
