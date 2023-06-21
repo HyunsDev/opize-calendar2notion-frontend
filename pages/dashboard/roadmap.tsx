@@ -9,7 +9,7 @@ const Home: NextPage = () => {
     return (
         <>
             <DashboardHeader now="roadmap" />
-            <NotionPage pageCode="roadmap" isFullPage={false} minHeight="calc(100vh - 131px - 337px)" />
+            <NotionPage pageId="roadmap" isFullPage={false} minHeight="calc(100vh - 131px - 337px)" />
             <Footer />
         </>
     );

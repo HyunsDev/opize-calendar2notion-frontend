@@ -38,12 +38,10 @@ const CenterPage = styled.div``;
 
 export function NotionPage({
     pageId,
-    pageCode,
     isFullPage = true,
     minHeight,
 }: {
-    pageId?: string;
-    pageCode?: string;
+    pageId: string;
     isFullPage?: boolean;
     minHeight?: string;
 }) {
@@ -52,11 +50,11 @@ export function NotionPage({
         data: recordMap,
         error,
     } = useQuery(
-        ['notion', 'page', pageId || pageCode],
+        ['notion', 'page', pageId],
         async () => {
-            if (pageCode) {
+            if (pageId?.length !== 32) {
                 const res = await notionCacher.page.get({
-                    pageCode: pageCode,
+                    pageCode: pageId,
                     domain: 'calendar2notion',
                 });
                 return res;
