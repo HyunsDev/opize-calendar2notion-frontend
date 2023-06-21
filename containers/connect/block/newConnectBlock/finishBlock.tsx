@@ -45,6 +45,7 @@ export function NewConnectFinishBlock() {
                 }
                 toast.error(`${err.body.message} (${err.body.code})`);
             }
+            console.error(err);
         }
     }, [move]);
 
@@ -54,7 +55,7 @@ export function NewConnectFinishBlock() {
                 try {
                     if (user && user.status === 'NOTION_API_SET' && !(await checkTemplate())) {
                         toast.warn('"개발자가 제공한 템플릿 사용"을 체크해주세요!');
-                        move(101);
+                        move(connectPageIndex.NEW_CONNECT.NOTION_API);
                     }
                 } catch (err) {
                     console.log(err);
