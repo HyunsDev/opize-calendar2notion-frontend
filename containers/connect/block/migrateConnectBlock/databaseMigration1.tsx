@@ -58,30 +58,52 @@ export function MigrateConnectMigrationBlock() {
             setIsLoading(false);
 
             if (err instanceof APIResponseError) {
-                dialog({
-                    title: err.body.message,
-                    content: err.body.videoId ? (
-                        <Flex.Column gap="4px">
-                            <YoutubeEmbed url={`https://www.youtube.com/embed/${err.body.videoId}?autoplay=1&loop=1`} />
-                            <Text>{err.body.description}</Text>
-                        </Flex.Column>
-                    ) : (
-                        err.body.description
-                    ),
-                    buttons: [
-                        {
-                            children: '노션 열기',
-                            onClick: () => {
-                                window.open(notionDatabaseId, '_blank');
+                if (err.status === 500) {
+                    dialog({
+                        title: err.body.message,
+                        content: '일시적인 문제가 발생했어요. 새로고침 후 다시 시도해주세요.',
+                        buttons: [
+                            {
+                                children: '노션 열기',
+                                onClick: () => {
+                                    window.open(notionDatabaseId, '_blank');
+                                },
+                                variant: 'outlined',
                             },
-                            variant: 'outlined',
-                        },
-                        {
-                            children: '확인',
-                            onClick: () => {},
-                        },
-                    ],
-                });
+                            {
+                                children: '확인',
+                                onClick: () => {},
+                            },
+                        ],
+                    });
+                } else {
+                    dialog({
+                        title: err.body.message,
+                        content: err.body.videoId ? (
+                            <Flex.Column gap="4px">
+                                <YoutubeEmbed
+                                    url={`https://www.youtube.com/embed/${err.body.videoId}?autoplay=1&loop=1`}
+                                />
+                                <Text>{err.body.description}</Text>
+                            </Flex.Column>
+                        ) : (
+                            err.body.description
+                        ),
+                        buttons: [
+                            {
+                                children: '노션 열기',
+                                onClick: () => {
+                                    window.open(notionDatabaseId, '_blank');
+                                },
+                                variant: 'outlined',
+                            },
+                            {
+                                children: '확인',
+                                onClick: () => {},
+                            },
+                        ],
+                    });
+                }
             }
         }
     };
