@@ -91,6 +91,13 @@ export function MigrateConnectMigrationBlock() {
                         ),
                         buttons: [
                             {
+                                children: '동기화 가이드',
+                                onClick: () => {
+                                    window.open('/migration-guide', '_blank');
+                                },
+                                variant: 'outlined',
+                            },
+                            {
                                 children: '노션 열기',
                                 onClick: () => {
                                     window.open(notionDatabaseId, '_blank');
