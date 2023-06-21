@@ -4,11 +4,12 @@ import { Endpoint } from 'endpoint-client';
 export type postConnectGoogleAPIParameters = {
     userId: 'me' | number;
     code: string;
+    callbackVersion: number;
 };
 export const postConnectGoogleAPI: Endpoint<postConnectGoogleAPIParameters, postConnectGoogleAPIResponse> = {
     method: 'POST',
     path: (e) => `/users/${e.userId}/connect/google-api`,
-    bodyParams: ['code'],
+    bodyParams: ['code', 'callbackVersion'],
     pathParams: ['userId'],
     queryParams: [],
 };
