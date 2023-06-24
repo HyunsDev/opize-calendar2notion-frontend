@@ -22,12 +22,48 @@ import { client } from '../../../../lib/client';
 import { APIResponseError } from 'endpoint-client';
 import { YoutubeEmbed } from '../../components/youtubeEmbed';
 import { MigrationGuideLink } from '../../components/migrationGuideLink';
+import styled from 'styled-components';
+
+const Pre = styled.pre``;
+
+function MigrationGuideModal({
+    description,
+    videoId,
+    notionDatabaseId,
+}: {
+    description: string;
+    videoId?: string;
+    notionDatabaseId: string;
+}) {
+    const modal = useModal();
+
+    return (
+        <Flex.Column gap="12px">
+            <Flex.Column gap="4px">
+                {videoId && <YoutubeEmbed url={`https://www.youtube.com/embed/${videoId}`} />}
+                <Pre>{description}</Pre>
+            </Flex.Column>
+            <Flex.Between>
+                <Button onClick={() => window.open('/migration-guide', '_blank')} variant="outlined">
+                    동기화 가이드
+                </Button>
+                <Flex.Row gap="4px">
+                    <Button onClick={() => window.open(notionDatabaseId, '_blank')} variant="outlined">
+                        노션 열기
+                    </Button>
+                    <Button onClick={() => modal.close()}>확인</Button>
+                </Flex.Row>
+            </Flex.Between>
+        </Flex.Column>
+    );
+}
 
 export function MigrateConnectMigrationBlock() {
     const { now, move } = useSlideBox();
     const [isLoading, setIsLoading] = useState(false);
     const [notionDatabaseId, setNotionDatabaseId] = useState<string>('');
     const dialog = useDialog();
+    const modal = useModal();
 
     useEffect(() => {
         (async () => {
@@ -61,7 +97,7 @@ export function MigrateConnectMigrationBlock() {
                 if (err.status === 500) {
                     dialog({
                         title: err.body.message,
-                        content: '일시적인 문제가 발생했어요. 새로고침 후 다시 시도해주세요.',
+                        content: '일시적인 문제가 발생했어요. 다시 시도해주세요.',
                         buttons: [
                             {
                                 children: '노션 열기',
@@ -77,39 +113,17 @@ export function MigrateConnectMigrationBlock() {
                         ],
                     });
                 } else {
-                    dialog({
-                        title: err.body.message,
-                        content: err.body.videoId ? (
-                            <Flex.Column gap="4px">
-                                <YoutubeEmbed
-                                    url={`https://www.youtube.com/embed/${err.body.videoId}?autoplay=1&loop=1`}
-                                />
-                                <Text>{err.body.description}</Text>
-                            </Flex.Column>
-                        ) : (
-                            err.body.description
-                        ),
-                        buttons: [
-                            {
-                                children: '동기화 가이드',
-                                onClick: () => {
-                                    window.open('/migration-guide', '_blank');
-                                },
-                                variant: 'outlined',
-                            },
-                            {
-                                children: '노션 열기',
-                                onClick: () => {
-                                    window.open(notionDatabaseId, '_blank');
-                                },
-                                variant: 'outlined',
-                            },
-                            {
-                                children: '확인',
-                                onClick: () => {},
-                            },
-                        ],
-                    });
+                    modal.open(
+                        <MigrationGuideModal
+                            description={err.body.description}
+                            videoId={err.body.videoId}
+                            notionDatabaseId={notionDatabaseId}
+                        />,
+                        {
+                            title: err.body.message,
+                            width: '500px',
+                        }
+                    );
                 }
             }
         }
