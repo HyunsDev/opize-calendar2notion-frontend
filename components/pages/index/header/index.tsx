@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { SimpleHeader, Flex, Button, cv, Token } from 'opize-design-system';
+import { SimpleHeader, Flex, Button, cv, Token, ActionMenu, ActionMenuActionType, Spinner } from 'opize-design-system';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -10,6 +10,8 @@ import C2NLogo from '../../../../assets/logo.png';
 import { client } from '../../../../lib/client';
 import { APIResponseError } from '../../../../lib/old-client';
 import { isClient } from '../../../../utils/isClient';
+import { useUser } from '../../../../hooks/useUser';
+import SkeletonIcon from '../../../../assets/logo.png';
 
 const Img = styled(Image)`
     height: 26px;
@@ -22,6 +24,7 @@ const Title = styled.div`
 `;
 
 export function IndexHeader() {
+    const { user, isLoading } = useUser({ allowNonLogin: true });
     const [isLogin, setIsLogin] = useState(false);
     useEffect(() => {
         setIsLogin(!!localStorage.getItem('token'));
@@ -63,6 +66,30 @@ export function IndexHeader() {
         }
     }, [router, router.query.token]);
 
+    const logout = () => {
+        localStorage.removeItem('token');
+        window.location.href = '/';
+    };
+
+    const action: ActionMenuActionType[][] = [
+        [
+            {
+                label: '로그아웃',
+                color: 'red',
+                onClick: () => logout(),
+            },
+        ],
+    ];
+
+    if (user?.isAdmin) {
+        action.unshift([
+            {
+                label: '관리자',
+                onClick: () => router.push('/admin'),
+            },
+        ]);
+    }
+
     return (
         <SimpleHeader>
             <Link href={'/'} passHref>
@@ -86,11 +113,31 @@ export function IndexHeader() {
             </SimpleHeader.Nav>
             <Flex.Row gap="4px">
                 {isLogin ? (
-                    <Link href={'/dashboard'} passHref>
-                        <Button variant="contained" as="a">
-                            대시보드
-                        </Button>
-                    </Link>
+                    <>
+                        <ActionMenu
+                            variant="text"
+                            borderRadius={999}
+                            width="fit-content"
+                            actions={action}
+                            icon={
+                                isLoading ? (
+                                    <Spinner size={32} />
+                                ) : (
+                                    <Image
+                                        src={user?.imageUrl || SkeletonIcon}
+                                        alt="유저 프로필 사진"
+                                        width={32}
+                                        height={32}
+                                    />
+                                )
+                            }
+                        ></ActionMenu>
+                        <Link href={'/dashboard'} passHref>
+                            <Button variant="contained" as="a">
+                                대시보드
+                            </Button>
+                        </Link>
+                    </>
                 ) : (
                     <>
                         <Button variant="text" onClick={login}>

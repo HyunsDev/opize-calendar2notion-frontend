@@ -11,8 +11,8 @@ export const IndexContainer = () => {
     const { user, isLoading } = useUser({ allowNonLogin: true });
 
     useEffect(() => {
-        setIsLogin(!!localStorage.getItem('token'));
-    }, []);
+        setIsLogin(!!localStorage.getItem('token') || !!user);
+    }, [user]);
 
     useEffect(() => {
         if (!isLoading && user) setIsLogin(true);
