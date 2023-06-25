@@ -89,10 +89,10 @@ export function MigrateCheckConnectBlock({
 
                 <Flex.Column gap="8px">
                     <Button onClick={() => onClick('new')} width="100%" size="large" variant="outlined">
-                        새로운 데이터베이스에 연결
+                        새로운 데이터베이스에 연결하기
                     </Button>
                     <Button onClick={() => onClick('migrate')} width="100%" size="large" variant="contained">
-                        기존 데이터베이스 사용
+                        데이터베이스 이어 사용하기
                     </Button>
 
                     <MigrationGuideLink />

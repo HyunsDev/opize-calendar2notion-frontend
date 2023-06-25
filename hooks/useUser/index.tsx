@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { client } from '../../lib/client';
-import { APIResponseError } from '../../lib/old-client';
+import { APIResponseError } from 'endpoint-client';
 
 export function useUser({ allowNonLogin = false }: { allowNonLogin?: boolean } = {}) {
     const {
@@ -11,7 +11,10 @@ export function useUser({ allowNonLogin = false }: { allowNonLogin?: boolean } =
         error,
         refetch,
         isLoading,
-    } = useQuery(['user', 'self'], () => client.user.get({ userId: 'me' }), {});
+    } = useQuery(['user', 'self'], () => client.user.get({ userId: 'me' }), {
+        enabled: typeof window !== 'undefined' && !!localStorage.getItem('token'),
+        retry: 2,
+    });
     const router = useRouter();
 
     useEffect(() => {
@@ -24,6 +27,11 @@ export function useUser({ allowNonLogin = false }: { allowNonLogin?: boolean } =
     }, [allowNonLogin, router]);
 
     if (error && error instanceof APIResponseError) {
+        if (error.status === 401) {
+            localStorage.removeItem('token');
+            window.location.href = '/';
+        }
+
         return {
             user: null,
             isError: true,
