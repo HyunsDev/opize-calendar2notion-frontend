@@ -16,7 +16,11 @@ export function MigrateConnectNotionApiBlock({}) {
     const router = useRouter();
     const { move } = useSlideBox();
 
-    const notion_auth_url = `https://api.notion.com/v1/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_NOTION_CLIENT_ID}&response_type=code&owner=user&redirect_uri=${process.env.NEXT_PUBLIC_NOTION_REDIRECT_URL}&state=${NOTION_API_STATE}`;
+    const redirectUrl = JSON.parse(process.env.NEXT_PUBLIC_NOTION_REDIRECT_URL_MAP || '{}')[
+        typeof window === 'undefined' ? '' : window.location.host
+    ];
+
+    const notion_auth_url = `https://api.notion.com/v1/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_NOTION_CLIENT_ID}&response_type=code&owner=user&redirect_uri=${redirectUrl}&state=${NOTION_API_STATE}`;
 
     useEffect(() => {
         const code = router.query.code as string;
@@ -30,12 +34,13 @@ export function MigrateConnectNotionApiBlock({}) {
                 await client.user.connect.notionApi({
                     userId: 'me',
                     code: code,
+                    redirectUrl,
                 });
             })();
             loadingEnd();
             move(connectPageIndex.MIGRATE_CONNECT.MIGRATION);
         }
-    }, [loadingEnd, loadingStart, router, router.query.code, router.query.state, move]);
+    }, [loadingEnd, loadingStart, router, router.query.code, router.query.state, move, redirectUrl]);
 
     return (
         <SlideBox.Page pos={connectPageIndex.MIGRATE_CONNECT.NOTION_API}>

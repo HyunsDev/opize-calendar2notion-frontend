@@ -19,11 +19,12 @@ export type postConnectGoogleAPIResponse = {};
 export type postConnectNotionAPIParameters = {
     userId: 'me' | number;
     code: string;
+    redirectUrl: string;
 };
 export const postConnectNotionAPI: Endpoint<postConnectNotionAPIParameters, postConnectNotionAPIResponse> = {
     method: 'POST',
     path: (e) => `/users/${e.userId}/connect/notion-api`,
-    bodyParams: ['code'],
+    bodyParams: ['code', 'redirectUrl'],
     pathParams: ['userId'],
     queryParams: [],
 };
