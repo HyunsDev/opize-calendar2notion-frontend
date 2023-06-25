@@ -4,11 +4,12 @@ import { UserObject } from '../../object';
 // POST /user
 export type postUserParameters = {
     token: string;
+    redirectUrl: string;
 };
 export const postUser: Endpoint<postUserParameters, postUserResponse> = {
     method: 'POST',
     path: () => `/users`,
-    bodyParams: ['token'],
+    bodyParams: ['token', 'redirectUrl'],
     pathParams: [],
     queryParams: [],
 };

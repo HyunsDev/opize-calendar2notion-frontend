@@ -28,7 +28,8 @@ export function IndexHeader() {
     }, []);
 
     const login = () => {
-        window.location.href = `${process.env.NEXT_PUBLIC_OPIZE}/oauth/verify/${process.env.NEXT_PUBLIC_OPIZE_PROJECT_CODE}?redirectUrl=${process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_URL}`;
+        const redirectUrl = JSON.parse(process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_MAP || '{}')[window.location.host];
+        window.location.href = `${process.env.NEXT_PUBLIC_OPIZE}/oauth/verify/${process.env.NEXT_PUBLIC_OPIZE_PROJECT_CODE}?redirectUrl=${redirectUrl}`;
     };
 
     const router = useRouter();
@@ -40,6 +41,9 @@ export function IndexHeader() {
                 try {
                     const res = await client.user.post({
                         token,
+                        redirectUrl: JSON.parse(process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_MAP || '{}')[
+                            window.location.host
+                        ],
                     });
                     localStorage.setItem('token', res.token);
                     client.updateAuth(res.token);

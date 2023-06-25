@@ -27,7 +27,22 @@ const Button2Animation = keyframes`
     }
 `;
 
-const Button2 = styled.a`
+const Button2 = styled.button`
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 10px 32px;
+    font-size: 14px;
+    font-weight: ${cv.fontWeightSemiBold};
+    border: 2px solid #ffffff;
+    outline: none;
+    cursor: pointer;
+    border: 0;
+
+    transition: 200ms;
+`;
+
+const ButtonA = styled.a`
     color: #ffffff;
     text-decoration: none;
     border-radius: 999px;
@@ -67,6 +82,11 @@ const Texts = styled.div`
 `;
 
 export const IndexLastSection = ({ isLogin }: { isLogin: boolean }) => {
+    const login = () => {
+        const redirectUrl = JSON.parse(process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_MAP || '{}')[window.location.host];
+        window.location.href = `${process.env.NEXT_PUBLIC_OPIZE}/oauth/verify/${process.env.NEXT_PUBLIC_OPIZE_PROJECT_CODE}?redirectUrl=${redirectUrl}`;
+    };
+
     return (
         <BoxLayout width="900px">
             <Between>
@@ -84,15 +104,11 @@ export const IndexLastSection = ({ isLogin }: { isLogin: boolean }) => {
                     <Buttons>
                         {isLogin ? (
                             <Link href={'/dashboard'} passHref>
-                                <Button2 href="/dashboard">대시보드</Button2>
+                                <ButtonA href="/dashboard">대시보드</ButtonA>
                             </Link>
                         ) : (
                             <>
-                                <Button2
-                                    href={`${process.env.NEXT_PUBLIC_OPIZE}/oauth/verify/${process.env.NEXT_PUBLIC_OPIZE_PROJECT_CODE}?redirectUrl=${process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_URL}`}
-                                >
-                                    무료로 시작하기
-                                </Button2>
+                                <Button2 onClick={login}>무료로 시작하기</Button2>
                             </>
                         )}
                     </Buttons>
