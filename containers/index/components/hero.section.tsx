@@ -17,7 +17,7 @@ const Buttons = styled.div`
     gap: 12px;
 `;
 
-const Button1 = styled.a`
+const Button1 = styled.button`
     color: #000000;
     text-decoration: none;
     background: #ffffff;
@@ -27,6 +27,9 @@ const Button1 = styled.a`
     transition: 200ms;
     font-size: 14px;
     font-weight: ${cv.fontWeightRegular};
+    outline: none;
+    cursor: pointer;
+    border: 0;
 
     &:hover {
         transform: translateY(-2px);
@@ -44,7 +47,35 @@ const Button2Animation = keyframes`
     }
 `;
 
-const Button2 = styled.a`
+const Button2 = styled.button`
+    color: #dae7d3;
+    text-decoration: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    padding: 10px 32px;
+    font-size: 14px;
+    font-weight: ${cv.fontWeightSemiBold};
+
+    background: linear-gradient(90deg, #649dff 0%, #9764ff 50%, #649dff 100%);
+    background-size: 400% auto;
+    animation: ${Button2Animation} 16s infinite linear;
+
+    transition: 200ms;
+    outline: none;
+    cursor: pointer;
+    border: 0;
+
+    filter: brightness(100%);
+    &:hover {
+        filter: brightness(90%);
+    }
+
+    &:active {
+        transform: translateY(2px);
+    }
+`;
+
+const Button2A = styled.a`
     color: #dae7d3;
     text-decoration: none;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
@@ -94,6 +125,11 @@ const Texts = styled.div`
 `;
 
 export const IndexHeroSection = ({ isLogin }: { isLogin: boolean }) => {
+    const login = () => {
+        const redirectUrl = JSON.parse(process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_MAP || '{}')[window.location.host];
+        window.location.href = `${process.env.NEXT_PUBLIC_OPIZE}/oauth/verify/${process.env.NEXT_PUBLIC_OPIZE_PROJECT_CODE}?redirectUrl=${redirectUrl}`;
+    };
+
     return (
         <CenterLayout width="900px" minHeight="calc(100vh - 52px)">
             <Between>
@@ -112,21 +148,13 @@ export const IndexHeroSection = ({ isLogin }: { isLogin: boolean }) => {
                     <Buttons>
                         {isLogin ? (
                             <Link href={'/dashboard'} passHref>
-                                <Button2 href="/dashboard">대시보드</Button2>
+                                <Button2A href="/dashboard">대시보드</Button2A>
                             </Link>
                         ) : (
                             <>
-                                <Button1
-                                    href={`${process.env.NEXT_PUBLIC_OPIZE}/oauth/verify/${process.env.NEXT_PUBLIC_OPIZE_PROJECT_CODE}?redirectUrl=${process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_URL}`}
-                                >
-                                    로그인
-                                </Button1>
+                                <Button1 onClick={login}>로그인</Button1>
 
-                                <Button2
-                                    href={`${process.env.NEXT_PUBLIC_OPIZE}/oauth/verify/${process.env.NEXT_PUBLIC_OPIZE_PROJECT_CODE}?redirectUrl=${process.env.NEXT_PUBLIC_OPIZE_API_REDIRECT_URL}`}
-                                >
-                                    무료로 시작하기
-                                </Button2>
+                                <Button2 onClick={login}>무료로 시작하기</Button2>
                             </>
                         )}
                     </Buttons>
