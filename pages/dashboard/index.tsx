@@ -144,7 +144,7 @@ const Home: NextPage = () => {
                     </Flex.Center>
                     <Flex.Center gap="12px">
                         <Link href={'/guide'} passHref>
-                            <A href="/guide">오류 해결 가이드</A>
+                            <A href="/guide">가이드</A>
                         </Link>
                         <Link href={'/dashboard/setting'} passHref>
                             <A href={'/dashboard/setting'}>설정</A>
