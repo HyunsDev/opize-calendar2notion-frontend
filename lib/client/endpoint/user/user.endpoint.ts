@@ -2,40 +2,36 @@ import { Endpoint } from 'endpoint-client';
 import { CalendarDto, GoogleCalendarDto, PaymentLogDto, UserDto } from '../../dto';
 
 // POST /user
-export type postUserParameters = {
+export type PostUserParameters = {
     token: string;
     redirectUrl: string;
 };
-export const postUser: Endpoint<postUserParameters, postUserResponse> = {
+export type PostUserResponse = {
+    token: string;
+};
+export const postUser: Endpoint<PostUserParameters, PostUserResponse> = {
     method: 'POST',
     path: () => `/users`,
     bodyParams: ['token', 'redirectUrl'],
-    pathParams: [],
-    queryParams: [],
-};
-export type postUserResponse = {
-    token: string;
 };
 
 // GET /user/:userId
-export type getUserParameters = {
+export type GetUserParameters = {
     userId: 'me' | number;
 };
-export const getUser: Endpoint<getUserParameters, getUserResponse> = {
-    method: 'GET',
-    path: (e) => `/users/${e.userId}`,
-    bodyParams: [],
-    pathParams: ['userId'],
-    queryParams: [],
-};
-export type getUserResponse = UserDto & {
+export type GetUserResponse = UserDto & {
     calendars: CalendarDto[];
     googleCalendars: GoogleCalendarDto[];
     paymentLogs: PaymentLogDto[];
 };
+export const getUser: Endpoint<GetUserParameters, GetUserResponse> = {
+    method: 'GET',
+    path: (e) => `/users/${e.userId}`,
+    pathParams: ['userId'],
+};
 
 // PATCH /user/:userId
-export type patchUserParameters = {
+export type PatchUserParameters = {
     userId?: 'me' | number;
     name?: string;
     imageUrl?: string;
@@ -43,24 +39,24 @@ export type patchUserParameters = {
     userTimeZone?: string;
     isWork?: boolean;
 };
-export const patchUser: Endpoint<patchUserParameters, patchUserResponse> = {
+export type PatchUserResponse = {};
+export const patchUser: Endpoint<PatchUserParameters, PatchUserResponse> = {
     method: 'PATCH',
     path: (e) => `/users/${e.userId}`,
     bodyParams: ['imageUrl', 'isConnected', 'name', 'userTimeZone', 'isWork'],
     pathParams: ['userId'],
     queryParams: [],
 };
-export type patchUserResponse = {};
 
 // DELETE /user/:userId
-export type deleteUserParameters = {
+export type DeleteUserParameters = {
     userId?: 'me' | number;
 };
-export type deleteUserResponse = {
+export type DeleteUserResponse = {
     success: false;
     message: string;
 };
-export const deleteUser: Endpoint<deleteUserParameters, deleteUserResponse> = {
+export const deleteUser: Endpoint<DeleteUserParameters, DeleteUserResponse> = {
     method: 'DELETE',
     path: (e) => `/users/${e.userId}`,
     bodyParams: [],
@@ -69,7 +65,7 @@ export const deleteUser: Endpoint<deleteUserParameters, deleteUserResponse> = {
 };
 
 // POST /user/:userId/reset
-export type resetUserParameters = {
+export type ResetUserParameters = {
     userId?: 'me' | number;
 };
 export type resetUserResponse =
@@ -80,7 +76,7 @@ export type resetUserResponse =
           success: false;
           message: string;
       };
-export const resetUser: Endpoint<resetUserParameters, resetUserResponse> = {
+export const ResetUser: Endpoint<ResetUserParameters, resetUserResponse> = {
     method: 'POST',
     path: (e) => `/users/${e.userId}/reset`,
     bodyParams: [],

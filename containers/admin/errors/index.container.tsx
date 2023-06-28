@@ -20,7 +20,7 @@ import {
 } from 'opize-design-system';
 import { userIdState } from './state/userId.state';
 import { useRouter } from 'next/router';
-import { getAdminErrorsResponse } from '../../../lib/client/endpoint';
+import { GetAdminErrorsResponse } from '../../../lib/client/endpoint';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
@@ -106,7 +106,7 @@ function ErrorTableRow({
     refetch,
     deleteError,
 }: {
-    error: getAdminErrorsResponse['errorLogs'][number];
+    error: GetAdminErrorsResponse['errorLogs'][number];
     refetch: Function;
     deleteError: (id: number) => Promise<void>;
 }) {

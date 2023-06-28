@@ -21,7 +21,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { toast } from 'react-toastify';
-import { getAdminUserResponse } from '../../../lib/client/endpoint';
+import { GetAdminUserResponse } from '../../../lib/client/endpoint';
 import { client } from '../../../lib/client';
 import { APIResponseError } from '../../../lib/old-client';
 import { CalendarDto, UserDto } from '../../../lib/client/dto';

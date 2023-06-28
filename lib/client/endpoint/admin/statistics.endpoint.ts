@@ -2,15 +2,8 @@ import { Endpoint } from 'endpoint-client';
 import { CalendarDto, PaymentLogDto, UserDto } from '../../dto';
 
 // GET /admin/statistics
-export type getAdminStatisticsParameter = {};
-export const getAdminStatistics: Endpoint<getAdminStatisticsParameter, getAdminStatisticsResponse> = {
-    method: 'GET',
-    path: () => '/admin/statistics',
-    bodyParams: [],
-    pathParams: [],
-    queryParams: [],
-};
-export type getAdminStatisticsResponse = {
+export type GetAdminStatisticsParameter = {};
+export type GetAdminStatisticsResponse = {
     user: {
         all: number;
         plan: {
@@ -24,4 +17,12 @@ export type getAdminStatisticsResponse = {
     };
     calendar: number;
     money: number;
+};
+
+export const getAdminStatistics: Endpoint<GetAdminStatisticsParameter, GetAdminStatisticsResponse> = {
+    method: 'GET',
+    path: () => '/admin/statistics',
+    bodyParams: [],
+    pathParams: [],
+    queryParams: [],
 };

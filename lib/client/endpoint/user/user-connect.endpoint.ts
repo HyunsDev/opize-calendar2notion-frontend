@@ -1,42 +1,43 @@
 import { Endpoint } from 'endpoint-client';
 
 // POST /user/:userId/connect/google-api
-export type postConnectGoogleAPIParameters = {
+export type PostConnectGoogleAPIParameters = {
     userId: 'me' | number;
     code: string;
     callbackVersion: number;
 };
-export const postConnectGoogleAPI: Endpoint<postConnectGoogleAPIParameters, postConnectGoogleAPIResponse> = {
+export type PostConnectGoogleAPIResponse = {};
+export const postConnectGoogleAPI: Endpoint<PostConnectGoogleAPIParameters, PostConnectGoogleAPIResponse> = {
     method: 'POST',
     path: (e) => `/users/${e.userId}/connect/google-api`,
     bodyParams: ['code', 'callbackVersion'],
     pathParams: ['userId'],
     queryParams: [],
 };
-export type postConnectGoogleAPIResponse = {};
 
 // POST /user/:userId/connect/notion-api
-export type postConnectNotionAPIParameters = {
+export type PostConnectNotionAPIParameters = {
     userId: 'me' | number;
     code: string;
     redirectUrl: string;
 };
-export const postConnectNotionAPI: Endpoint<postConnectNotionAPIParameters, postConnectNotionAPIResponse> = {
+export type PostConnectNotionAPIResponse = {};
+export const postConnectNotionAPI: Endpoint<PostConnectNotionAPIParameters, PostConnectNotionAPIResponse> = {
     method: 'POST',
     path: (e) => `/users/${e.userId}/connect/notion-api`,
     bodyParams: ['code', 'redirectUrl'],
     pathParams: ['userId'],
     queryParams: [],
 };
-export type postConnectNotionAPIResponse = {};
 
 // GET /user/:userId/connect/notion-database
-export type getConnectNotionDatabasesParameters = {
+export type GetConnectNotionDatabasesParameters = {
     userId: 'me' | number;
 };
+export type GetConnectNotionDatabasesResponse = any;
 export const getConnectNotionDatabases: Endpoint<
-    getConnectNotionDatabasesParameters,
-    getConnectNotionDatabasesResponse
+    GetConnectNotionDatabasesParameters,
+    GetConnectNotionDatabasesResponse
 > = {
     method: 'GET',
     path: (e) => `/users/${e.userId}/connect/notion-database`,
@@ -44,16 +45,17 @@ export const getConnectNotionDatabases: Endpoint<
     pathParams: ['userId'],
     queryParams: [],
 };
-export type getConnectNotionDatabasesResponse = any;
 
 // POST /user/:userId/connect/notion-database
-export type postConnectNotionDatabaseParameters = {
+export type PostConnectNotionDatabaseParameters = {
     userId: 'me' | number;
     id: string;
 };
+export type PostConnectNotionDatabaseResponse = {};
+
 export const postConnectNotionDatabase: Endpoint<
-    postConnectNotionDatabaseParameters,
-    postConnectNotionDatabaseResponse
+    PostConnectNotionDatabaseParameters,
+    PostConnectNotionDatabaseResponse
 > = {
     method: 'POST',
     path: (e) => `/users/${e.userId}/connect/notion-database`,
@@ -61,4 +63,3 @@ export const postConnectNotionDatabase: Endpoint<
     pathParams: ['userId'],
     queryParams: [],
 };
-export type postConnectNotionDatabaseResponse = {};

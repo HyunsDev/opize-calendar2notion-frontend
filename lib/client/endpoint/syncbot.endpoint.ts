@@ -1,14 +1,14 @@
 import { Endpoint } from 'endpoint-client';
 
 // POST /syncbots
-export type postSyncBotParameters = {
+export type PostSyncBotParameters = {
     prefix: string;
     name: string;
     url: string;
     controlSecret: string;
 };
-export type postSyncBotResponse = {};
-export const postSyncBot: Endpoint<postSyncBotParameters, postSyncBotResponse> = {
+export type PostSyncBotResponse = {};
+export const postSyncBot: Endpoint<PostSyncBotParameters, PostSyncBotResponse> = {
     method: 'POST',
     path: () => '/syncbots',
     bodyParams: ['name', 'url', 'prefix', 'controlSecret'],
@@ -38,15 +38,8 @@ type ManagerStorageMap = {
         };
     };
 };
-export type getSyncBotsParameters = {};
-export const getSyncBots: Endpoint<getSyncBotsParameters, getSyncBotsResponse> = {
-    method: 'GET',
-    path: () => '/syncbots',
-    bodyParams: [],
-    pathParams: [],
-    queryParams: [],
-};
-export type getSyncBotsResponse = {
+export type GetSyncBotsParameters = {};
+export type GetSyncBotsResponse = {
     id: number;
     name: string;
     url: string;
@@ -55,96 +48,104 @@ export type getSyncBotsResponse = {
     status: 'good' | 'error';
     data: ManagerStorageMap;
 }[];
+export const getSyncBots: Endpoint<GetSyncBotsParameters, GetSyncBotsResponse> = {
+    method: 'GET',
+    path: () => '/syncbots',
+    bodyParams: [],
+    pathParams: [],
+    queryParams: [],
+};
 
 // DELETE /syncbots/:prefix
-export type deleteSyncBotParameters = {
+export type DeleteSyncBotParameters = {
     prefix: string;
 };
-export const deleteSyncBot: Endpoint<deleteSyncBotParameters, deleteSyncBotResponse> = {
+export type DeleteSyncBotResponse = {};
+export const deleteSyncBot: Endpoint<DeleteSyncBotParameters, DeleteSyncBotResponse> = {
     method: 'DELETE',
     path: (e) => `/syncbots/${e.prefix}`,
     bodyParams: [],
     pathParams: ['prefix'],
     queryParams: [],
 };
-export type deleteSyncBotResponse = {};
 
 // POST /syncbot/:prefix/stop
-export type stopSyncBotParameters = {
+export type PostSyncBotStopParameters = {
     prefix: string;
 };
-export const stopSyncBot: Endpoint<stopSyncBotParameters, stopSyncBotResponse> = {
+export type PostSyncBotStopResponse = {};
+export const postSyncBotStop: Endpoint<PostSyncBotStopParameters, PostSyncBotStopResponse> = {
     method: 'POST',
     path: (e) => `/syncbots/${e.prefix}/stop`,
     bodyParams: [],
     pathParams: ['prefix'],
     queryParams: [],
 };
-export type stopSyncBotResponse = {};
 
 // POST /syncbot/:prefix/exit
-export type exitSyncBotParameters = {
+export type PostSyncBotExitParameter = {
     prefix: string;
 };
-export const exitSyncBot: Endpoint<exitSyncBotParameters, exitSyncBotResponse> = {
+export type PostSyncBotExitResponse = {};
+export const postSyncBotExit: Endpoint<PostSyncBotExitParameter, PostSyncBotExitResponse> = {
     method: 'POST',
     path: (e) => `/syncbots/${e.prefix}/exit`,
     bodyParams: [],
     pathParams: ['prefix'],
     queryParams: [],
 };
-export type exitSyncBotResponse = {};
 
 // GET /syncbot/:prefix/logs/:date
-export type getSyncBotLogsParameters = {
+export type GetSyncBotLogsParameters = {
     prefix: string;
     date: 'today' | string;
 };
-export const getSyncBotLogs: Endpoint<getSyncBotLogsParameters, getSyncBotLogsResponse> = {
+export type GetSyncBotLogsResponse = {
+    runnerLog: string;
+    serverLog: string;
+    workerLog: string;
+};
+export const getSyncBotLogs: Endpoint<GetSyncBotLogsParameters, GetSyncBotLogsResponse> = {
     path: (e) => `/syncbots/${e.prefix}/logs/${e.date}`,
     method: 'GET',
     bodyParams: [],
     pathParams: ['date', 'prefix'],
     queryParams: [],
 };
-export type getSyncBotLogsResponse = {
-    runnerLog: string;
-    serverLog: string;
-    workerLog: string;
-};
 
 // GET /syncbot/:prefix/logs-static/:fileName
-export type getSyncBotStaticLogParameters = {
+export type GetSyncBotStaticLogParameters = {
     prefix: string;
     fileName: string;
 };
-export const getSyncBotStaticLog: Endpoint<getSyncBotStaticLogParameters, getSyncBotStaticLogResponse> = {
+export type GetSyncBotStaticLogResponse = {
+    data: string;
+};
+
+export const getSyncBotStaticLog: Endpoint<GetSyncBotStaticLogParameters, GetSyncBotStaticLogResponse> = {
     path: (e) => `/syncbots/${e.prefix}/logs-static`,
     method: 'GET',
     bodyParams: [],
     pathParams: ['prefix'],
     queryParams: ['fileName'],
 };
-export type getSyncBotStaticLogResponse = {
-    data: string;
-};
 
 // GET /syncbot/:prefix/logs
-export type getSyncBotLogListParameters = {
+export type GetSyncBotLogListParameters = {
     prefix: string;
 };
-export const getSyncBotLogList: Endpoint<getSyncBotLogListParameters, getSyncBotLogListResponse> = {
-    path: (e) => `/syncbots/${e.prefix}/logs`,
-    method: 'GET',
-    bodyParams: [],
-    pathParams: ['prefix'],
-    queryParams: [],
-};
-export type getSyncBotLogListResponse = {
+export type GetSyncBotLogListResponse = {
     runnerLogs: string[];
     serverLogs: string[];
     workerLogs: string[];
     runnerErrorLogs: string[];
     serverErrorLogs: string[];
     workerErrorLogs: string[];
+};
+export const getSyncBotLogList: Endpoint<GetSyncBotLogListParameters, GetSyncBotLogListResponse> = {
+    path: (e) => `/syncbots/${e.prefix}/logs`,
+    method: 'GET',
+    bodyParams: [],
+    pathParams: ['prefix'],
+    queryParams: [],
 };
