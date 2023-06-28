@@ -1,5 +1,5 @@
 import { Endpoint } from 'endpoint-client';
-import { UserObject } from '../../object';
+import { CalendarDto, GoogleCalendarDto, PaymentLogDto, UserDto } from '../../dto';
 
 // POST /user
 export type postUserParameters = {
@@ -17,7 +17,7 @@ export type postUserResponse = {
     token: string;
 };
 
-// GET /user
+// GET /user/:userId
 export type getUserParameters = {
     userId: 'me' | number;
 };
@@ -28,7 +28,11 @@ export const getUser: Endpoint<getUserParameters, getUserResponse> = {
     pathParams: ['userId'],
     queryParams: [],
 };
-export type getUserResponse = UserObject;
+export type getUserResponse = UserDto & {
+    calendars: CalendarDto[];
+    googleCalendars: GoogleCalendarDto[];
+    paymentLogs: PaymentLogDto[];
+};
 
 // PATCH /user/:userId
 export type patchUserParameters = {

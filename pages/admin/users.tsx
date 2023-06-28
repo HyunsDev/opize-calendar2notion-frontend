@@ -29,7 +29,7 @@ import { AdminUserDelete } from '../../components/footer/user/userDelete';
 import { client } from '../../lib/client';
 import { toast } from 'react-toastify';
 import { Footer } from '../../components/footer';
-import { UserObject } from '../../lib/client/object';
+import { UserDto } from '../../lib/client/dto';
 import { Check, DotsThreeVertical } from 'phosphor-react';
 import { useRouter } from 'next/router';
 import { getAdminFindUsersWhere } from '../../lib/client/endpoint';
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [page, setPage] = useState(1);
     const [where, setWhere] = useState<getAdminFindUsersWhere>({});
-    const [users, setUsers] = useState<UserObject[]>([]);
+    const [users, setUsers] = useState<UserDto[]>([]);
 
     const findUsers = async () => {
         try {

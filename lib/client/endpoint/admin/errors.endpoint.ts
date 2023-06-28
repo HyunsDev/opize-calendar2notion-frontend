@@ -1,5 +1,5 @@
 import { Endpoint } from 'endpoint-client';
-import { CalendarObject, ErrorLogObject, PaymentLogObject, UserObject } from '../../object';
+import { CalendarDto, ErrorLogDto, PaymentLogDto, UserDto } from '../../dto';
 
 // GET /admin/errors
 export type getAdminErrorsParameter = {
@@ -15,8 +15,8 @@ export const getAdminErrors: Endpoint<getAdminErrorsParameter, getAdminErrorsRes
     queryParams: ['page', 'pageSize', 'userId'],
 };
 export type getAdminErrorsResponse = {
-    errorLogs: (ErrorLogObject & {
-        user: UserObject;
+    errorLogs: (ErrorLogDto & {
+        user: UserDto;
     })[];
 };
 

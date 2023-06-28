@@ -1,5 +1,5 @@
 import { Endpoint } from 'endpoint-client';
-import { CalendarObject, PaymentLogObject, UserObject } from '../../../object';
+import { CalendarDto, PaymentLogDto, UserDto } from '../../../dto';
 
 // POST /admin/users/:userId/plan
 export type postAdminUserPlanUpdateParameter = {

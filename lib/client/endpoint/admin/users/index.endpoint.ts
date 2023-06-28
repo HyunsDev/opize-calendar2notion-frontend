@@ -1,5 +1,5 @@
 import { Endpoint } from 'endpoint-client';
-import { UserObject } from '../../../object';
+import { UserDto } from '../../../dto';
 
 // GET /admin/users/search
 export type getAdminFindUserParameter = {
@@ -16,7 +16,7 @@ export const getAdminFindUser: Endpoint<getAdminFindUserParameter, getAdminFindU
     queryParams: ['email', 'googleEmail', 'id', 'opizeId'],
 };
 export type getAdminFindUserResponse = {
-    user: UserObject;
+    user: UserDto;
 };
 
 // Get /admin/users/:userId
@@ -31,7 +31,7 @@ export const getAdminUser: Endpoint<getAdminUserParameter, getAdminUserResponse>
     queryParams: [],
 };
 export type getAdminUserResponse = {
-    user: UserObject;
+    user: UserDto;
 };
 
 // DELETE /admin/users/:userId
@@ -116,7 +116,7 @@ export type getAdminFindUsersParameter = {
 };
 export type getAdminFindUsersResponse = {
     page: number;
-    users: UserObject[];
+    users: UserDto[];
 };
 export const getAdminFindUsers: Endpoint<getAdminFindUsersParameter, getAdminFindUsersResponse> = {
     method: 'GET',

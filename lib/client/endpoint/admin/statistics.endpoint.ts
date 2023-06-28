@@ -1,5 +1,5 @@
 import { Endpoint } from 'endpoint-client';
-import { CalendarObject, PaymentLogObject, UserObject } from '../../object';
+import { CalendarDto, PaymentLogDto, UserDto } from '../../dto';
 
 // GET /admin/statistics
 export type getAdminStatisticsParameter = {};

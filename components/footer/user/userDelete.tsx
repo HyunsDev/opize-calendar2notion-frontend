@@ -3,7 +3,7 @@ import { Warning } from 'phosphor-react';
 import { toast } from 'react-toastify';
 import { client } from '../../../lib/client';
 import { getAdminFindUserResponse } from '../../../lib/client/endpoint';
-import { UserObject } from '../../../lib/client/object';
+import { UserDto } from '../../../lib/client/dto';
 
 export function AdminUserDelete({ user, fetchUser }: { user: getAdminFindUserResponse; fetchUser: () => void }) {
     const dialog = useDialog();

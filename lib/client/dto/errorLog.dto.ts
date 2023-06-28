@@ -1,14 +1,12 @@
-import { UserObject } from './user.object';
+import { UserDto } from './user.dto';
 
-export type ErrorLogObject = {
+export type ErrorLogDto = {
     id: number;
     code: string;
     from: 'GOOGLE CALENDAR' | 'NOTION' | 'SYNCBOT' | 'COMPLEX' | 'UNKNOWN';
     description: string;
     detail?: string;
     stack?: string;
-    showUser: boolean;
-    guideUrl?: string;
     level: 'NOTICE' | 'WARN' | 'ERROR' | 'CRIT' | 'EMERGENCY';
     archive: boolean;
     finishWork: 'STOP' | 'RETRY';

@@ -1,4 +1,4 @@
-export type CalendarObject = {
+export type CalendarDto = {
     id: number;
     googleCalendarId: string;
     googleCalendarName: string;
@@ -8,7 +8,7 @@ export type CalendarObject = {
     createdAt: string;
 };
 
-export type GoogleCalendarObject = {
+export type GoogleCalendarDto = {
     id: string;
     summary: string;
     primary: boolean;

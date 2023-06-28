@@ -24,7 +24,7 @@ import { toast } from 'react-toastify';
 import { getAdminUserResponse } from '../../../lib/client/endpoint';
 import { client } from '../../../lib/client';
 import { APIResponseError } from '../../../lib/old-client';
-import { CalendarObject, UserObject } from '../../../lib/client/object';
+import { CalendarDto, UserDto } from '../../../lib/client/dto';
 import { DotsThreeVertical } from 'phosphor-react';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
@@ -67,7 +67,7 @@ function ModalUserUpdate({
     fetchUser,
     close,
 }: {
-    user: UserObject;
+    user: UserDto;
     userKey: keyof typeof editableUserAttr;
     initValue: any;
     fetchUser: () => void;
@@ -125,7 +125,7 @@ function ModalUserUpdate({
     );
 }
 
-export function UserTable({ user, fetchUser }: { user: UserObject; fetchUser: () => void }) {
+export function UserTable({ user, fetchUser }: { user: UserDto; fetchUser: () => void }) {
     const modal = useModal();
     const codeModal = useCodeModal();
 
@@ -249,7 +249,7 @@ export function UserTable({ user, fetchUser }: { user: UserObject; fetchUser: ()
     );
 }
 
-export function CalendarBox({ user }: { user: UserObject }) {
+export function CalendarBox({ user }: { user: UserDto }) {
     const modal = useModal();
 
     return (
@@ -292,7 +292,7 @@ export function CalendarBox({ user }: { user: UserObject }) {
     );
 }
 
-export function PaymentLogBox({ user }: { user: UserObject }) {
+export function PaymentLogBox({ user }: { user: UserDto }) {
     const modal = useModal();
     return (
         <Flex.Column id="user-paymentLogs" gap="8px">
