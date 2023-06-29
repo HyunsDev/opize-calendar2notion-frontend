@@ -21,7 +21,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { toast } from 'react-toastify';
-import { GetAdminUserResponse } from '../../../lib/client/endpoint';
+import { GetAdminUserResponse, GetUserResponse } from '../../../lib/client/endpoint';
 import { client } from '../../../lib/client';
 import { APIResponseError } from '../../../lib/old-client';
 import { CalendarDto, UserDto } from '../../../lib/client/dto';
@@ -125,7 +125,7 @@ function ModalUserUpdate({
     );
 }
 
-export function UserTable({ user, fetchUser }: { user: UserDto; fetchUser: () => void }) {
+export function UserTable({ user, fetchUser }: { user: GetUserResponse; fetchUser: () => void }) {
     const modal = useModal();
     const codeModal = useCodeModal();
 
@@ -249,7 +249,7 @@ export function UserTable({ user, fetchUser }: { user: UserDto; fetchUser: () =>
     );
 }
 
-export function CalendarBox({ user }: { user: UserDto }) {
+export function CalendarBox({ user }: { user: GetAdminUserResponse['user'] }) {
     const modal = useModal();
 
     return (
