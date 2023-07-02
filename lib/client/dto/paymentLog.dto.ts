@@ -1,4 +1,4 @@
-export type PaymentLogObject = {
+export type PaymentLogDto = {
     id: number;
     plan: 'FREE' | 'PRO';
     paymentKind: string;

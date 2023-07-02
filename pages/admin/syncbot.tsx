@@ -44,7 +44,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { Info } from 'phosphor-react';
 import { Footer } from '../../components/footer';
-import { getSyncBotLogListResponse } from '../../lib/client/endpoint';
+import { GetSyncBotLogListResponse } from '../../lib/client/endpoint';
 import { APIResponseError } from '../../lib/old-client';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
@@ -66,8 +66,8 @@ const LogDownload = styled.p`
 `;
 
 function LogModal({ prefix }: { prefix: string }) {
-    const [logs, setLogs] = useState<getSyncBotLogListResponse>();
-    const [cursor, setCursor] = useState<keyof getSyncBotLogListResponse>('workerLogs');
+    const [logs, setLogs] = useState<GetSyncBotLogListResponse>();
+    const [cursor, setCursor] = useState<keyof GetSyncBotLogListResponse>('workerLogs');
 
     useEffect(() => {
         (async () => {

@@ -29,10 +29,10 @@ import { AdminUserDelete } from '../../components/footer/user/userDelete';
 import { client } from '../../lib/client';
 import { toast } from 'react-toastify';
 import { Footer } from '../../components/footer';
-import { UserObject } from '../../lib/client/object';
+import { UserDto } from '../../lib/client/dto';
 import { Check, DotsThreeVertical } from 'phosphor-react';
 import { useRouter } from 'next/router';
-import { getAdminFindUsersWhere } from '../../lib/client/endpoint';
+import { GetAdminFindUsersWhere } from '../../lib/client/endpoint';
 
 const Home: NextPage = () => {
     const modal = useModal();
@@ -41,8 +41,8 @@ const Home: NextPage = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [page, setPage] = useState(1);
-    const [where, setWhere] = useState<getAdminFindUsersWhere>({});
-    const [users, setUsers] = useState<UserObject[]>([]);
+    const [where, setWhere] = useState<GetAdminFindUsersWhere>({});
+    const [users, setUsers] = useState<UserDto[]>([]);
 
     const findUsers = async () => {
         try {
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
                                         }
                                         return {
                                             ...where,
-                                            status: e.target.value as getAdminFindUsersWhere['status'],
+                                            status: e.target.value as GetAdminFindUsersWhere['status'],
                                         };
                                     })
                                 }
@@ -128,7 +128,7 @@ const Home: NextPage = () => {
                                         }
                                         return {
                                             ...where,
-                                            userPlan: e.target.value as getAdminFindUsersWhere['userPlan'],
+                                            userPlan: e.target.value as GetAdminFindUsersWhere['userPlan'],
                                         };
                                     })
                                 }

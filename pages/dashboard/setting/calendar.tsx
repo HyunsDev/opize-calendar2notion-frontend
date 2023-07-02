@@ -24,7 +24,7 @@ import { GCalIcon } from '../../../components/GCalIcon';
 import { GCalNotionCircle } from '../../../components/GCalNotionCircle';
 import { Footer } from '../../../components/footer';
 import { DashboardHeader } from '../../../components/pages/dashboard/header';
-import { DashboardSettingSidebar } from '../../../components/pages/dashboard/setting/sidebar';
+import { DashboardSettingSidebar } from '../../../containers/dashboard/pages/setting/components/Sidebar';
 import { useUser } from '../../../hooks/useUser';
 import { client } from '../../../lib/client';
 
@@ -32,7 +32,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
-import { CalendarObject, GoogleCalendarObject } from '../../../lib/client/object';
+import { CalendarDto, GoogleCalendarDto } from '../../../lib/client/dto';
 import { APIResponseError } from 'endpoint-client';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
@@ -63,7 +63,7 @@ const NotiTag = styled.div`
     gap: 4px;
 `;
 
-function CalendarItem({ calendar, userCalendar }: { calendar: GoogleCalendarObject; userCalendar?: CalendarObject }) {
+function CalendarItem({ calendar, userCalendar }: { calendar: GoogleCalendarDto; userCalendar?: CalendarDto }) {
     const router = useRouter();
     const dialog = useDialog();
     const { user, refetch } = useUser();

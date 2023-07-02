@@ -1,54 +1,54 @@
 import { Endpoint } from 'endpoint-client';
-import { UserObject } from '../../../object';
+import { UserDto } from '../../../dto';
 
 // GET /admin/users/search
-export type getAdminFindUserParameter = {
+export type GetAdminFindUserParameter = {
     email?: string;
     googleEmail?: string;
     id?: number;
     opizeId?: number;
 };
-export const getAdminFindUser: Endpoint<getAdminFindUserParameter, getAdminFindUserResponse> = {
+export type GetAdminFindUserResponse = {
+    user: UserDto;
+};
+export const getAdminFindUser: Endpoint<GetAdminFindUserParameter, GetAdminFindUserResponse> = {
     method: 'GET',
     path: (e) => `/admin/users/search`,
     bodyParams: [],
     pathParams: [],
     queryParams: ['email', 'googleEmail', 'id', 'opizeId'],
 };
-export type getAdminFindUserResponse = {
-    user: UserObject;
-};
 
-// Get /admin/users/:userId
-export type getAdminUserParameter = {
+// GET /admin/users/:userId
+export type GetAdminUserParameter = {
     userId: number;
 };
-export const getAdminUser: Endpoint<getAdminUserParameter, getAdminUserResponse> = {
+export type GetAdminUserResponse = {
+    user: UserDto;
+};
+export const getAdminUser: Endpoint<GetAdminUserParameter, GetAdminUserResponse> = {
     method: 'GET',
     path: (e) => `/admin/users/${e.userId}`,
     bodyParams: [],
     pathParams: ['userId'],
     queryParams: [],
 };
-export type getAdminUserResponse = {
-    user: UserObject;
-};
 
 // DELETE /admin/users/:userId
-export type deleteAdminUserParameter = {
+export type GeleteAdminUserParameter = {
     userId: number;
 };
-export const deleteAdminUser: Endpoint<deleteAdminUserParameter, deleteAdminUserResponse> = {
+export type GeleteAdminUserResponse = {};
+export const deleteAdminUser: Endpoint<GeleteAdminUserParameter, GeleteAdminUserResponse> = {
     method: 'DELETE',
     path: (e) => `/admin/users/${e.userId}`,
     bodyParams: [],
     pathParams: ['userId'],
     queryParams: [],
 };
-export type deleteAdminUserResponse = {};
 
 // PATCH /admin/users/:userId
-export type patchAdminUserParameter = {
+export type PatchAdminUserParameter = {
     userId: number;
     name?: string;
     email?: string;
@@ -71,7 +71,8 @@ export type patchAdminUserParameter = {
     notionProps?: string;
     isWork?: boolean;
 };
-export const patchAdminUser: Endpoint<patchAdminUserParameter, patchAdminUserResponse> = {
+export type PatchAdminUserResponse = {};
+export const patchAdminUser: Endpoint<PatchAdminUserParameter, PatchAdminUserResponse> = {
     method: 'PATCH',
     path: (e) => `/admin/users/${e.userId}`,
     bodyParams: [
@@ -100,25 +101,24 @@ export const patchAdminUser: Endpoint<patchAdminUserParameter, patchAdminUserRes
     pathParams: ['userId'],
     queryParams: [],
 };
-export type patchAdminUserResponse = {};
 
 // GET /admin/users
-export type getAdminFindUsersWhere = {
+export type GetAdminFindUsersWhere = {
     status?: 'FIRST' | 'GOOGLE_SET' | 'NOTION_API_SET' | 'NOTION_SET' | 'FINISHED';
     isConnected?: boolean;
     userPlan?: 'FREE' | 'PRO' | 'SPONSOR';
     isWork?: boolean;
     isAdmin?: boolean;
 };
-export type getAdminFindUsersParameter = {
+export type GetAdminFindUsersParameter = {
     page: number;
-    where: getAdminFindUsersWhere;
+    where: GetAdminFindUsersWhere;
 };
-export type getAdminFindUsersResponse = {
+export type GetAdminFindUsersResponse = {
     page: number;
-    users: UserObject[];
+    users: UserDto[];
 };
-export const getAdminFindUsers: Endpoint<getAdminFindUsersParameter, getAdminFindUsersResponse> = {
+export const getAdminFindUsers: Endpoint<GetAdminFindUsersParameter, GetAdminFindUsersResponse> = {
     method: 'GET',
     path: '/admin/users',
     queryParams: ['page', 'where'],

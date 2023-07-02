@@ -1,8 +1,8 @@
 import { Endpoint } from 'endpoint-client';
-import { CalendarObject, PaymentLogObject, UserObject } from '../../../object';
+import { CalendarDto, PaymentLogDto, UserDto } from '../../../dto';
 
 // POST /admin/users/:userId/plan
-export type postAdminUserPlanUpdateParameter = {
+export type PostAdminUserPlanUpdateParameter = {
     userId: number;
     plan: 'FREE' | 'PRO';
     months: string;
@@ -11,11 +11,12 @@ export type postAdminUserPlanUpdateParameter = {
     paymentKind: string;
     memo?: string;
 };
-export const postAdminUserPlanUpdate: Endpoint<postAdminUserPlanUpdateParameter, postAdminUserPlanUpdateResponse> = {
+export type PostAdminUserPlanUpdateResponse = {};
+
+export const postAdminUserPlanUpdate: Endpoint<PostAdminUserPlanUpdateParameter, PostAdminUserPlanUpdateResponse> = {
     method: 'POST',
     path: (e) => `/admin/users/${e.userId}/plan`,
     bodyParams: ['memo', 'months', 'paymentKind', 'plan', 'price', 'priceKind'],
     pathParams: ['userId'],
     queryParams: [],
 };
-export type postAdminUserPlanUpdateResponse = {};
