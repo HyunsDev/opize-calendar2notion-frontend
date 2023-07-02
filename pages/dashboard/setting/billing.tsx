@@ -1,23 +1,17 @@
 import type { NextPage } from 'next';
+import { DashboardHeader } from '../../../components/pages/dashboard/header';
 import { PageHead } from 'opize-design-system';
 import { Footer } from '../../../components/footer';
-import { DashboardHeader } from '../../../components/pages/dashboard/header';
-
-import { useUser } from '../../../hooks/useUser';
-
-import { SettingContainer } from '../../../containers/dashboard/pages/setting/pages/index';
+import { BillingContainer } from '../../../containers/dashboard/pages/setting/pages/billing';
 
 const Home: NextPage = () => {
-    const { user } = useUser();
-
     return (
         <>
             <DashboardHeader now="setting" />
             <PageHead title="설정"></PageHead>
-            <SettingContainer />
+            <BillingContainer />
             <Footer />
         </>
     );
 };
-
 export default Home;
