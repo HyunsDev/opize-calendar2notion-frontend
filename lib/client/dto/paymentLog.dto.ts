@@ -4,11 +4,11 @@ export type PaymentLogDto = {
     paymentKind: string;
     price: number;
     priceKind: string;
-    paymentTime: Date;
+    paymentTime: string;
     months: string;
-    expirationTime: Date;
+    expirationTime: string;
     memo: string;
     userId: number;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
 };
