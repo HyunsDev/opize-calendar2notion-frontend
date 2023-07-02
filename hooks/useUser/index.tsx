@@ -33,7 +33,7 @@ export function useUser({ allowNonLogin = false }: { allowNonLogin?: boolean } =
         }
 
         return {
-            user: null,
+            user: undefined,
             isError: true,
             error: error,
         };

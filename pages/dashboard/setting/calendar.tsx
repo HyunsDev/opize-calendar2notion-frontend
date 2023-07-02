@@ -24,7 +24,7 @@ import { GCalIcon } from '../../../components/GCalIcon';
 import { GCalNotionCircle } from '../../../components/GCalNotionCircle';
 import { Footer } from '../../../components/footer';
 import { DashboardHeader } from '../../../components/pages/dashboard/header';
-import { DashboardSettingSidebar } from '../../../components/pages/dashboard/setting/sidebar';
+import { DashboardSettingSidebar } from '../../../containers/dashboard/pages/setting/components/Sidebar';
 import { useUser } from '../../../hooks/useUser';
 import { client } from '../../../lib/client';
 
