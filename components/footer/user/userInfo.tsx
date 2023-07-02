@@ -249,7 +249,8 @@ export function UserTable({ user, fetchUser }: { user: GetUserResponse; fetchUse
     );
 }
 
-export function CalendarBox({ user }: { user: GetAdminUserResponse['user'] }) {
+// TODO: #39 Admin DTO 별도 정의 필요
+export function CalendarBox({ user }: { user: any }) {
     const modal = useModal();
 
     return (
@@ -257,7 +258,7 @@ export function CalendarBox({ user }: { user: GetAdminUserResponse['user'] }) {
             <Label>Calendars - {user?.calendars?.length || 0}</Label>
             <ItemsTable>
                 {user.calendars && user.calendars.length !== 0 ? (
-                    user?.calendars.map((calendar) => (
+                    user?.calendars.map((calendar: any) => (
                         <ItemsTable.Row key={calendar.id}>
                             <ItemsTable.Row.Text
                                 text={`${calendar.googleCalendarName}`}
@@ -292,7 +293,7 @@ export function CalendarBox({ user }: { user: GetAdminUserResponse['user'] }) {
     );
 }
 
-export function PaymentLogBox({ user }: { user: UserDto }) {
+export function PaymentLogBox({ user }: { user: any }) {
     const modal = useModal();
     return (
         <Flex.Column id="user-paymentLogs" gap="8px">
