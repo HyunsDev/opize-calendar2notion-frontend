@@ -123,12 +123,12 @@ export function PlanCardFree({ userPlan }: { userPlan?: UserEntity['userPlan'] }
             {userPlan ? (
                 <Flex.Column style={{ marginTop: '40px' }}>
                     {userPlan === 'PRO' ? (
-                        <Button variant="contained" width="100%" size="large">
-                            다운그레이드
+                        <Button variant="outlined" width="100%" size="large">
+                            상위 플랜을 이용중입니다
                         </Button>
                     ) : (
                         <Button variant="outlined" width="100%" size="large">
-                            현재 사용중인 플랜입니다.
+                            현재 사용중인 플랜입니다
                         </Button>
                     )}
                 </Flex.Column>
