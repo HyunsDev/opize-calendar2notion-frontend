@@ -30,7 +30,7 @@ function RenewalBox() {
 
     return (
         <Flex.Column gap="8px">
-            <H2>{dayjs(lastTransaction?.expirationTime).fromNow()} 구독을 갱신하게 되요</H2>
+            <H2>{dayjs(lastTransaction?.expirationTime).fromNow()} 구독을 갱신하게 돼요</H2>
         </Flex.Column>
     );
 }
