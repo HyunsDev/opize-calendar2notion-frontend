@@ -14,6 +14,10 @@ import { NewConnectFinishBlock } from './block/newConnectBlock/finishBlock';
 import { MigrateConnectNotionApiBlock } from './block/migrateConnectBlock/notionApiBlock';
 import { MigrateConnectMigrationBlock } from './block/migrateConnectBlock/databaseMigration1';
 import { MigrateConnectFinishBlock } from './block/migrateConnectBlock/finishBlock';
+import { ExistCheckConnectBlock } from './block/existCheckBlock';
+import { ExistConnectNotionApiBlock } from './block/existConnectBlock/notionApiBlock';
+import { ExistConnectDatabaseBlock } from './block/existConnectBlock/database';
+import { ExistConnectFinishBlock } from './block/existConnectBlock/finishBlock';
 
 const Box = styled.div`
     border: solid 1px ${cv.border4};
@@ -48,17 +52,7 @@ const Title = styled.h1`
 export function SlideBoxContainer() {
     const router = useRouter();
     const { user } = useUser();
-
-    /**
-     * new: 새로운 데이터베이스에 연결
-     * migrate: 기존 Calendar2notion에서 마이그레이션
-     * exist: 기존 노션 데이터베이스에 연결
-     */
-    const [connectMode, setConnectMode] = useState<'unset' | 'new' | 'migrate' | 'exist'>('unset');
-
     const { now, move } = useSlideBox();
-
-    const [notionDatabaseId, setNotionDatabaseId] = useState<string | null>(null);
 
     useEffect(() => {
         if (user?.status === 'FINISHED') {
@@ -76,10 +70,8 @@ export function SlideBoxContainer() {
 
                 <SlideBox>
                     <GoogleLoginConnectBlock />
-                    <MigrateCheckConnectBlock
-                        setConnectMode={setConnectMode}
-                        setNotionDatabaseId={setNotionDatabaseId}
-                    />
+                    <MigrateCheckConnectBlock />
+                    <ExistCheckConnectBlock />
 
                     <NewConnectNotionApiBlock />
                     <NewConnectFinishBlock />
@@ -87,6 +79,10 @@ export function SlideBoxContainer() {
                     <MigrateConnectNotionApiBlock />
                     <MigrateConnectMigrationBlock />
                     <MigrateConnectFinishBlock />
+
+                    <ExistConnectNotionApiBlock />
+                    <ExistConnectDatabaseBlock />
+                    <ExistConnectFinishBlock />
                 </SlideBox>
             </Box>
             <Flex.Center style={{ width: '100%', marginTop: '4px' }}>
@@ -99,7 +95,6 @@ export function SlideBoxContainer() {
 
             {/* <Flex.Center>
                 <Button onClick={() => move(now - 1)}>+1</Button>
-                <Text style={{ width: '100px', textAlign: 'center' }}>{connectMode}</Text>
                 <TextField value={now} onChange={(e) => move(+e.target.value)} />
                 <Button onClick={() => move(now + 1)}>+1</Button>
             </Flex.Center> */}
