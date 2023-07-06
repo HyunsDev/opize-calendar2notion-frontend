@@ -29,7 +29,10 @@ export function NewConnectFinishBlock() {
             });
             let isFindDatabase = false;
             for (const database of res.databases) {
-                if (database.title[0].plain_text === 'Calendar2notion Template') {
+                if (
+                    database.title[0].plain_text === 'Calendar2notion Template' ||
+                    database.title[0].plain_text === 'Calendar2notion'
+                ) {
                     isFindDatabase = true;
                     return database.id;
                 }
