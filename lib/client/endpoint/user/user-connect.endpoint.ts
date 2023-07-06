@@ -63,3 +63,20 @@ export const postConnectNotionDatabase: Endpoint<
     pathParams: ['userId'],
     queryParams: [],
 };
+
+// POST /user/:userId/connect/exist-notion-database
+export type PostConnectExistNotionDatabaseParameters = {
+    userId: 'me' | number;
+    databaseId: string;
+};
+export type PostConnectExistNotionDatabaseResponse = {};
+export const postConnectExistNotionDatabase: Endpoint<
+    PostConnectExistNotionDatabaseParameters,
+    PostConnectExistNotionDatabaseResponse
+> = {
+    method: 'POST',
+    path: (e) => `/users/${e.userId}/connect/exist-notion-database`,
+    bodyParams: ['databaseId'],
+    pathParams: ['userId'],
+    queryParams: [],
+};

@@ -9,9 +9,10 @@ import { BlockHeader } from '../../components/blockHeader';
 import { connectPageIndex } from '../../connectPageIndex';
 import { NotionSVG } from '../../components/notionSVG';
 import { MigrationGuideLink } from '../../components/migrationGuideLink';
+import { ExistConnectGuideLink } from '../../components/existConnectGuideLink';
 
-const NOTION_API_STATE = 'migrate_connect';
-export function MigrateConnectNotionApiBlock({}) {
+const NOTION_API_STATE = 'exist_connect';
+export function ExistConnectNotionApiBlock({}) {
     const { start: loadingStart, end: loadingEnd } = useTopLoading();
     const router = useRouter();
     const { move } = useSlideBox();
@@ -27,7 +28,7 @@ export function MigrateConnectNotionApiBlock({}) {
         const state = router.query.state as string;
         if (code && state === NOTION_API_STATE) {
             router.replace('/connect');
-            move(connectPageIndex.MIGRATE_CONNECT.NOTION_API);
+            move(connectPageIndex.EXIST_CONNECT.NOTION_API);
 
             loadingStart();
             (async () => {
@@ -38,12 +39,12 @@ export function MigrateConnectNotionApiBlock({}) {
                 });
             })();
             loadingEnd();
-            move(connectPageIndex.MIGRATE_CONNECT.MIGRATION);
+            move(connectPageIndex.EXIST_CONNECT.DATABASE);
         }
     }, [loadingEnd, loadingStart, router, router.query.code, router.query.state, move, redirectUrl]);
 
     return (
-        <SlideBox.Page pos={connectPageIndex.MIGRATE_CONNECT.NOTION_API}>
+        <SlideBox.Page pos={connectPageIndex.EXIST_CONNECT.NOTION_API}>
             <ConnectBlockBase>
                 <YoutubeEmbed url="https://www.youtube.com/embed/S9A5o_enKak" />
                 <BlockHeader
@@ -63,7 +64,7 @@ export function MigrateConnectNotionApiBlock({}) {
                     >
                         노션 통합 추가하기
                     </Button>
-                    <MigrationGuideLink />
+                    <ExistConnectGuideLink />
                 </Flex.Column>
             </ConnectBlockBase>
         </SlideBox.Page>

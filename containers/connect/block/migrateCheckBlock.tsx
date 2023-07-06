@@ -10,31 +10,24 @@ import { connectPageIndex } from '../connectPageIndex';
 import { toast } from 'react-toastify';
 import { MigrationGuideLink } from '../components/migrationGuideLink';
 
-export function MigrateCheckConnectBlock({
-    setConnectMode,
-    setNotionDatabaseId,
-}: {
-    setConnectMode: (mode: 'new' | 'migrate' | 'exist') => void;
-    setNotionDatabaseId: (id: string) => void;
-}) {
+export function MigrateCheckConnectBlock() {
     const page = connectPageIndex.CHECK_MIGRATION;
 
     const { now, move } = useSlideBox();
-    const [isLoading, setIsLoading] = useState(false);
+    const [, setIsLoading] = useState(false);
     const [migrateUser, setMigrateUser] = useState<MigrateV1CheckUser>();
 
     const onClick = useCallback(
         async (mode: 'new' | 'migrate' | 'exist') => {
             await accountMigrate();
 
-            setConnectMode(mode);
             if (mode === 'new') {
-                move(connectPageIndex.NEW_CONNECT.NOTION_API);
+                move(connectPageIndex.CHECK_EXIST);
             } else if (mode === 'migrate') {
                 move(connectPageIndex.MIGRATE_CONNECT.NOTION_API);
             }
         },
-        [move, setConnectMode]
+        [move]
     );
 
     useEffect(() => {
@@ -47,7 +40,6 @@ export function MigrateCheckConnectBlock({
                     setMigrateUser(canMigration.user);
 
                     if (canMigration.user?.status === 'finish' && canMigration.user?.notionDatabaseId) {
-                        setNotionDatabaseId(canMigration.user.notionDatabaseId);
                     } else {
                         onClick('new');
                     }
@@ -56,7 +48,7 @@ export function MigrateCheckConnectBlock({
                 }
             }
         })();
-    }, [move, now, onClick, page, setNotionDatabaseId]);
+    }, [move, now, onClick, page]);
 
     const accountMigrate = async () => {
         setIsLoading(true);
@@ -83,16 +75,16 @@ export function MigrateCheckConnectBlock({
             <ConnectBlockBase>
                 {migrateUser ? <MigrationPreview migrateUser={migrateUser} /> : <MigrationPreviewSkeleton />}
                 <BlockHeader
-                    title="데이터베이스 마이그레이션"
+                    title="Calendar2notion 마이그레이션"
                     text="기존 calendar2notion에서 사용하던 데이터베이스를 이어 사용하시겠어요?"
                 />
 
                 <Flex.Column gap="8px">
                     <Button onClick={() => onClick('new')} width="100%" size="large" variant="outlined">
-                        새로운 데이터베이스에 연결하기
+                        마이그레이션 하지 않고 새로 시작
                     </Button>
                     <Button onClick={() => onClick('migrate')} width="100%" size="large" variant="contained">
-                        데이터베이스 이어 사용하기
+                        이전 Calendar2notion 이어 사용하기
                     </Button>
 
                     <MigrationGuideLink />

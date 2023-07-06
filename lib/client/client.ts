@@ -28,6 +28,7 @@ import {
     deleteAdminUser,
     getSyncBots,
     getAdminFindUsers,
+    postConnectExistNotionDatabase,
 } from './endpoint';
 import { getMigrateV1Check, postMigrateV1AccountMigrate, postMigrateV1CalendarMigrate } from './endpoint/migrate/v1';
 
@@ -44,6 +45,7 @@ export class Client extends EndpointClient {
             notionApi: this.endpointBuilder(postConnectNotionAPI),
             getNotionDatabases: this.endpointBuilder(getConnectNotionDatabases),
             notionDatabase: this.endpointBuilder(postConnectNotionDatabase),
+            existNotionDatabase: this.endpointBuilder(postConnectExistNotionDatabase),
         },
 
         calendar: {
