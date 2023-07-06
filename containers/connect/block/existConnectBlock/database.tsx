@@ -55,7 +55,7 @@ export function ExistConnectDatabaseBlock() {
 
                     if (err.body.code === 'database_not_found') {
                         modal.open(<DatabaseNotFoundModal databaseId={databaseId} />, {
-                            title: 'Opize Calendar2notion 연결을 추가해주세요.',
+                            title: '데이터베이스를 찾을 수 없어요.',
                             width: '400px',
                         });
                     }
