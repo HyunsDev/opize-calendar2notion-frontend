@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Flex, Button, Link as A, TextField, Box, Select } from 'opize-design-system';
-import { toast } from 'react-toastify';
+import { A, Box, Button, Flex, Select, TextField } from 'opize-design-system';
+import { useAdminUser } from '../hooks/useAdminUser';
 import { useForm } from 'react-hook-form';
-import { client } from '../../../lib/client';
+import { useMutation } from 'react-query';
+import { client } from '../../../../lib/client';
+import { toast } from 'react-toastify';
 
 type PlanUpgradeForm = {
+    userId: number;
     months: string;
     paymentKind: string;
     plan: string;
@@ -12,7 +14,9 @@ type PlanUpgradeForm = {
     price: string;
     memo?: string;
 };
-export function AdminUserPlanUpgrade({ userId, fetchUser }: { userId: number; fetchUser: () => void }) {
+
+export function AdminUserPlanContainer() {
+    const { adminUser, refetchAdminUser } = useAdminUser();
     const {
         register,
         handleSubmit,
@@ -23,36 +27,45 @@ export function AdminUserPlanUpgrade({ userId, fetchUser }: { userId: number; fe
         },
     });
 
-    const onSubmit = async (data: PlanUpgradeForm) => {
-        if (!userId) {
-            toast.info('유저를 먼저 조회해주세요');
-            return;
-        }
-
-        try {
-            await client.admin.user.plan.upgrade({
-                userId: userId,
+    const { mutate } = useMutation(
+        (data: PlanUpgradeForm) =>
+            client.admin.user.plan.upgrade({
+                userId: adminUser?.user.id || -1,
                 months: data.months,
                 paymentKind: data.paymentKind,
                 plan: data.plan as any,
                 price: +data.price,
                 priceKind: data.priceKind,
                 memo: data.memo,
-            });
-            await fetchUser();
-            toast.info('플랜 업그레이드가 완료되었어요.');
-        } catch (err: any) {
-            toast.error(err.message || '');
+            }),
+        {
+            onSuccess: () => {
+                toast.info(`${adminUser?.user.name}님의 플랜 업그레이드를 완료했어요.`);
+                refetchAdminUser();
+            },
+            onError(err: any) {
+                toast.error(err?.message || '플랜 업그레이드를 실패했어요.');
+            },
         }
+    );
+
+    const onSubmit = async (data: PlanUpgradeForm) => {
+        if (!adminUser) {
+            toast.info('유저를 먼저 조회해주세요');
+            return;
+        }
+        mutate(data);
     };
 
+    if (!adminUser) return <></>;
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} id="user-planUpgrade">
             <Box
-                title={userId ? `${userId} 유저 플랜 업그레이드` : '유저를 먼저 조회해주세요'}
+                title={`${adminUser.user.name} 유저 플랜 업그레이드`}
                 footer={
                     <>
-                        <A>자세히 알아보기</A>
+                        <p />
                         <Button variant="contained" type="submit">
                             적용
                         </Button>

@@ -19,8 +19,8 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <title>Calendar2notion</title>
             </Head>
             <RecoilRoot>
-                <OpizeWrapper>
-                    <QueryClientProvider client={queryClient}>
+                <QueryClientProvider client={queryClient}>
+                    <OpizeWrapper>
                         <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}>
                             <Component {...pageProps} />
                         </GoogleOAuthProvider>
@@ -35,8 +35,8 @@ function MyApp({ Component, pageProps }: AppProps) {
                             draggable
                             transition={Flip}
                         />
-                    </QueryClientProvider>
-                </OpizeWrapper>
+                    </OpizeWrapper>
+                </QueryClientProvider>
             </RecoilRoot>
         </>
     );
