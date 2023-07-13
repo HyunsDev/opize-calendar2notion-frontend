@@ -31,6 +31,7 @@ import {
     postConnectExistNotionDatabase,
 } from './endpoint';
 import { getMigrateV1Check, postMigrateV1AccountMigrate, postMigrateV1CalendarMigrate } from './endpoint/migrate/v1';
+import { getAdminToolsNotionDatabase } from './endpoint/admin/tools';
 
 export class Client extends EndpointClient {
     readonly user = {
@@ -71,6 +72,9 @@ export class Client extends EndpointClient {
         error: {
             list: this.endpointBuilder(getAdminErrors),
             delete: this.endpointBuilder(deleteAdminError),
+        },
+        tools: {
+            getNotionDatabase: this.endpointBuilder(getAdminToolsNotionDatabase),
         },
     };
 

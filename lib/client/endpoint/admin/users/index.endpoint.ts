@@ -9,7 +9,8 @@ export type GetAdminFindUserParameter = {
     opizeId?: number;
 };
 export type GetAdminFindUserResponse = {
-    user: UserDto;
+    // TODO: #45 Admin Endpoint 타입 재정의 필요
+    user: UserDto & Record<string, any>;
 };
 export const getAdminFindUser: Endpoint<GetAdminFindUserParameter, GetAdminFindUserResponse> = {
     method: 'GET',
