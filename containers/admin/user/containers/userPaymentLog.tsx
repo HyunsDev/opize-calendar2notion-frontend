@@ -47,7 +47,7 @@ export function AdminUserPaymentLogContainer() {
     return (
         <Flex.Column gap="8px" id="user-paymentLogs">
             <Flex.Row gap="8px">
-                <H3>Calendar - {adminUser.user.calendars?.length || 'X'}</H3>
+                <H3>Payment Log</H3>
             </Flex.Row>
             <ItemsTable>
                 {adminUser.user.paymentLogs && adminUser.user.paymentLogs.length !== 0 ? (
