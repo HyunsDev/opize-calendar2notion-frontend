@@ -1,8 +1,12 @@
 import { Token } from 'opize-design-system';
 import { UserDto } from '../../../../lib/client/dto';
 
-type UserStatus = 'connected' | 'disconnected' | 'working' | 'recovering' | 'error';
+type UserStatus = 'setting' | 'connected' | 'disconnected' | 'working' | 'recovering' | 'error';
 export const getUserStatus = (user: UserDto): UserStatus => {
+    if (user.status !== 'FINISHED') {
+        return 'setting';
+    }
+
     if (user.isConnected) {
         if (user.isWork) {
             return user.lastSyncStatus !== '' ? 'recovering' : 'working';
@@ -13,6 +17,14 @@ export const getUserStatus = (user: UserDto): UserStatus => {
 };
 
 export function UserStatusToken({ status }: { status: UserStatus }) {
+    if (status === 'setting') {
+        return (
+            <Token variant="outlined" color="gray">
+                가입 중
+            </Token>
+        );
+    }
+
     if (status === 'connected') {
         return (
             <Token variant="outlined" color="green">

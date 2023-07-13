@@ -46,7 +46,7 @@ export function AdminUserCalendarContainer() {
                         <CalendarRow key={calendar.id} calendar={calendar} />
                     ))
                 ) : (
-                    <>Calendar가 없습니다.</>
+                    <ItemsTable.Row>Calendar가 없습니다.</ItemsTable.Row>
                 )}
             </ItemsTable>
         </Flex.Column>

@@ -55,7 +55,7 @@ export function AdminUserPaymentLogContainer() {
                         <PaymentLogRow key={paymentLog.id} paymentLog={paymentLog} />
                     ))
                 ) : (
-                    <>paymentLogs가 없습니다.</>
+                    <ItemsTable.Row>paymentLogs가 없습니다.</ItemsTable.Row>
                 )}
             </ItemsTable>
         </Flex.Column>

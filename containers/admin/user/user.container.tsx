@@ -4,6 +4,7 @@ import { AdminUserInfoContainer } from './containers/userInfo';
 import { AdminUserCalendarContainer } from './containers/userCalendar';
 import { AdminUserPaymentLogContainer } from './containers/userPaymentLog';
 import { AdminUserPlanContainer } from './containers/userPlan';
+import { AdminUserDebugContainer } from './containers/userDebug';
 
 function AdminUserPane() {
     return (
@@ -30,6 +31,7 @@ export function AdminUserContainer() {
                     <AdminUserCalendarContainer />
                     <AdminUserPaymentLogContainer />
                     <AdminUserPlanContainer />
+                    <AdminUserDebugContainer />
                 </Flex.Column>
             </PageLayout.Content>
         </PageLayout>
