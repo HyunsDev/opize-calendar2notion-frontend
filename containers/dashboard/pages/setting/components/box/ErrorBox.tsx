@@ -28,7 +28,9 @@ function NotionDatabaseNotFoundErrorBox({ user }: { user: GetUserResponse }) {
                 </>
             }
         >
-            노션에서 Opize Calendar2notion 또는 C2N TEST v4 Public이 있는지 확인해주세요
+            1. 노션에서 Opize Calendar2notion 또는 C2N TEST v4 Public이 있는지 확인해주세요
+            <br />
+            2. 데이터베이스가 삭제되었을 경우 휴지통에서 복구해주세요.
         </Box>
     );
 }
@@ -73,6 +75,10 @@ export function ErrorBox() {
 
     if (errorCode === 'notion_validation_error') {
         return <NotionValidationErrorBox user={user} />;
+    }
+
+    if (errorCode === 'notion_api_page_not_found') {
+        return <NotionDatabaseNotFoundErrorBox user={user} />;
     }
 
     return (
