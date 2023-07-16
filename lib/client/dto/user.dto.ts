@@ -3,9 +3,7 @@ type UserPlan = 'FREE' | 'PRO' | 'SPONSOR';
 type UserNotionProps = {
     title?: string;
     date?: string;
-    description?: string;
     delete?: string;
-    location?: string;
     calendar?: string;
 };
 export type UserDto = {

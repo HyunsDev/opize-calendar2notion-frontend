@@ -43,9 +43,7 @@ export type getUserResponse = {
     notionProps?: {
         title?: string;
         date?: string;
-        description?: string;
         delete?: string;
-        location?: string;
         calendar?: string;
     };
     isWork: boolean;
