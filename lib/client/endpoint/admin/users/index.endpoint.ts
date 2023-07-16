@@ -124,3 +124,17 @@ export const getAdminFindUsers: Endpoint<GetAdminFindUsersParameter, GetAdminFin
     path: '/admin/users',
     queryParams: ['page', 'where'],
 };
+
+// GET /admin/users/expiration-users
+export type GetAdminFindExpirationUsersParameter = {};
+export type GetAdminFindExpirationUsersResponse = {
+    users: UserDto[];
+};
+export const getAdminFindExpirationUsers: Endpoint<
+    GetAdminFindExpirationUsersParameter,
+    GetAdminFindExpirationUsersResponse
+> = {
+    method: 'GET',
+    path: '/admin/users/expiration-users',
+    queryParams: [],
+};

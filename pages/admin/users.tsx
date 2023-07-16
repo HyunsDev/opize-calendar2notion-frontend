@@ -18,6 +18,7 @@ import {
     Select,
     Checkbox,
     TextField,
+    Switch,
 } from 'opize-design-system';
 import styled from 'styled-components';
 import { AdminFooter } from '../../components/pages/admin/footer';
@@ -40,13 +41,22 @@ const Home: NextPage = () => {
     const [where, setWhere] = useState<GetAdminFindUsersWhere>({});
     const [users, setUsers] = useState<UserDto[]>([]);
 
+    const [isExpired, setIsExpired] = useState(false);
+
     const findUsers = async () => {
         try {
             setIsLoading(true);
-            const res = await client.admin.user.find({
-                page: page,
-                where: where,
-            });
+            let res: any;
+
+            if (isExpired) {
+                res = await client.admin.user.expirationUsers({});
+            } else {
+                res = await client.admin.user.find({
+                    page: page,
+                    where: where,
+                });
+            }
+
             setUsers(res.users);
             setIsLoading(false);
         } catch (err: any) {
@@ -68,122 +78,131 @@ const Home: NextPage = () => {
                     <Flex.Column gap="8px">
                         <Flex.Column gap="8px">
                             <Text>조건</Text>
-                            <Select
-                                label="연결 단계 (status)"
-                                onChange={(e) =>
-                                    setWhere((where) => {
-                                        if (e.target.value === '') {
-                                            return {
-                                                ...where,
-                                                status: undefined,
-                                            };
+                            {!isExpired ? (
+                                <>
+                                    {' '}
+                                    <Select
+                                        label="연결 단계 (status)"
+                                        onChange={(e) =>
+                                            setWhere((where) => {
+                                                if (e.target.value === '') {
+                                                    return {
+                                                        ...where,
+                                                        status: undefined,
+                                                    };
+                                                }
+                                                return {
+                                                    ...where,
+                                                    status: e.target.value as GetAdminFindUsersWhere['status'],
+                                                };
+                                            })
                                         }
-                                        return {
-                                            ...where,
-                                            status: e.target.value as GetAdminFindUsersWhere['status'],
-                                        };
-                                    })
-                                }
-                            >
-                                <Select.Option value={''}>-</Select.Option>
-                                <Select.Option value={'FIRST'}>FIRST</Select.Option>
-                                <Select.Option value={'GOOGLE_SET'}>GOOGLE_SET</Select.Option>
-                            </Select>
+                                    >
+                                        <Select.Option value={''}>-</Select.Option>
+                                        <Select.Option value={'FIRST'}>FIRST</Select.Option>
+                                        <Select.Option value={'GOOGLE_SET'}>GOOGLE_SET</Select.Option>
+                                    </Select>
+                                    <Select
+                                        label="연결 여부 (isConnected)"
+                                        onChange={(e) =>
+                                            setWhere((where) => {
+                                                if (e.target.value === '') {
+                                                    return {
+                                                        ...where,
+                                                        isConnected: undefined,
+                                                    };
+                                                }
+                                                return {
+                                                    ...where,
+                                                    isConnected: e.target.value === 'true',
+                                                };
+                                            })
+                                        }
+                                    >
+                                        <Select.Option value={''}>-</Select.Option>
+                                        <Select.Option value={'true'}>연결됨</Select.Option>
+                                        <Select.Option value={'false'}>연결하지 않음</Select.Option>
+                                    </Select>
+                                    <Select
+                                        label="플랜 (userPlan)"
+                                        onChange={(e) =>
+                                            setWhere((where) => {
+                                                if (e.target.value === '') {
+                                                    return {
+                                                        ...where,
+                                                        userPlan: undefined,
+                                                    };
+                                                }
+                                                return {
+                                                    ...where,
+                                                    userPlan: e.target.value as GetAdminFindUsersWhere['userPlan'],
+                                                };
+                                            })
+                                        }
+                                    >
+                                        <Select.Option value={''}>-</Select.Option>
+                                        <Select.Option value={'FREE'}>FREE</Select.Option>
+                                        <Select.Option value={'PRO'}>PRO</Select.Option>
+                                        <Select.Option value={'SPONSOR'}>SPONSOR</Select.Option>
+                                    </Select>
+                                    <Select
+                                        label="동기화 상태 여부 (isWork)"
+                                        onChange={(e) =>
+                                            setWhere((where) => {
+                                                if (e.target.value === '') {
+                                                    return {
+                                                        ...where,
+                                                        isWork: undefined,
+                                                    };
+                                                }
+                                                return {
+                                                    ...where,
+                                                    isWork: e.target.value === 'true',
+                                                };
+                                            })
+                                        }
+                                    >
+                                        <Select.Option value={''}>-</Select.Option>
+                                        <Select.Option value={'true'}>동기화중</Select.Option>
+                                        <Select.Option value={'false'}>동기화중이 아님</Select.Option>
+                                    </Select>
+                                    <Select
+                                        label="운영진 (isAdmin)"
+                                        onChange={(e) =>
+                                            setWhere((where) => {
+                                                if (e.target.value === '') {
+                                                    return {
+                                                        ...where,
+                                                        isAdmin: undefined,
+                                                    };
+                                                }
+                                                return {
+                                                    ...where,
+                                                    isAdmin: e.target.value === 'true',
+                                                };
+                                            })
+                                        }
+                                    >
+                                        <Select.Option value={''}>-</Select.Option>
+                                        <Select.Option value={'true'}>운영진</Select.Option>
+                                        <Select.Option value={'false'}>운영진이 아님</Select.Option>
+                                    </Select>
+                                    <TextField
+                                        placeholder="페이지"
+                                        label="페이지"
+                                        value={page}
+                                        onChange={(e) => setPage(+e.target.value)}
+                                        type="number"
+                                    />
+                                </>
+                            ) : (
+                                <></>
+                            )}
 
-                            <Select
-                                label="연결 여부 (isConnected)"
-                                onChange={(e) =>
-                                    setWhere((where) => {
-                                        if (e.target.value === '') {
-                                            return {
-                                                ...where,
-                                                isConnected: undefined,
-                                            };
-                                        }
-                                        return {
-                                            ...where,
-                                            isConnected: e.target.value === 'true',
-                                        };
-                                    })
-                                }
-                            >
-                                <Select.Option value={''}>-</Select.Option>
-                                <Select.Option value={'true'}>연결됨</Select.Option>
-                                <Select.Option value={'false'}>연결하지 않음</Select.Option>
-                            </Select>
-
-                            <Select
-                                label="플랜 (userPlan)"
-                                onChange={(e) =>
-                                    setWhere((where) => {
-                                        if (e.target.value === '') {
-                                            return {
-                                                ...where,
-                                                userPlan: undefined,
-                                            };
-                                        }
-                                        return {
-                                            ...where,
-                                            userPlan: e.target.value as GetAdminFindUsersWhere['userPlan'],
-                                        };
-                                    })
-                                }
-                            >
-                                <Select.Option value={''}>-</Select.Option>
-                                <Select.Option value={'FREE'}>FREE</Select.Option>
-                                <Select.Option value={'PRO'}>PRO</Select.Option>
-                                <Select.Option value={'SPONSOR'}>SPONSOR</Select.Option>
-                            </Select>
-
-                            <Select
-                                label="동기화 상태 여부 (isWork)"
-                                onChange={(e) =>
-                                    setWhere((where) => {
-                                        if (e.target.value === '') {
-                                            return {
-                                                ...where,
-                                                isWork: undefined,
-                                            };
-                                        }
-                                        return {
-                                            ...where,
-                                            isWork: e.target.value === 'true',
-                                        };
-                                    })
-                                }
-                            >
-                                <Select.Option value={''}>-</Select.Option>
-                                <Select.Option value={'true'}>동기화중</Select.Option>
-                                <Select.Option value={'false'}>동기화중이 아님</Select.Option>
-                            </Select>
-
-                            <Select
-                                label="운영진 (isAdmin)"
-                                onChange={(e) =>
-                                    setWhere((where) => {
-                                        if (e.target.value === '') {
-                                            return {
-                                                ...where,
-                                                isAdmin: undefined,
-                                            };
-                                        }
-                                        return {
-                                            ...where,
-                                            isAdmin: e.target.value === 'true',
-                                        };
-                                    })
-                                }
-                            >
-                                <Select.Option value={''}>-</Select.Option>
-                                <Select.Option value={'true'}>운영진</Select.Option>
-                                <Select.Option value={'false'}>운영진이 아님</Select.Option>
-                            </Select>
-                            <TextField
-                                placeholder="페이지"
-                                label="페이지"
-                                value={page}
-                                onChange={(e) => setPage(+e.target.value)}
-                                type="number"
+                            <Switch
+                                label="플랜 만료 여부"
+                                checked={isExpired}
+                                onChange={(e) => setIsExpired(e.target.checked)}
                             />
                         </Flex.Column>
 
@@ -221,7 +240,7 @@ const Home: NextPage = () => {
                                                                 ? 'red'
                                                                 : 'yellow'
                                                         }
-                                                        text={user.name}
+                                                        text={`${user.name} (${user.email})`}
                                                     />
                                                 ) : (
                                                     <Span color={cv.text4}>(알 수 없음)</Span>

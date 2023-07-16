@@ -29,6 +29,7 @@ import {
     getSyncBots,
     getAdminFindUsers,
     postConnectExistNotionDatabase,
+    getAdminFindExpirationUsers,
 } from './endpoint';
 import { getMigrateV1Check, postMigrateV1AccountMigrate, postMigrateV1CalendarMigrate } from './endpoint/migrate/v1';
 import { getAdminToolsNotionDatabase } from './endpoint/admin/tools';
@@ -65,6 +66,7 @@ export class Client extends EndpointClient {
             plan: {
                 upgrade: this.endpointBuilder(postAdminUserPlanUpdate),
             },
+            expirationUsers: this.endpointBuilder(getAdminFindExpirationUsers),
         },
         statistics: {
             get: this.endpointBuilder(getAdminStatistics),
