@@ -49,7 +49,7 @@ export function Footer() {
                         <StyledFooter.Navigation.Item.Link to="https://github.com/HyunsDev">
                             개발자 깃허브
                         </StyledFooter.Navigation.Item.Link>
-                        <StyledFooter.Navigation.Item.Link to="https://design.hyuns.dev">
+                        <StyledFooter.Navigation.Item.Link to="https://design.opize.me">
                             디자인 시스템
                         </StyledFooter.Navigation.Item.Link>
                         {/* <StyledFooter.Navigation.Item.Link to="/">브랜드 리소스</StyledFooter.Navigation.Item.Link> */}

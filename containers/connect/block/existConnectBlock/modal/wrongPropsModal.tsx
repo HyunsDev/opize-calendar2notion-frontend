@@ -3,7 +3,7 @@ import { Button, Flex, Text, useModal } from 'opize-design-system';
 import Image from 'next/image';
 import Img from '../../assets/screenshot1.png';
 
-type Prop = 'calendar' | 'date' | 'description' | 'location' | 'delete';
+type Prop = 'calendar' | 'date' | 'delete';
 const propsSolutionText: Record<
     Prop,
     {
@@ -18,14 +18,6 @@ const propsSolutionText: Record<
     date: {
         exist: '"date"(날짜) 속성을 추가하거나 기존 속성의 이름을 "date"로 변경해주세요',
         type: 'date 속성의 타입을 "날짜(Date)"로 변경해주세요',
-    },
-    description: {
-        exist: '"description"(텍스트) 속성을 추가해주세요.',
-        type: '"description" 속성의 타입을 "텍스트(Text)"로 변경해주세요',
-    },
-    location: {
-        exist: '"location"(텍스트) 속성을 추가해주세요',
-        type: 'location 속성의 타입을 "텍스트(Text)"로 변경해주세요',
     },
     delete: {
         exist: '"delete"(체크박스) 속성을 추가해주세요',
