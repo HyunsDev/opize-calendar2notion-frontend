@@ -20,7 +20,7 @@ import {
 } from 'opize-design-system';
 import { userIdState } from './state/userId.state';
 import { useRouter } from 'next/router';
-import { GetAdminErrorsResponse } from '../../../lib/client/endpoint';
+import { GetAdminErrorsResponse } from '@opize/calendar2notion-object';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';

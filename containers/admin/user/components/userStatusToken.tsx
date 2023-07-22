@@ -1,5 +1,5 @@
 import { Token } from 'opize-design-system';
-import { UserDto } from '../../../../lib/client/dto';
+import { UserDto } from '@opize/calendar2notion-object';
 
 type UserStatus = 'setting' | 'connected' | 'disconnected' | 'working' | 'recovering' | 'error';
 export const getUserStatus = (user: UserDto): UserStatus => {

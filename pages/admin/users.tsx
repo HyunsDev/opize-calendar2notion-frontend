@@ -26,10 +26,10 @@ import { AdminHeader } from '../../components/pages/admin/header';
 import { client } from '../../lib/client';
 import { toast } from 'react-toastify';
 import { Footer } from '../../components/footer';
-import { UserDto } from '../../lib/client/dto';
+import { UserDto } from '@opize/calendar2notion-object';
 import { Check, DotsThreeVertical } from 'phosphor-react';
 import { useRouter } from 'next/router';
-import { GetAdminFindUsersWhere } from '../../lib/client/endpoint';
+import { GetAdminFindUsersWhere } from '@opize/calendar2notion-object';
 
 const Home: NextPage = () => {
     const modal = useModal();

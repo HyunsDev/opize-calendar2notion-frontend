@@ -1,7 +1,7 @@
 import { Flex, H2, H3, ItemsTable, PageLayout, Table } from 'opize-design-system';
 import { Container } from '../../components/Container';
 import { useUser } from '../../../../../../hooks/useUser';
-import { PaymentLogDto } from '../../../../../../lib/client/dto';
+import { PaymentLogDto } from '@opize/calendar2notion-object';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';

@@ -32,9 +32,9 @@ import {
     getMigrateV1Check,
     postMigrateV1AccountMigrate,
     postMigrateV1CalendarMigrate,
+    getAdminToolsNotionDatabase,
+    getAdminFindExpirationUsers,
 } from '@opize/calendar2notion-object';
-import { getAdminToolsNotionDatabase } from './endpoint/admin/tools';
-import { getAdminFindExpirationUsers } from './endpoint';
 
 export class Client extends EndpointClient {
     readonly user = {
