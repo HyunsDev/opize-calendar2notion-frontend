@@ -8,7 +8,7 @@ import {
     getUser,
     patchUser,
     postUser,
-    ResetUser,
+    postUserReset,
     postUserCalendar,
     deleteUserCalendar,
     getAdminFindUser,
@@ -29,10 +29,12 @@ import {
     getSyncBots,
     getAdminFindUsers,
     postConnectExistNotionDatabase,
-    getAdminFindExpirationUsers,
-} from './endpoint';
-import { getMigrateV1Check, postMigrateV1AccountMigrate, postMigrateV1CalendarMigrate } from './endpoint/migrate/v1';
+    getMigrateV1Check,
+    postMigrateV1AccountMigrate,
+    postMigrateV1CalendarMigrate,
+} from '@opize/calendar2notion-object';
 import { getAdminToolsNotionDatabase } from './endpoint/admin/tools';
+import { getAdminFindExpirationUsers } from './endpoint';
 
 export class Client extends EndpointClient {
     readonly user = {
@@ -40,7 +42,7 @@ export class Client extends EndpointClient {
         post: this.endpointBuilder(postUser),
         patch: this.endpointBuilder(patchUser),
         delete: this.endpointBuilder(deleteUser),
-        reset: this.endpointBuilder(ResetUser),
+        reset: this.endpointBuilder(postUserReset),
 
         connect: {
             googleApi: this.endpointBuilder(postConnectGoogleAPI),
