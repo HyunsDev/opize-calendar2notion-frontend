@@ -7,6 +7,7 @@ import { Info } from 'phosphor-react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { useQueryClient } from 'react-query';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 
@@ -66,10 +67,15 @@ function LogRow({ log }: { log: LogType }) {
 export function RealTimeTaskContainer() {
     const [isConnected, setIsConnected] = useState(false);
     const [logs, setLogs] = useState<LogType[]>([]);
+    const queryClient = useQueryClient();
 
-    const addLog = useCallback((data: typeof logs[number]) => {
-        setLogs((pre) => [data, ...pre].slice(0, 30));
-    }, []);
+    const addLog = useCallback(
+        (data: typeof logs[number]) => {
+            queryClient.invalidateQueries(['admin', 'syncBot']);
+            setLogs((pre) => [data, ...pre].slice(0, 30));
+        },
+        [queryClient]
+    );
 
     useEffect(() => {
         const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_PROJECT_API_SERVER}/syncbot/stream/sse`);
