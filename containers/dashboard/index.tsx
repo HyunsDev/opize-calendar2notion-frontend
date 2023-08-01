@@ -24,9 +24,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';
 import { Info } from 'phosphor-react';
-import { UserDto } from '../../lib/client/dto';
-import { GetUserResponse } from '../../lib/client/endpoint';
 import { DashboardText } from './components/DashboardText';
+import { GetUserResponse } from '@opize/calendar2notion-object';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 

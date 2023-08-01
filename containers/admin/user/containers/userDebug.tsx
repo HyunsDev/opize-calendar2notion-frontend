@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react';
 import { client } from '../../../../lib/client';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
-import { UserDto } from '../../../../lib/client/dto';
+import { UserDto } from '@opize/calendar2notion-object';
 
 const CodeBlock = styled.pre`
     border-radius: 4px;

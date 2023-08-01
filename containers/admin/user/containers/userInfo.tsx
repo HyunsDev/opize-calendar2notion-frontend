@@ -16,7 +16,7 @@ import {
 } from 'opize-design-system';
 import { useState } from 'react';
 import { UserStatusToken, getUserStatus } from '../components/userStatusToken';
-import { UserDto } from '../../../../lib/client/dto';
+import { UserDto } from '@opize/calendar2notion-object';
 import { Check, DotsThreeVertical, Eye, PenNib, X } from 'phosphor-react';
 import { useAdminUser } from '../hooks/useAdminUser';
 import { editableProps } from '../const/editableProps';

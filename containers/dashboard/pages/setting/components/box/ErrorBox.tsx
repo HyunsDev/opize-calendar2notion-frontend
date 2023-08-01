@@ -1,8 +1,6 @@
 import { A, Box, Button, CodeBlock, Flex } from 'opize-design-system';
 import { useUser } from '../../../../../../hooks/useUser';
-import { ErrorCode } from '../../data/error';
-import { useRouter } from 'next/router';
-import { GetUserResponse } from '../../../../../../lib/client/endpoint';
+import { GetUserResponse } from '@opize/calendar2notion-object';
 
 function NotionDatabaseNotFoundErrorBox({ user }: { user: GetUserResponse }) {
     return (

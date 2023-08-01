@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MigrateV1CheckUser } from '../../../lib/client/endpoint/migrate/v1';
+import { MigrateV1CheckUser } from '@opize/calendar2notion-object';
 import { Flex, Text, cv } from 'opize-design-system';
 
 const Divver = styled.div`

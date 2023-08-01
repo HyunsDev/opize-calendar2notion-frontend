@@ -9,7 +9,7 @@ import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useRouter } from 'next/router';
 import { APIResponseError } from 'endpoint-client';
-import { CalendarDto, GoogleCalendarDto } from '../../../../../../lib/client/dto';
+import { CalendarDto, GoogleCalendarDto } from '@opize/calendar2notion-object';
 import { useUser } from '../../../../../../hooks/useUser';
 import { client } from '../../../../../../lib/client';
 import { Container } from '../../components/Container';
