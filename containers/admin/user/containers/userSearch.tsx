@@ -22,7 +22,9 @@ export function AdminSearchUser() {
                 select: 'id',
                 text: userId,
             });
-            refetchAdminUser();
+            setTimeout(() => {
+                refetchAdminUser();
+            }, 0);
         }
     }, [refetchAdminUser, router.query.userId, setAdminUserSearch]);
 
@@ -47,7 +49,13 @@ export function AdminSearchUser() {
 
     return (
         <Flex.Between gap="8px" id="user-search">
-            <Select onChange={(e) => setSelect(e.target.value)} defaultValue={adminUserSearch.select}>
+            <Select
+                onChange={(e) => setSelect(e.target.value)}
+                value={adminUserSearch.select}
+                style={{
+                    width: '120px',
+                }}
+            >
                 <Select.Option value="id">id</Select.Option>
                 <Select.Option value="opizeId">opizeId</Select.Option>
                 <Select.Option value="email">email</Select.Option>
