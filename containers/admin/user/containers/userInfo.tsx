@@ -36,6 +36,7 @@ const favoriteProps = [
     'lastSyncStatus',
     'isWork',
     'status',
+    'isConnected',
 ];
 
 function UserInfoTableRowEditMode({
