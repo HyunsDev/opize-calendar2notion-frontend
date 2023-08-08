@@ -26,7 +26,7 @@ const CodeBlock = styled.pre`
 `;
 
 function NotionDatabaseBox({ user }: { user: UserDto }) {
-    const [isShow, setIsShow] = useState(false);
+    const [isShow, setIsShow] = useState(true);
     const { refetch, data, isLoading } = useQuery(
         ['admin', 'tools', 'getNotionDatabase', user.id],
         () => client.admin.tools.getNotionDatabase({ userId: user.id }),
@@ -70,7 +70,6 @@ function NotionDatabaseBox({ user }: { user: UserDto }) {
 
 export function AdminUserDebugContainer() {
     const { adminUser } = useAdminUser();
-    const modal = useModal();
 
     if (!adminUser) return <></>;
 
