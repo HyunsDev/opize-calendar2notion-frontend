@@ -1,4 +1,4 @@
-import { ActionList, Flex, PageLayout } from 'opize-design-system';
+import { Flex, PageLayout, Spacer, PaneList } from 'opize-design-system';
 import { AdminSearchUser } from './containers/userSearch';
 import { AdminUserInfoContainer } from './containers/userInfo';
 import { AdminUserCalendarContainer } from './containers/userCalendar';
@@ -8,32 +8,35 @@ import { AdminUserDebugContainer } from './containers/userDebug';
 
 function AdminUserPane() {
     return (
-        <ActionList isSticky>
-            <ActionList.Item href="#user-search">조회</ActionList.Item>
-            <ActionList.Item href="#user-user">유저 정보</ActionList.Item>
-            <ActionList.Item href="#user-calendar">유저 캘린더</ActionList.Item>
-            <ActionList.Item href="#user-paymentLogs">유저 결제 기록</ActionList.Item>
-            <ActionList.Item href="#user-planUpgrade">플랜 업그레이드</ActionList.Item>
-        </ActionList>
+        <PaneList>
+            <PaneList.Item href="#user-search">조회</PaneList.Item>
+            <PaneList.Item href="#user-user">유저 정보</PaneList.Item>
+            <PaneList.Item href="#user-calendar">유저 캘린더</PaneList.Item>
+            <PaneList.Item href="#user-paymentLogs">유저 결제 기록</PaneList.Item>
+            <PaneList.Item href="#user-planUpgrade">플랜 업그레이드</PaneList.Item>
+        </PaneList>
     );
 }
 
 export function AdminUserContainer() {
     return (
-        <PageLayout panPosition="start" marginTop="32px">
-            <PageLayout.Pane>
-                <AdminUserPane />
-            </PageLayout.Pane>
-            <PageLayout.Content>
-                <Flex.Column gap="20px">
-                    <AdminSearchUser />
-                    <AdminUserInfoContainer />
-                    <AdminUserCalendarContainer />
-                    <AdminUserPaymentLogContainer />
-                    <AdminUserPlanContainer />
-                    <AdminUserDebugContainer />
-                </Flex.Column>
-            </PageLayout.Content>
-        </PageLayout>
+        <>
+            <Spacer height="32px" />
+            <PageLayout>
+                <PageLayout.Pane>
+                    <AdminUserPane />
+                </PageLayout.Pane>
+                <PageLayout.Content>
+                    <Flex.Column gap="20px">
+                        <AdminSearchUser />
+                        <AdminUserInfoContainer />
+                        <AdminUserCalendarContainer />
+                        <AdminUserPaymentLogContainer />
+                        <AdminUserPlanContainer />
+                        <AdminUserDebugContainer />
+                    </Flex.Column>
+                </PageLayout.Content>
+            </PageLayout>
+        </>
     );
 }

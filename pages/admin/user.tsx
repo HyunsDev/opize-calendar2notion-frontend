@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
-import React, { useState } from 'react';
-import { PageHead, useModal } from 'opize-design-system';
-import { AdminHeader } from '../../components/pages/admin/header';
+import React from 'react';
+import { PageHead } from 'opize-design-system';
+import { AdminHeader } from '../../containers/admin/components/AdminHeader';
 import { Footer } from '../../components/footer';
 import { AdminUserContainer } from '../../containers/admin/user/user.container';
 

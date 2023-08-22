@@ -89,39 +89,45 @@ export function LogModal({ prefix }: { prefix: string }) {
         <Flex.Column gap="8px">
             <TabNav
                 selected={cursor}
-                menu={{
-                    workerLogs: {
-                        text: 'Worker',
+                tabs={[
+                    {
+                        value: 'workerLogs',
+                        title: 'Worker',
                         onClick: () => setCursor('workerLogs'),
                     },
-                    runnerLogs: {
-                        text: 'Runner',
+                    {
+                        value: 'runnerLogs',
+                        title: 'Runner',
                         onClick: () => setCursor('runnerLogs'),
                     },
-                    serverLogs: {
-                        text: 'Server',
+                    {
+                        value: 'serverLogs',
+                        title: 'Server',
                         onClick: () => setCursor('serverLogs'),
                     },
-                    workerErrorLogs: {
-                        text: 'Worker Error',
+                    {
+                        value: 'workerErrorLogs',
+                        title: 'Worker Error',
                         onClick: () => setCursor('workerErrorLogs'),
                     },
-                    runnerErrorLogs: {
-                        text: 'Runner Error',
+                    {
+                        value: 'runnerErrorLogs',
+                        title: 'Runner Error',
                         onClick: () => setCursor('runnerErrorLogs'),
                     },
-                    serverErrorLogs: {
-                        text: 'Server Error',
+                    {
+                        value: 'serverErrorLogs',
+                        title: 'Server Error',
                         onClick: () => setCursor('serverErrorLogs'),
                     },
-                }}
+                ]}
             />
             <Flex.Column gap="4px">
                 {logs &&
                     logs[cursor]
                         .filter((log) => log !== 'error')
                         .map((log, i) => (
-                            <LogDownload key={i} onClick={(e) => getLog(`${log}`)}>
+                            <LogDownload key={i} onClick={() => getLog(`${log}`)}>
                                 {log}
                             </LogDownload>
                         ))}

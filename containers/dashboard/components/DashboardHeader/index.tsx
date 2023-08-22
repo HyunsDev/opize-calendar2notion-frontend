@@ -1,34 +1,21 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import {
-    ActionMenu,
-    ActionMenuActionType,
-    Button,
-    cv,
-    Flex,
-    Header,
-    PageLayout,
-    Spacer,
-    Spinner,
-    useTopLoading,
-} from 'opize-design-system';
+import { Avatar, Flex, Header, Menu, Text } from 'opize-design-system';
 import styled from 'styled-components';
 import SkeletonIcon from '../../../../assets/logo.png';
 
 import { useEffect } from 'react';
-import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 import C2NLogo from '../../../../assets/logo.png';
 import { useUser } from '../../../../hooks/useUser';
-import { toast } from 'react-toastify';
 
 const Img = styled(Image)`
     height: 26px;
 `;
 
 const Title = styled.div`
-    font-weight: ${cv.fontWeightSemiBold};
+    font-weight: 600;
     color: #9764ff;
     font-size: 16px;
     text-decoration: none;
@@ -41,6 +28,15 @@ const A = styled.a`
     align-items: center;
     justify-content: center;
     text-decoration: none;
+`;
+
+const MenuProfileContainer = styled.div`
+    width: 230px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
 `;
 
 const logout = () => {
@@ -58,28 +54,8 @@ function StyledDashboardHeader({ now }: { now: Path }) {
         }
     }, [router, user, user?.status]);
 
-    const action: ActionMenuActionType[][] = [
-        [
-            {
-                label: '로그아웃',
-                color: 'red',
-                onClick: () => logout(),
-            },
-        ],
-    ];
-
-    if (user?.isAdmin) {
-        action.unshift([
-            {
-                label: '관리자',
-                onClick: () => router.push('/admin'),
-            },
-        ]);
-    }
-
     return (
         <Header>
-            <Header.Notice></Header.Notice>
             <Header.Nav>
                 <Header.Nav.Left>
                     <Link href={'/dashboard'} passHref>
@@ -92,46 +68,52 @@ function StyledDashboardHeader({ now }: { now: Path }) {
                     </Link>
                 </Header.Nav.Left>
                 <Header.Nav.Right>
-                    <ActionMenu
-                        variant="text"
-                        borderRadius={999}
-                        width="fit-content"
-                        actions={action}
-                        icon={
-                            isLoading ? (
-                                <Spinner size={32} />
-                            ) : (
-                                <Image
-                                    src={user?.imageUrl || SkeletonIcon}
-                                    alt="유저 프로필 사진"
-                                    width={32}
-                                    height={32}
-                                />
-                            )
-                        }
-                    ></ActionMenu>
+                    <Menu>
+                        <Menu.Trigger variant="tertiary" iconOnly shape="round">
+                            <Image src={user?.imageUrl || SkeletonIcon} alt="유저 프로필 사진" width={32} height={32} />
+                        </Menu.Trigger>
+                        <Menu.Content>
+                            <MenuProfileContainer>
+                                <Avatar src={user?.imageUrl} size="32px" />
+                                <Flex.Column>
+                                    <Text>{user?.name}</Text>
+                                    <Text size="14px">{user?.email}</Text>
+                                </Flex.Column>
+                            </MenuProfileContainer>
+                            {user?.isAdmin && (
+                                <Menu.Option onClick={() => router.push('/admin')}>운영진 대시보드</Menu.Option>
+                            )}
+                            <Menu.Option onClick={() => logout()} color="red">
+                                로그아웃
+                            </Menu.Option>
+                        </Menu.Content>
+                    </Menu>
                 </Header.Nav.Right>
             </Header.Nav>
-            <Header.SubMenu
+            <Header.Menu
                 selected={now}
-                menu={{
-                    dashboard: {
-                        text: '대시보드',
+                tabs={[
+                    {
+                        value: 'dashboard',
+                        title: '대시보드',
                         onClick: () => router.push('/dashboard'),
                     },
-                    plan: {
-                        text: '구독',
+                    {
+                        value: 'plan',
+                        title: '구독',
                         onClick: () => router.push('/dashboard/plan'),
                     },
-                    roadmap: {
-                        text: '로드맵',
+                    {
+                        value: 'roadmap',
+                        title: '로드맵',
                         onClick: () => router.push('/dashboard/roadmap'),
                     },
-                    setting: {
-                        text: '설정',
+                    {
+                        value: 'setting',
+                        title: '설정',
                         onClick: () => router.push('/dashboard/setting'),
                     },
-                }}
+                ]}
             />
         </Header>
     );

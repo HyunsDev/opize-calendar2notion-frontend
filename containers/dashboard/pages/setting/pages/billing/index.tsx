@@ -1,4 +1,4 @@
-import { Flex, H2, H3, ItemsTable, PageLayout, Table } from 'opize-design-system';
+import { Flex, H2, H3, Table } from 'opize-design-system';
 import { Container } from '../../components/Container';
 import { useUser } from '../../../../../../hooks/useUser';
 import { PaymentLogDto } from '@opize/calendar2notion-object';
@@ -38,14 +38,14 @@ function RenewalBox() {
 function TransactionItem({ transaction }: { transaction: PaymentLogDto }) {
     return (
         <Table.Row>
-            <Table.Data>
+            <Table.Cell>
                 {transaction.plan} 플랜 {transaction.months}개월
-            </Table.Data>
-            <Table.Data>{dayjs(transaction.paymentTime).format('YYYY.MM.DD')}</Table.Data>
-            <Table.Data>{dayjs(transaction.expirationTime).format('YYYY.MM.DD')}</Table.Data>
-            <Table.Data>
+            </Table.Cell>
+            <Table.Cell>{dayjs(transaction.paymentTime).format('YYYY.MM.DD')}</Table.Cell>
+            <Table.Cell>{dayjs(transaction.expirationTime).format('YYYY.MM.DD')}</Table.Cell>
+            <Table.Cell>
                 {transaction.price} {transaction.priceKind}
-            </Table.Data>
+            </Table.Cell>
         </Table.Row>
     );
 }
@@ -62,20 +62,20 @@ function TransactionHistoryBox() {
         <Flex.Column gap="8px">
             <H3>구독 기록</H3>
             <Table>
-                <Table.THead>
+                <Table.Head>
                     <Table.Row>
-                        <Table.Head>구독</Table.Head>
-                        <Table.Head>구독 날짜</Table.Head>
-                        <Table.Head>만료 날짜</Table.Head>
-                        <Table.Head>금액</Table.Head>
+                        <Table.Column>구독</Table.Column>
+                        <Table.Column>구독 날짜</Table.Column>
+                        <Table.Column>만료 날짜</Table.Column>
+                        <Table.Column>금액</Table.Column>
                     </Table.Row>
-                </Table.THead>
+                </Table.Head>
 
-                <Table.TBody>
+                <Table.Body>
                     {transactions?.map((transaction) => (
                         <TransactionItem key={transaction.id} transaction={transaction} />
                     ))}
-                </Table.TBody>
+                </Table.Body>
             </Table>
         </Flex.Column>
     );

@@ -22,11 +22,11 @@ const Button1 = styled.button`
     text-decoration: none;
     background: #ffffff;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 10px 32px;
     transition: 200ms;
     font-size: 14px;
-    font-weight: ${cv.fontWeightRegular};
+    font-weight: 400;
     outline: none;
     cursor: pointer;
     border: 0;
@@ -51,10 +51,10 @@ const Button2 = styled.button`
     color: #dae7d3;
     text-decoration: none;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 10px 32px;
     font-size: 14px;
-    font-weight: ${cv.fontWeightSemiBold};
+    font-weight: 600;
 
     background: linear-gradient(90deg, #649dff 0%, #9764ff 50%, #649dff 100%);
     background-size: 400% auto;
@@ -79,10 +79,10 @@ const Button2A = styled.a`
     color: #dae7d3;
     text-decoration: none;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 10px 32px;
     font-size: 14px;
-    font-weight: ${cv.fontWeightSemiBold};
+    font-weight: 600;
 
     background: linear-gradient(90deg, #649dff 0%, #9764ff 50%, #649dff 100%);
     background-size: 400% auto;
@@ -162,7 +162,7 @@ export const IndexHeroSection = ({ isLogin }: { isLogin: boolean }) => {
                 <GCalNotionCircle size={1} />
             </Between>
             <Flex.Center>
-                <Text size="12px" color={cv.text3} style={{ textAlign: 'center' }} lineHeight="1.6">
+                <Text size="12px" color={cv.default300} style={{ textAlign: 'center', lineHeight: '1.6' }}>
                     사소한 불편함을 해결하기 위한
                     <br />
                     한 학생 개발자의 프로젝트

@@ -1,4 +1,4 @@
-import { Button, Flex, Text, useModal } from 'opize-design-system';
+import { Button, Flex, Modal, Text, useModal } from 'opize-design-system';
 
 import Image from 'next/image';
 import Img from '../../assets/screenshot1.png';
@@ -45,32 +45,38 @@ export function WrongPropsModal({
     }));
 
     return (
-        <Flex.Column gap="12px">
-            <Flex.Column gap="4px">
-                <Image src={Img} height={536} width={574} alt="" />
-                {wrongPropsList.map((prop) => {
-                    if (!prop.exist) {
-                        return <Text key={prop.key}>{propsSolutionText[prop.key as Prop].exist}</Text>;
-                    }
+        <Modal>
+            <Modal.Header>데이터베이스 속성을 확인해주세요.</Modal.Header>
+            <Modal.Content>
+                <Flex.Column gap="4px">
+                    <Image src={Img} height={536} width={574} alt="" />
+                    {wrongPropsList.map((prop) => {
+                        if (!prop.exist) {
+                            return <Text key={prop.key}>{propsSolutionText[prop.key as Prop].exist}</Text>;
+                        }
 
-                    if (!prop.type) {
-                        return <Text key={prop.key}>{propsSolutionText[prop.key as Prop].type}</Text>;
-                    }
+                        if (!prop.type) {
+                            return <Text key={prop.key}>{propsSolutionText[prop.key as Prop].type}</Text>;
+                        }
 
-                    return null;
-                })}
-            </Flex.Column>
-            <Flex.Between>
-                <Button onClick={() => window.open('/exist-database-connect-guide', '_blank')} variant="outlined">
+                        return null;
+                    })}
+                </Flex.Column>
+            </Modal.Content>
+            <Modal.Footer>
+                <Button onClick={() => window.open('/exist-database-connect-guide', '_blank')} variant="secondary">
                     연결 가이드
                 </Button>
                 <Flex.Row gap="4px">
-                    <Button onClick={() => window.open(`https://notion.so/${databaseId}`, '_blank')} variant="outlined">
+                    <Button
+                        onClick={() => window.open(`https://notion.so/${databaseId}`, '_blank')}
+                        variant="secondary"
+                    >
                         노션 열기
                     </Button>
                     <Button onClick={() => modal.close()}>확인</Button>
                 </Flex.Row>
-            </Flex.Between>
-        </Flex.Column>
+            </Modal.Footer>
+        </Modal>
     );
 }

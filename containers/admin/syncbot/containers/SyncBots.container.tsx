@@ -1,8 +1,9 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useQuery } from 'react-query';
 import { client } from '../../../../lib/client';
 import { toast } from 'react-toastify';
-import { GetSyncBotsResponse, SyncBotStatusDto } from '@opize/calendar2notion-object';
-import { Button, CodeBlock, Flex, H3, ItemsTable, TabNav, useDialog, useModal } from 'opize-design-system';
+import { GetSyncBotsResponse } from '@opize/calendar2notion-object';
+import { Badge, Button, Flex, H3, ItemsTable, Menu, Modal, useCodeModal, useModal } from 'opize-design-system';
 import Image from 'next/image';
 
 import dayjs from 'dayjs';
@@ -17,8 +18,8 @@ import { LogModal } from '../modal/LogModal';
 import { useRouter } from 'next/router';
 
 function SyncBotRow({ syncBot }: { syncBot: GetSyncBotsResponse[number] }) {
+    const codeModal = useCodeModal();
     const modal = useModal();
-    const dialog = useDialog();
     const router = useRouter();
 
     const getLogs = async (prefix: string) => {
@@ -41,6 +42,24 @@ function SyncBotRow({ syncBot }: { syncBot: GetSyncBotsResponse[number] }) {
         }
     };
 
+    const openStopSyncBotModal = (prefix: string) => {
+        modal.open(
+            <Modal>
+                <Modal.Header>동기화봇 정지</Modal.Header>
+                <Modal.Content>
+                    동기화봇에 정지 요청을 보냅니다. 정지 요청으로 동기화봇이 정지 되지 않을 시 "강제 종료"를
+                    시도하세요.
+                </Modal.Content>
+                <Modal.Footer>
+                    <Button onClick={() => modal.close()}>취소</Button>
+                    <Button onClick={() => stopSyncBot(prefix)} variant="danger">
+                        동기화봇 정지
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        );
+    };
+
     const exitSyncBot = async (prefix: string) => {
         try {
             await client.syncbot.exit({ prefix });
@@ -53,6 +72,23 @@ function SyncBotRow({ syncBot }: { syncBot: GetSyncBotsResponse[number] }) {
                 toast.error('알 수 없는 에러');
             }
         }
+    };
+
+    const openExitSyncBotModal = (prefix: string) => {
+        modal.open(
+            <Modal>
+                <Modal.Header>동기화봇 강제 종료</Modal.Header>
+                <Modal.Content>
+                    동기화봇에 강제 종료 요청을 보냅니다. 30초 동안 정지 시도 후 강제로 종료합니다.
+                </Modal.Content>
+                <Modal.Footer>
+                    <Button onClick={() => modal.close()}>취소</Button>
+                    <Button onClick={() => exitSyncBot(prefix)} variant="danger">
+                        동기화봇 강제 종료
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        );
     };
 
     return (
@@ -75,83 +111,27 @@ function SyncBotRow({ syncBot }: { syncBot: GetSyncBotsResponse[number] }) {
                         .join(' | ')}
                     flex={3}
                 />
-                <ItemsTable.Row.Status
-                    status={syncBot.status === 'good' ? 'good' : 'error'}
-                    text={syncBot.status === 'good' ? '정상' : '에러'}
-                    flex={1}
-                />
-                <ItemsTable.Row.Buttons
-                    buttons={[
-                        [
-                            {
-                                label: '상세 정보',
-                                onClick: () =>
-                                    modal.open(<CodeBlock>{JSON.stringify(syncBot, null, 2)}</CodeBlock>, {
-                                        width: 500,
-                                    }),
-                            },
-                            {
-                                label: '로그 보기',
-                                onClick: () => getLogs(syncBot.prefix),
-                            },
-                            {
-                                label: '정지',
-                                onClick: () =>
-                                    dialog({
-                                        buttons: [
-                                            {
-                                                children: '동기화봇 정지',
-                                                onClick: () => stopSyncBot(syncBot.prefix),
-                                                color: 'red',
-                                                variant: 'contained',
-                                            },
-                                        ],
-                                        title: '동기화봇을 정지하시겠어요?',
-                                        content:
-                                            '동기화봇에 정지 요청을 보냅니다. 정지 요청으로 동기화봇이 정지 되지 않을 시 "강제 종료"를 시도하세요.',
-                                    }),
-                                color: 'red',
-                            },
-                            {
-                                label: '강제 종료',
-                                onClick: () =>
-                                    dialog({
-                                        buttons: [
-                                            {
-                                                children: '동기화봇 강제 종료',
-                                                onClick: () => exitSyncBot(syncBot.prefix),
-                                                color: 'red',
-                                                variant: 'contained',
-                                            },
-                                        ],
-                                        title: '동기화봇을 강제로 종료하시겠어요?',
-                                        content:
-                                            '동기화봇에 강제 종료 요청을 보냅니다. 30초 동안 정지 시도 후 강제로 종료합니다.',
-                                    }),
-                                color: 'red',
-                            },
-                        ],
-                    ]}
-                />
+                <ItemsTable.Row.Component>
+                    <Badge color={syncBot.status === 'good' ? 'green' : 'blue'}>
+                        {syncBot.status === 'good' ? '정상' : '에러'}
+                    </Badge>
+                </ItemsTable.Row.Component>
+                <ItemsTable.Row.Menu>
+                    <Menu.Option
+                        onClick={() =>
+                            codeModal.open(syncBot, {
+                                stringify: true,
+                            })
+                        }
+                    >
+                        상세 정보
+                    </Menu.Option>
+                    <Menu.Option onClick={() => getLogs(syncBot.prefix)}>로그 보기</Menu.Option>
+                    <Menu.Option onClick={() => openStopSyncBotModal(syncBot.prefix)}>정지</Menu.Option>
+                    <Menu.Option onClick={() => openExitSyncBotModal(syncBot.prefix)}>강제 종료</Menu.Option>
+                </ItemsTable.Row.Menu>
             </ItemsTable.Row>
             {syncBot.data?.worker.workers.map((e: any, i: number) => {
-                const buttonActions = [
-                    {
-                        label: '상세 정보',
-                        onClick: () =>
-                            modal.open(<CodeBlock>{JSON.stringify(e, null, 2)}</CodeBlock>, {
-                                width: 500,
-                            }),
-                    },
-                ];
-
-                if (e.nowWorkUserId) {
-                    buttonActions.push({
-                        label: '유저 조회',
-                        onClick: () => router.push(`/admin/user?userId=${e.nowWorkUserId}`),
-                    });
-                }
-
                 return (
                     <ItemsTable.Row key={i}>
                         <ItemsTable.Row.Text text={`${e.loopId}`} />
@@ -164,7 +144,14 @@ function SyncBotRow({ syncBot }: { syncBot: GetSyncBotsResponse[number] }) {
                             <ItemsTable.Row.Text />
                         )}
                         <ItemsTable.Row.Text text={`${e.completedSyncCount}명 작업 완료`} />
-                        <ItemsTable.Row.Buttons buttons={[buttonActions]} />
+                        <ItemsTable.Row.Menu>
+                            <Menu.Option onClick={() => codeModal.open(e)}>상세 정보</Menu.Option>
+                            {e.nowWorkUserId && (
+                                <Menu.Option onClick={() => router.push(`/admin/user?userId=${e.nowWorkUserId}`)}>
+                                    유저 조회
+                                </Menu.Option>
+                            )}
+                        </ItemsTable.Row.Menu>
                     </ItemsTable.Row>
                 );
             })}

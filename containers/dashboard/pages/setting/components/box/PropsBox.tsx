@@ -15,7 +15,7 @@ export function PropsBox() {
             footer={
                 <>
                     <A>자세히 알아보기</A>
-                    <Button variant="contained">적용</Button>
+                    <Button variant="primary">적용</Button>
                 </>
             }
         >
@@ -29,7 +29,7 @@ export function PropsBox() {
                     <Text>캘린더</Text>
                     <Width100>
                         <Select>
-                            <Select.Option value={'title'}>title (32d1)</Select.Option>
+                            <option value={'title'}>title (32d1)</option>
                         </Select>
                     </Width100>
                 </Flex.Between>
@@ -38,7 +38,7 @@ export function PropsBox() {
                     <Text>날짜</Text>
                     <Width100>
                         <Select>
-                            <Select.Option value={'title'}>title (32d1)</Select.Option>
+                            <option value={'title'}>title (32d1)</option>
                         </Select>
                     </Width100>
                 </Flex.Between>
@@ -47,7 +47,7 @@ export function PropsBox() {
                     <Text>삭제 버튼</Text>
                     <Width100>
                         <Select>
-                            <Select.Option value={'title'}>title (32d1)</Select.Option>
+                            <option value={'title'}>title (32d1)</option>
                         </Select>
                     </Width100>
                 </Flex.Between>
@@ -56,7 +56,7 @@ export function PropsBox() {
                     <Text>상세</Text>
                     <Width100>
                         <Select>
-                            <Select.Option value={'title'}>title (32d1)</Select.Option>
+                            <option value={'title'}>title (32d1)</option>
                         </Select>
                     </Width100>
                 </Flex.Between>
@@ -65,7 +65,7 @@ export function PropsBox() {
                     <Text>장소</Text>
                     <Width100>
                         <Select>
-                            <Select.Option value={'title'}>title (32d1)</Select.Option>
+                            <option value={'title'}>title (32d1)</option>
                         </Select>
                     </Width100>
                 </Flex.Between>

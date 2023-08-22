@@ -1,18 +1,17 @@
-import { Box, Button, cv, Flex, Link, SlideBox, Text, TextField, useSlideBox } from 'opize-design-system';
+import { Button, SlideBox } from 'opize-design-system';
 import { useCallback, useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import Img from '../../../../assets/connect/Calendar2notion.png';
-import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { client } from '../../../../lib/client';
 import { useUser } from '../../../../hooks/useUser';
 import { ConnectBlockBase } from '../../components/blockBase';
 import { BlockHeader } from '../../components/blockHeader';
-import { ConnectButton } from '../../components/connectBtn';
 import { connectPageIndex } from '../../connectPageIndex';
 import { APIResponseError } from 'endpoint-client';
+import { useSlideBox } from '../../state/page.state';
 
 export function NewConnectFinishBlock() {
     const page = connectPageIndex.NEW_CONNECT.FINISH;
@@ -98,7 +97,7 @@ export function NewConnectFinishBlock() {
     };
 
     return (
-        <SlideBox.Page pos={page}>
+        <SlideBox.Page index={page}>
             <ConnectBlockBase>
                 <Image src={Img} height={720} width={1280} alt="" />
                 <BlockHeader title={'모든 준비가 완료되었어요!'} />
@@ -108,7 +107,7 @@ export function NewConnectFinishBlock() {
                     isLoading={isLoading}
                     width="100%"
                     size="large"
-                    variant="outlined"
+                    variant="secondary"
                 >
                     {'동기화 시작하기'}
                 </Button>

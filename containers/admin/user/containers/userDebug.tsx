@@ -2,31 +2,23 @@ import {
     Box,
     Button,
     Code,
+    CodeBlock,
     Flex,
     H3,
-    ItemsTable,
     Spinner,
     Switch,
     Table,
     Text,
     cv,
     useCodeModal,
-    useModal,
 } from 'opize-design-system';
 import { useAdminUser } from '../hooks/useAdminUser';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { client } from '../../../../lib/client';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { UserDto } from '@opize/calendar2notion-object';
 import { Eye } from 'phosphor-react';
-
-const CodeBlock = styled.pre`
-    border-radius: 4px;
-    font-size: 12px;
-    word-break: break-all;
-    white-space: pre-wrap;
-`;
 
 const TableContainer = styled.div`
     max-width: 100%;
@@ -55,52 +47,54 @@ function NotionDatabaseSummaryTable({ database }: { database: any }) {
         } catch {
             code = value;
         }
-        codeModal(key, code);
+        codeModal.open(code, {
+            title: key,
+        });
     };
 
     return (
         <TableContainer>
             <Table>
-                <Table.THead>
+                <Table.Head>
                     <Table.Row>
-                        <Table.Head width="130px">속성</Table.Head>
-                        <Table.Head width="100px">키</Table.Head>
-                        <Table.Head>정보</Table.Head>
-                        <Table.Head $align="flex-end" width="70px"></Table.Head>
+                        <Table.Column>속성</Table.Column>
+                        <Table.Column>키</Table.Column>
+                        <Table.Column>정보</Table.Column>
+                        <Table.Column align="right"> </Table.Column>
                     </Table.Row>
-                </Table.THead>
-                <Table.TBody>
+                </Table.Head>
+                <Table.Body>
                     <Table.Row>
-                        <Table.Data width="130px">제목</Table.Data>
-                        <Table.Data width="100px"></Table.Data>
-                        <Table.Data>{databaseSummary.title}</Table.Data>
-                        <Table.Data $align="flex-end" width="70px"></Table.Data>
+                        <Table.Cell>제목</Table.Cell>
+                        <Table.Cell> </Table.Cell>
+                        <Table.Cell>{databaseSummary.title}</Table.Cell>
+                        <Table.Cell align="right"> </Table.Cell>
                     </Table.Row>
                     <Table.Row>
-                        <Table.Data width="130px">id</Table.Data>
-                        <Table.Data width="100px"></Table.Data>
-                        <Table.Data>{databaseSummary.id}</Table.Data>
-                        <Table.Data $align="flex-end" width="70px"></Table.Data>
+                        <Table.Cell>id</Table.Cell>
+                        <Table.Cell> </Table.Cell>
+                        <Table.Cell>{databaseSummary.id}</Table.Cell>
+                        <Table.Cell align="right"> </Table.Cell>
                     </Table.Row>
                     {databaseSummary.properties.map((property, index) => {
                         return (
                             <Table.Row key={index}>
-                                <Table.Data width="130px">{property.name}</Table.Data>
-                                <Table.Data width="100px">
+                                <Table.Cell>{property.name}</Table.Cell>
+                                <Table.Cell>
                                     <Code>{property.id}</Code>
-                                </Table.Data>
-                                <Table.Data>{property.type}</Table.Data>
-                                <Table.Data $align="flex-end" width="70px">
+                                </Table.Cell>
+                                <Table.Cell>{property.type}</Table.Cell>
+                                <Table.Cell align="right">
                                     <Button
-                                        icon={<Eye color={cv.text3} />}
+                                        suffix={<Eye color={cv.default400} />}
                                         onClick={() => openValueModal(property.name, property)}
-                                        variant="text"
+                                        variant="tertiary"
                                     />
-                                </Table.Data>
+                                </Table.Cell>
                             </Table.Row>
                         );
                     })}
-                </Table.TBody>
+                </Table.Body>
             </Table>
         </TableContainer>
     );
@@ -135,9 +129,13 @@ function NotionDatabaseBox({ user }: { user: UserDto }) {
                 footer={
                     <>
                         <Flex.Row gap="8px">
-                            <Switch text="가리기" checked={!isShow} onChange={() => setIsShow(!isShow)} />
+                            <Switch checked={!isShow} onChange={() => setIsShow(!isShow)}>
+                                가리기
+                            </Switch>
                             {isShow && (
-                                <Switch text="요약" checked={isSummary} onChange={() => setIsSummary(!isSummary)} />
+                                <Switch checked={isSummary} onChange={() => setIsSummary(!isSummary)}>
+                                    요약
+                                </Switch>
                             )}
                         </Flex.Row>
                         <Button onClick={() => refetch()}>조회</Button>

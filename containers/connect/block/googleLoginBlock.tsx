@@ -1,23 +1,19 @@
-import { Box, Button, Flex, SlideBox, Text, useSlideBox, useTopLoading } from 'opize-design-system';
-import Image from 'next/image';
-import Img from '../../../../assets/connect/placeholder.png';
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
-import { useRouter } from 'next/router';
+import { SlideBox, useTopLoading } from 'opize-design-system';
+import { useGoogleLogin } from '@react-oauth/google';
 import { toast } from 'react-toastify';
 import { client } from '../../../lib/client';
-import { useUser } from '../../../hooks/useUser';
 import { ConnectBlockBase } from '../components/blockBase';
 import { APIResponseError } from '../../../lib/old-client';
-import { useMigrationModal } from '../../../components/pages/connect/hook/useMigrationModal';
 import { YoutubeEmbed } from '../components/youtubeEmbed';
 import { BlockHeader } from '../components/blockHeader';
 import { GoogleLoginButton } from '../components/googleLoginBtn';
 import { connectPageIndex } from '../connectPageIndex';
+import { useSlideBox } from '../state/page.state';
 
 export function GoogleLoginConnectBlock() {
     const page = connectPageIndex.GOOGLE_LOGIN;
 
-    const { start: loadingStart, end: loadingEnd } = useTopLoading();
+    const { start: loadingStart, finish: loadingFinish } = useTopLoading();
     const { move } = useSlideBox();
 
     const googleLogin = useGoogleLogin({
@@ -33,10 +29,10 @@ export function GoogleLoginConnectBlock() {
                     code: data.code,
                     callbackVersion,
                 });
-                loadingEnd();
+                loadingFinish();
                 move(connectPageIndex.CHECK_MIGRATION);
             } catch (err: unknown) {
-                loadingEnd();
+                loadingFinish();
 
                 if (err instanceof APIResponseError) {
                     if (err.body.code === 'already_account_exist') {
@@ -57,7 +53,7 @@ export function GoogleLoginConnectBlock() {
     });
 
     return (
-        <SlideBox.Page pos={page}>
+        <SlideBox.Page index={page}>
             <ConnectBlockBase>
                 <YoutubeEmbed url={'https://www.youtube.com/embed/hdu19m0xMr4?autoplay=1&loop=1'} />
                 <BlockHeader title="먼저 구글 캘린더에 로그인할게요." text="반드시 구글 캘린더 권한을 체크해주세요!" />

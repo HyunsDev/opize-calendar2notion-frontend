@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router';
 import { useUser } from '../../hooks/useUser';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import { A, Button, CenterLayout, Flex, SlideBox, Text, TextField, cv, useSlideBox } from 'opize-design-system';
+import { useEffect } from 'react';
+import { A, Button, CenterLayout, Flex, SlideBox, cv, ButtonGroup } from 'opize-design-system';
 import styled from 'styled-components';
 import Image from 'next/image';
 
@@ -18,9 +17,10 @@ import { ExistCheckConnectBlock } from './block/existCheckBlock';
 import { ExistConnectNotionApiBlock } from './block/existConnectBlock/notionApiBlock';
 import { ExistConnectDatabaseBlock } from './block/existConnectBlock/database';
 import { ExistConnectFinishBlock } from './block/existConnectBlock/finishBlock';
+import { useSlideBox } from './state/page.state';
 
 const Box = styled.div`
-    border: solid 1px ${cv.border4};
+    border: solid 1px ${cv.default200};
     border-radius: 8px;
     padding: 30px 0px;
     display: flex;
@@ -31,7 +31,7 @@ const Box = styled.div`
     width: 100%;
 
     @media (max-width: 767px) {
-        border: solid 0px ${cv.border4};
+        border: solid 0px ${cv.default200};
     }
 `;
 
@@ -40,13 +40,13 @@ const Logo = styled.div`
     align-items: center;
     justify-content: center;
     gap: 8px;
-    font-weight: ${cv.fontWeightSemiBold};
+    font-weight: 600;
     color: #9764ff;
 `;
 
 const Title = styled.h1`
     font-size: 20px;
-    font-weight: ${cv.fontWeightRegular};
+    font-weight: 400;
 `;
 
 export function SlideBoxContainer() {
@@ -68,7 +68,7 @@ export function SlideBoxContainer() {
                 </Logo>
                 <Title>바로 연결해볼까요?</Title>
 
-                <SlideBox>
+                <SlideBox now={now} setNow={move}>
                     <GoogleLoginConnectBlock />
                     <MigrateCheckConnectBlock />
                     <ExistCheckConnectBlock />
@@ -85,19 +85,20 @@ export function SlideBoxContainer() {
                     <ExistConnectFinishBlock />
                 </SlideBox>
             </Box>
-            <Flex.Center style={{ width: '100%', marginTop: '4px' }}>
+            <Flex.Center style={{ width: '100%', marginTop: '8px', fontSize: '14px' }}>
                 <Flex.Row gap="16px">
                     <A>가이드</A>
                     <A>개인정보 처리방침</A>
                     <A>약관</A>
                 </Flex.Row>
             </Flex.Center>
-
-            {/* <Flex.Center>
-                <Button onClick={() => move(now - 1)}>+1</Button>
-                <TextField value={now} onChange={(e) => move(+e.target.value)} />
-                <Button onClick={() => move(now + 1)}>+1</Button>
-            </Flex.Center> */}
+            <Flex.Center>
+                <ButtonGroup>
+                    <Button onClick={() => move((prev) => prev - 1)}>-</Button>
+                    <Button>{now}</Button>
+                    <Button onClick={() => move((prev) => prev + 1)}>+</Button>
+                </ButtonGroup>
+            </Flex.Center>
         </CenterLayout>
     );
 }

@@ -1,15 +1,13 @@
-import axios, { AxiosError } from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { SimpleHeader, Flex, Button, cv, Token, ActionMenu, ActionMenuActionType, Spinner } from 'opize-design-system';
+import { SimpleHeader, Flex, Button, Menu } from 'opize-design-system';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import C2NLogo from '../../../../assets/logo.png';
 import { client } from '../../../../lib/client';
 import { APIResponseError } from '../../../../lib/old-client';
-import { isClient } from '../../../../utils/isClient';
 import { useUser } from '../../../../hooks/useUser';
 import SkeletonIcon from '../../../../assets/logo.png';
 
@@ -18,9 +16,15 @@ const Img = styled(Image)`
 `;
 
 const Title = styled.div`
-    font-weight: ${cv.fontWeightSemiBold};
+    font-weight: 600;
     color: #9764ff;
     font-size: 16px;
+`;
+
+const TitleA = styled.a`
+    display: flex;
+    gap: 8px;
+    text-decoration: none;
 `;
 
 export function IndexHeader() {
@@ -71,84 +75,69 @@ export function IndexHeader() {
         window.location.href = '/';
     };
 
-    const action: ActionMenuActionType[][] = [
-        [
-            {
-                label: '로그아웃',
-                color: 'red',
-                onClick: () => logout(),
-            },
-        ],
-    ];
-
-    if (user?.isAdmin) {
-        action.unshift([
-            {
-                label: '관리자',
-                onClick: () => router.push('/admin'),
-            },
-        ]);
-    }
-
     return (
         <SimpleHeader>
-            <Link href={'/'} passHref>
-                <Flex.Row gap="8px" as="a" style={{ textDecoration: 'none' }}>
-                    <Img src={C2NLogo} height={26} width={26} />
-                    <Title>Calendar2notion</Title>
+            <SimpleHeader.Left>
+                <Link href={'/'} passHref>
+                    <TitleA>
+                        <Img src={C2NLogo} height={26} width={26} />
+                        <Title>Calendar2notion</Title>
+                    </TitleA>
+                </Link>
+            </SimpleHeader.Left>
+            <SimpleHeader.Right>
+                <Flex.Row gap="20px">
+                    <Link href={'/about'} passHref>
+                        <SimpleHeader.A>소개</SimpleHeader.A>
+                    </Link>
+                    <Link href={'/guide'} passHref>
+                        <SimpleHeader.A>가이드</SimpleHeader.A>
+                    </Link>
+
+                    <Link href={'/plan'} passHref>
+                        <SimpleHeader.A>플랜</SimpleHeader.A>
+                    </Link>
                 </Flex.Row>
-            </Link>
 
-            <SimpleHeader.Nav>
-                <Link href={'/about'} passHref>
-                    <SimpleHeader.Nav.Link>소개</SimpleHeader.Nav.Link>
-                </Link>
-                <Link href={'/guide'} passHref>
-                    <SimpleHeader.Nav.Link>가이드</SimpleHeader.Nav.Link>
-                </Link>
-
-                <Link href={'/plan'} passHref>
-                    <SimpleHeader.Nav.Link>플랜</SimpleHeader.Nav.Link>
-                </Link>
-            </SimpleHeader.Nav>
-            <Flex.Row gap="4px">
-                {isLogin ? (
-                    <>
-                        <ActionMenu
-                            variant="text"
-                            borderRadius={999}
-                            width="fit-content"
-                            actions={action}
-                            icon={
-                                isLoading ? (
-                                    <Spinner size={32} />
-                                ) : (
+                <Flex.Row gap="4px">
+                    {isLogin ? (
+                        <>
+                            <Menu>
+                                <Menu.Trigger variant="tertiary" iconOnly>
                                     <Image
                                         src={user?.imageUrl || SkeletonIcon}
                                         alt="유저 프로필 사진"
                                         width={32}
                                         height={32}
                                     />
-                                )
-                            }
-                        ></ActionMenu>
-                        <Link href={'/dashboard'} passHref>
-                            <Button variant="contained" as="a">
-                                대시보드
+                                </Menu.Trigger>
+                                <Menu.Content>
+                                    {user?.isAdmin && (
+                                        <Menu.Option onClick={() => router.push('/admin')}>운영진 대시보드</Menu.Option>
+                                    )}
+                                    <Menu.Option onClick={() => logout()} color="red">
+                                        로그아웃
+                                    </Menu.Option>
+                                </Menu.Content>
+                            </Menu>
+                            <Link href={'/dashboard'} passHref>
+                                <Button as="a" variant="primary" size="small">
+                                    대시보드
+                                </Button>
+                            </Link>
+                        </>
+                    ) : (
+                        <>
+                            <Button variant="tertiary" onClick={login} size="small">
+                                로그인
                             </Button>
-                        </Link>
-                    </>
-                ) : (
-                    <>
-                        <Button variant="text" onClick={login}>
-                            로그인
-                        </Button>
-                        <Button variant="contained" onClick={login}>
-                            무료로 시작하기
-                        </Button>
-                    </>
-                )}
-            </Flex.Row>
+                            <Button variant="primary" onClick={login} size="small">
+                                무료로 시작하기
+                            </Button>
+                        </>
+                    )}
+                </Flex.Row>
+            </SimpleHeader.Right>
         </SimpleHeader>
     );
 }

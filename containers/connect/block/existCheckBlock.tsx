@@ -1,17 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
-import { client } from '../../../lib/client';
+import { useCallback } from 'react';
 import { ConnectBlockBase } from '../components/blockBase';
 import { BlockHeader } from '../components/blockHeader';
-import { ConnectButton } from '../components/connectBtn';
-import { Button, Flex, Link, SlideBox, Spinner, useSlideBox } from 'opize-design-system';
-import { MigrateV1CheckUser } from '@opize/calendar2notion-object';
-import { MigrationPreview, MigrationPreviewSkeleton } from '../components/migratePreview';
+import { Button, Flex, SlideBox } from 'opize-design-system';
 import { connectPageIndex } from '../connectPageIndex';
-import { toast } from 'react-toastify';
-import { MigrationGuideLink } from '../components/migrationGuideLink';
 import Image from 'next/image';
 
 import Img from '../../../assets/connect/Calendar2notion.png';
+import { useSlideBox } from '../state/page.state';
 
 export function ExistCheckConnectBlock() {
     const page = connectPageIndex.CHECK_EXIST;
@@ -30,7 +25,7 @@ export function ExistCheckConnectBlock() {
     );
 
     return (
-        <SlideBox.Page pos={page}>
+        <SlideBox.Page index={page}>
             <ConnectBlockBase>
                 <Image src={Img} height={720} width={1280} alt="" />
                 <BlockHeader
@@ -44,10 +39,10 @@ export function ExistCheckConnectBlock() {
                 />
 
                 <Flex.Column gap="8px">
-                    <Button onClick={() => onClick('exist')} width="100%" size="large" variant="outlined">
+                    <Button onClick={() => onClick('exist')} width="100%" size="large" variant="secondary">
                         기존 노션 데이터베이스에 연결하기
                     </Button>
-                    <Button onClick={() => onClick('new')} width="100%" size="large" variant="contained">
+                    <Button onClick={() => onClick('new')} width="100%" size="large" variant="primary">
                         새로운 노션 데이터베이스에 연결하기
                     </Button>
                 </Flex.Column>

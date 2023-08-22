@@ -1,30 +1,13 @@
 import { useUser } from '../../hooks/useUser';
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import {
-    PageLayout,
-    H1,
-    Flex,
-    Text,
-    cv,
-    Button,
-    useModal,
-    ToolTip,
-    Spinner,
-    Callout,
-    A,
-    Box,
-} from 'opize-design-system';
+import { Flex, Button, Note, A, Spacer, BoxLayout } from 'opize-design-system';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';
-import { Info } from 'phosphor-react';
-import { DashboardText } from './components/DashboardText';
+import { DashboardText, DashboardTextSkeleton } from './components/DashboardText';
 import { GetUserResponse } from '@opize/calendar2notion-object';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
@@ -60,7 +43,7 @@ function DashboardContent() {
     const userState = getUserState(user);
 
     if (userState === 'loading') {
-        return <Spinner />;
+        return <DashboardTextSkeleton />;
     }
 
     if (userState === 'waiting_for_init') {
@@ -68,7 +51,7 @@ function DashboardContent() {
             <DashboardText
                 title={{
                     text: '첫 동기화를 기다리고 있어요',
-                    tooltip: '구글 캘린더와 노션의 일정을 동기화하기 위해 준비하고 있어요.',
+                    Tooltip: '구글 캘린더와 노션의 일정을 동기화하기 위해 준비하고 있어요.',
                 }}
                 description={'잠시만 기다려주세요'}
             />
@@ -118,7 +101,7 @@ function DashboardContent() {
                 }}
                 description={'동기화에 문제가 발생했어요. 설정에서 문제를 해결해주세요.'}
                 button={
-                    <Button onClick={() => router.push('/dashboard/setting')} variant="contained">
+                    <Button onClick={() => router.push('/dashboard/setting')} variant="primary">
                         설정에서 문제 해결하기
                     </Button>
                 }
@@ -144,38 +127,41 @@ export function DashboardContainer() {
     const { user, isLoading } = useUser();
 
     return (
-        <PageLayout minHeight="calc(100vh - 420px)" marginTop="8px">
-            <Flex.Column gap="8px">
-                {dayjs(user?.lastCalendarSync) < dayjs().add(-2, 'hours') && user?.isWork && (
-                    <>
-                        <Callout icon="💡" color="yellow">
-                            교착 상태에 빠진 것 같나요?
-                            <br />
-                            일반적으로 <b>첫 동기화가 아닌 동기화</b>는 1분 내로 완료되는 것이 정상이에요. 그러나 현재
-                            2시간 이상 동기화가 진행중이에요. 만약 노션이나 구글 캘린더에서 동기화가 정상적으로
-                            이루어지지 않고 있다고 생각되면 설정에서 교착상태를 해결해주세요.
-                            <br />
-                            <Link href={'/dashboard/setting'} passHref>
-                                <A href={'/dashboard/setting'}>설정 바로가기</A>
-                            </Link>
-                        </Callout>
-                    </>
-                )}
-                <Flex.Center>
-                    <GCalNotionCircle />
-                </Flex.Center>
-                <Flex.Center>
-                    <DashboardContent />
-                </Flex.Center>
-                <Flex.Center gap="12px">
-                    <Link href={'/guide'} passHref>
-                        <A href="/guide">가이드</A>
-                    </Link>
-                    <Link href={'/dashboard/setting'} passHref>
-                        <A href={'/dashboard/setting'}>설정</A>
-                    </Link>
-                </Flex.Center>
-            </Flex.Column>
-        </PageLayout>
+        <>
+            <Spacer height="8px" />
+            <BoxLayout minHeight="calc(100vh - 420px)">
+                <Flex.Column gap="8px">
+                    {dayjs(user?.lastCalendarSync) < dayjs().add(-2, 'hours') && user?.isWork && (
+                        <>
+                            <Note label="💡" color="yellow">
+                                교착 상태에 빠진 것 같나요?
+                                <br />
+                                일반적으로 <b>첫 동기화가 아닌 동기화</b>는 1분 내로 완료되는 것이 정상이에요. 그러나
+                                현재 2시간 이상 동기화가 진행중이에요. 만약 노션이나 구글 캘린더에서 동기화가 정상적으로
+                                이루어지지 않고 있다고 생각되면 설정에서 교착상태를 해결해주세요.
+                                <br />
+                                <Link href={'/dashboard/setting'} passHref>
+                                    <A href={'/dashboard/setting'}>설정 바로가기</A>
+                                </Link>
+                            </Note>
+                        </>
+                    )}
+                    <Flex.Center>
+                        <GCalNotionCircle />
+                    </Flex.Center>
+                    <Flex.Center>
+                        <DashboardContent />
+                    </Flex.Center>
+                    <Flex.Center gap="12px">
+                        <Link href={'/guide'} passHref>
+                            <A href="/guide">가이드</A>
+                        </Link>
+                        <Link href={'/dashboard/setting'} passHref>
+                            <A href={'/dashboard/setting'}>설정</A>
+                        </Link>
+                    </Flex.Center>
+                </Flex.Column>
+            </BoxLayout>
+        </>
     );
 }

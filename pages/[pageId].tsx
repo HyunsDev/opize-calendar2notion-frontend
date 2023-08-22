@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { Footer } from '../components/footer';
 import { NotionPage } from '../components/notionPage';
-import { IndexHeader } from '../components/pages/index/header';
+import { IndexHeader } from '../containers/index/components/IndexHeader';
 
 export default function App() {
     const router = useRouter();
