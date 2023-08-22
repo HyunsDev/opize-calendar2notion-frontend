@@ -117,7 +117,15 @@ function SyncBotRow({ syncBot }: { syncBot: GetSyncBotsResponse[number] }) {
                     </Badge>
                 </ItemsTable.Row.Component>
                 <ItemsTable.Row.Menu>
-                    <Menu.Option onClick={() => codeModal.open(syncBot)}>상세 정보</Menu.Option>
+                    <Menu.Option
+                        onClick={() =>
+                            codeModal.open(syncBot, {
+                                stringify: true,
+                            })
+                        }
+                    >
+                        상세 정보
+                    </Menu.Option>
                     <Menu.Option onClick={() => getLogs(syncBot.prefix)}>로그 보기</Menu.Option>
                     <Menu.Option onClick={() => openStopSyncBotModal(syncBot.prefix)}>정지</Menu.Option>
                     <Menu.Option onClick={() => openExitSyncBotModal(syncBot.prefix)}>강제 종료</Menu.Option>

@@ -106,12 +106,12 @@ function ErrorTableRow({
             <Table.Cell>{`${error.id}`}</Table.Cell>
             <Table.Cell>
                 <Flex.Row gap="4px">
-                    {error.user && <Avatar src={error.user?.imageUrl} size={'28px'} />}
                     {error.user ? (
                         <>
                             <ColorDot
                                 color={error.user.isConnected ? 'green' : error.user.lastSyncStatus ? 'red' : 'yellow'}
                             />
+                            <Avatar src={error.user?.imageUrl} size={'28px'} />
                             {error.user.name}
                         </>
                     ) : (
@@ -124,7 +124,7 @@ function ErrorTableRow({
             </Table.Cell>
             <Table.Cell>{error.from}</Table.Cell>
             <Table.Cell>
-                <Badge color={colorMap[error.level]} variant="secondary">
+                <Badge color={colorMap[error.level]} variant="tertiary">
                     {error.level}
                 </Badge>
             </Table.Cell>
@@ -165,7 +165,7 @@ function ErrorTableRow({
                         <Menu.Option
                             onClick={() =>
                                 codeModal.open(error, {
-                                    stringify: false,
+                                    stringify: true,
                                 })
                             }
                         >
@@ -197,8 +197,8 @@ function ErrorTableRow({
 }
 
 function ErrorTable() {
-    const [page, setPage] = useRecoilState(pageState);
-    const [userId, setUserId] = useRecoilState(userIdState);
+    const [page] = useRecoilState(pageState);
+    const [userId] = useRecoilState(userIdState);
 
     const { data: errors, refetch } = useQuery(['errors', page], async () => errorQuery(page, userId));
 
@@ -246,10 +246,6 @@ function ErrorTable() {
 }
 
 export function ErrorsContainer() {
-    const [page, setPage] = useRecoilState(pageState);
-    const [userId, setUserId] = useRecoilState(userIdState);
-    const { data: errors, refetch, isLoading } = useQuery(['errors', page], async () => errorQuery(page, userId));
-
     return (
         <>
             <Spacer height="32px" />

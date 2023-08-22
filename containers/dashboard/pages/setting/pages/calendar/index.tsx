@@ -43,7 +43,6 @@ const NotiTag = styled.div`
 `;
 
 function CalendarItem({ calendar, userCalendar }: { calendar: GoogleCalendarDto; userCalendar?: CalendarDto }) {
-    const router = useRouter();
     const modal = useModal();
     const { user, refetch } = useUser();
     const [isLoading, setIsLoading] = useState(false);
@@ -127,7 +126,7 @@ function CalendarItem({ calendar, userCalendar }: { calendar: GoogleCalendarDto;
                         취소
                     </Button>
                     <Button
-                        variant="primary"
+                        variant="danger"
                         onClick={() => {
                             modal.close();
                             removeCalendar(calendarId, googleCalendarId);
@@ -213,8 +212,7 @@ function CalendarItem({ calendar, userCalendar }: { calendar: GoogleCalendarDto;
 }
 
 function BoxCalendars() {
-    const router = useRouter();
-    const { user, refetch } = useUser();
+    const { user } = useUser();
 
     return (
         <ItemsTable>

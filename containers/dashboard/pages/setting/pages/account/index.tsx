@@ -76,7 +76,7 @@ function BoxAccount() {
             title="계정 삭제"
             footer={
                 <>
-                    <A>자세히 알아보기</A>
+                    <div />
                     <Button variant="danger" onClick={openDialog} size="small">
                         계정 삭제
                     </Button>
@@ -86,10 +86,10 @@ function BoxAccount() {
             <Text size="14px">
                 더 이상 Calendar2notion을 이용하지 않으신다면 계정을 삭제할 수 있어요.
                 <br />
-                <br />
                 삭제한 계정은 다시 되돌릴 수 없고, 이전 노션 데이터베이스에 다시 연결할 수 없어요. 신중하게
                 생각해주세요!.
-                <br /> * Opize 계정은 삭제되지 않아요. Opize 계정을 삭제하려면{' '}
+                <br />
+                <br /> Opize 계정은 삭제되지 않아요. Opize 계정을 삭제하려면{' '}
                 <A href="https://opize.me" target={'_blank'}>
                     opize
                 </A>
@@ -150,7 +150,7 @@ function BoxNotion() {
             title="노션 데이터베이스 초기화"
             footer={
                 <>
-                    <A>자세히 알아보기</A>
+                    <div />
                     <Button variant="danger" onClick={openDialog} size="small">
                         초기화
                     </Button>
@@ -159,7 +159,8 @@ function BoxNotion() {
         >
             Calendar2notion을 사용하면서 문제가 발생한 경우 노션 데이터베이스를 초기화해서 해결할 수 있어요.
             <br />
-            데이터베이스를 초기화하는 경우, 이전 데이터베이스와의 동기화가 해제되며 새로운 데이터베이터에 연결하게 되요.
+            데이터베이스를 초기화하는 경우, 이전 데이터베이스와의 동기화가 해제되며 새로운 데이터베이터에 연결하게
+            됩니다.
         </Box>
     );
 }

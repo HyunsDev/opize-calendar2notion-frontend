@@ -3548,10 +3548,10 @@ once@^1.3.0:
   dependencies:
     wrappy "1"
 
-opize-design-system@^1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/opize-design-system/-/opize-design-system-1.4.3.tgz#90fd5f2bfc63d140d5f45abfd560165ada7a1339"
-  integrity sha512-rYNgw4Ls+5kAm6kX2qdApYiqQp4j81Zin/ffF7MDugeKIK04wq4ffaj/fNOqOC3YYbE4I426AGQA02FPxufjOw==
+opize-design-system@^1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/opize-design-system/-/opize-design-system-1.4.5.tgz#9a9abab96691dfa22be15d2986fb68f7b533653f"
+  integrity sha512-taM1mf3Qjxt1My4mBF6rXLWzhN8NDo4A68nauDnfNHCfhkgIUsq1CP2+tCKZliHpDhpzPJAJ6gDgl97ippdn6A==
   dependencies:
     react-syntax-highlighter "^15.5.0"
 
