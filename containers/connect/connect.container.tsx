@@ -92,13 +92,6 @@ export function SlideBoxContainer() {
                     <A>약관</A>
                 </Flex.Row>
             </Flex.Center>
-            <Flex.Center>
-                <ButtonGroup>
-                    <Button onClick={() => move((prev) => prev - 1)}>-</Button>
-                    <Button>{now}</Button>
-                    <Button onClick={() => move((prev) => prev + 1)}>+</Button>
-                </ButtonGroup>
-            </Flex.Center>
         </CenterLayout>
     );
 }
