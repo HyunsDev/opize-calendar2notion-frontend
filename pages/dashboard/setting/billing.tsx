@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { DashboardHeader } from '../../../components/pages/dashboard/header';
+import { DashboardHeader } from '../../../containers/dashboard/components/DashboardHeader';
 import { PageHead } from 'opize-design-system';
 import { Footer } from '../../../components/footer';
 import { BillingContainer } from '../../../containers/dashboard/pages/setting/pages/billing';

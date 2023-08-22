@@ -13,22 +13,18 @@ import {
     Button,
     useCodeModal,
     Select,
-    Checkbox,
     Input,
     Switch,
-    Badge,
     Menu,
     Spacer,
     ColorDot,
 } from 'opize-design-system';
-import styled from 'styled-components';
-import { AdminFooter } from '../../components/pages/admin/footer';
-import { AdminHeader } from '../../components/pages/admin/header';
+import { AdminHeader } from '../../containers/admin/components/AdminHeader';
 import { client } from '../../lib/client';
 import { toast } from 'react-toastify';
 import { Footer } from '../../components/footer';
 import { UserDto } from '@opize/calendar2notion-object';
-import { Check, DotsThreeVertical } from 'phosphor-react';
+import { DotsThreeVertical } from 'phosphor-react';
 import { useRouter } from 'next/router';
 import { GetAdminFindUsersWhere } from '@opize/calendar2notion-object';
 

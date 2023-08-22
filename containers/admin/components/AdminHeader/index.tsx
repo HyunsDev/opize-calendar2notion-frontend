@@ -1,28 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import {
-    Avatar,
-    Button,
-    cv,
-    Flex,
-    Header,
-    Menu,
-    PageLayout,
-    Spacer,
-    Spinner,
-    Text,
-    useTopLoading,
-} from 'opize-design-system';
+import { Menu, Flex, Header } from 'opize-design-system';
 import styled from 'styled-components';
 import SkeletonIcon from '../../../../assets/logo.png';
 
-import { useEffect } from 'react';
-import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 import C2NLogo from '../../../../assets/logo.png';
 import { useUser } from '../../../../hooks/useUser';
-import { toast } from 'react-toastify';
 
 const Img = styled(Image)`
     height: 26px;
@@ -35,7 +20,7 @@ const Title = styled.div`
     text-decoration: none;
 `;
 
-type Path = 'dashboard' | 'plan' | 'setting' | 'roadmap';
+type Path = 'dashboard' | 'users' | 'user' | 'syncbot' | 'errors' | 'tools';
 
 const A = styled.a`
     display: flex;
@@ -44,29 +29,14 @@ const A = styled.a`
     text-decoration: none;
 `;
 
-const MenuProfileContainer = styled.div`
-    width: 230px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 10px;
-    margin-bottom: 8px;
-`;
-
 const logout = () => {
     localStorage.removeItem('token');
     window.location.href = '/';
 };
 
 function StyledDashboardHeader({ now }: { now: Path }) {
+    const { user } = useUser();
     const router = useRouter();
-    const { user, isLoading } = useUser();
-
-    useEffect(() => {
-        if (user && user.status !== 'FINISHED') {
-            router.push('/connect');
-        }
-    }, [router, user, user?.status]);
 
     return (
         <Header>
@@ -83,20 +53,11 @@ function StyledDashboardHeader({ now }: { now: Path }) {
                 </Header.Nav.Left>
                 <Header.Nav.Right>
                     <Menu>
-                        <Menu.Trigger variant="tertiary" iconOnly shape="round">
+                        <Menu.Trigger variant="tertiary" iconOnly>
                             <Image src={user?.imageUrl || SkeletonIcon} alt="유저 프로필 사진" width={32} height={32} />
                         </Menu.Trigger>
                         <Menu.Content>
-                            <MenuProfileContainer>
-                                <Avatar src={user?.imageUrl} size="32px" />
-                                <Flex.Column>
-                                    <Text>{user?.name}</Text>
-                                    <Text size="14px">{user?.email}</Text>
-                                </Flex.Column>
-                            </MenuProfileContainer>
-                            {user?.isAdmin && (
-                                <Menu.Option onClick={() => router.push('/admin')}>운영진 대시보드</Menu.Option>
-                            )}
+                            <Menu.Option onClick={() => router.push('/dashboard')}>유저 대시보드</Menu.Option>
                             <Menu.Option onClick={() => logout()} color="red">
                                 로그아웃
                             </Menu.Option>
@@ -104,28 +65,39 @@ function StyledDashboardHeader({ now }: { now: Path }) {
                     </Menu>
                 </Header.Nav.Right>
             </Header.Nav>
+
             <Header.Menu
                 selected={now}
                 tabs={[
                     {
                         value: 'dashboard',
                         title: '대시보드',
-                        onClick: () => router.push('/dashboard'),
+                        onClick: () => router.push('/admin'),
                     },
                     {
-                        value: 'plan',
-                        title: '구독',
-                        onClick: () => router.push('/dashboard/plan'),
+                        value: 'users',
+                        title: '유저 리스트',
+                        onClick: () => router.push('/admin/users'),
                     },
                     {
-                        value: 'roadmap',
-                        title: '로드맵',
-                        onClick: () => router.push('/dashboard/roadmap'),
+                        value: 'user',
+                        title: '유저',
+                        onClick: () => router.push('/admin/user'),
                     },
                     {
-                        value: 'setting',
-                        title: '설정',
-                        onClick: () => router.push('/dashboard/setting'),
+                        value: 'syncbot',
+                        title: '동기화봇',
+                        onClick: () => router.push('/admin/syncbot'),
+                    },
+                    {
+                        value: 'errors',
+                        title: '에러',
+                        onClick: () => router.push('/admin/errors'),
+                    },
+                    {
+                        value: 'tools',
+                        title: '툴',
+                        onClick: () => router.push('/admin/tools'),
                     },
                 ]}
             />
@@ -133,6 +105,6 @@ function StyledDashboardHeader({ now }: { now: Path }) {
     );
 }
 
-export const DashboardHeader = dynamic(() => Promise.resolve(StyledDashboardHeader), {
+export const AdminHeader = dynamic(() => Promise.resolve(StyledDashboardHeader), {
     ssr: false,
 });

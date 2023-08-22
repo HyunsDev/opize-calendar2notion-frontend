@@ -5,17 +5,15 @@ import {
     CodeBlock,
     Flex,
     H3,
-    ItemsTable,
     Spinner,
     Switch,
     Table,
     Text,
     cv,
     useCodeModal,
-    useModal,
 } from 'opize-design-system';
 import { useAdminUser } from '../hooks/useAdminUser';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { client } from '../../../../lib/client';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';

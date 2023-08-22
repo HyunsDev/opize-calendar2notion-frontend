@@ -4,7 +4,7 @@ import { client } from '../../../../../../lib/client';
 import { A, Box, Button, Text } from 'opize-design-system';
 
 export function DeadlockBox() {
-    const { user, refetch } = useUser();
+    const { refetch } = useUser();
     const [isLoading, setIsLoading] = useState(false);
 
     const onClick = async () => {

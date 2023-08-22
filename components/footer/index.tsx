@@ -28,7 +28,6 @@ export function Footer() {
 
                     <StyledFooter.Nav.Item>
                         <StyledFooter.Nav.Title>블로그</StyledFooter.Nav.Title>
-                        {/* <StyledFooter.Nav.Item.Link to="/">Opize 블로그</StyledFooter.Nav.Item.Link> */}
                         <StyledFooter.Nav.A href="https://velog.io/@phw3071">개발자 블로그</StyledFooter.Nav.A>
                     </StyledFooter.Nav.Item>
 
@@ -40,11 +39,8 @@ export function Footer() {
 
                     <StyledFooter.Nav.Item>
                         <StyledFooter.Nav.Title>개발</StyledFooter.Nav.Title>
-                        {/* <StyledFooter.Nav.Item.Link to="/">개발자</StyledFooter.Nav.Item.Link> */}
-                        {/* <StyledFooter.Nav.Item.Link to="/">API</StyledFooter.Nav.Item.Link> */}
                         <StyledFooter.Nav.A href="https://github.com/HyunsDev">개발자 깃허브</StyledFooter.Nav.A>
                         <StyledFooter.Nav.A href="https://design.opize.me">디자인 시스템</StyledFooter.Nav.A>
-                        {/* <StyledFooter.Nav.Item.Link to="/">브랜드 리소스</StyledFooter.Nav.Item.Link> */}
                     </StyledFooter.Nav.Item>
                 </StyledFooter.Nav>
                 <StyledFooter.Menu>

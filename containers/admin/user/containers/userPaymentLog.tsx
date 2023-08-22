@@ -1,10 +1,9 @@
-import { CodeBlock, Flex, H3, ItemsTable, Menu, useCodeModal, useModal } from 'opize-design-system';
+import { Flex, H3, ItemsTable, Menu, useCodeModal } from 'opize-design-system';
 import { useAdminUser } from '../hooks/useAdminUser';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { DotsThreeVertical } from 'phosphor-react';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 

@@ -1,14 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
-import { client } from '../../../lib/client';
+import { useCallback } from 'react';
 import { ConnectBlockBase } from '../components/blockBase';
 import { BlockHeader } from '../components/blockHeader';
-import { ConnectButton } from '../components/connectBtn';
-import { Button, Flex, SlideBox, Spinner } from 'opize-design-system';
-import { MigrateV1CheckUser } from '@opize/calendar2notion-object';
-import { MigrationPreview, MigrationPreviewSkeleton } from '../components/migratePreview';
+import { Button, Flex, SlideBox } from 'opize-design-system';
 import { connectPageIndex } from '../connectPageIndex';
-import { toast } from 'react-toastify';
-import { MigrationGuideLink } from '../components/migrationGuideLink';
 import Image from 'next/image';
 
 import Img from '../../../assets/connect/Calendar2notion.png';

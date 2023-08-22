@@ -1,11 +1,7 @@
-import { Box, Button, Flex, SlideBox, Text, useTopLoading } from 'opize-design-system';
-import Image from 'next/image';
-import Img from '../../../../assets/connect/placeholder.png';
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
-import { useRouter } from 'next/router';
+import { SlideBox, useTopLoading } from 'opize-design-system';
+import { useGoogleLogin } from '@react-oauth/google';
 import { toast } from 'react-toastify';
 import { client } from '../../../lib/client';
-import { useUser } from '../../../hooks/useUser';
 import { ConnectBlockBase } from '../components/blockBase';
 import { APIResponseError } from '../../../lib/old-client';
 import { YoutubeEmbed } from '../components/youtubeEmbed';

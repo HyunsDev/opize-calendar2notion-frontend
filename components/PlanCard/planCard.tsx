@@ -1,6 +1,6 @@
 import { Button, Flex, cv } from 'opize-design-system';
 import styled from 'styled-components';
-import { UserEntity } from '../../../lib/old-client/endpoints/admin';
+import { UserEntity } from '../../lib/old-client/endpoints/admin';
 
 const PlanName = styled.div`
     font-size: 40px;

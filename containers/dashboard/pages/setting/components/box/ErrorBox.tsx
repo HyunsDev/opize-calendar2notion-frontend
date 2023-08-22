@@ -1,4 +1,4 @@
-import { A, Box, Button, CodeBlock, Flex } from 'opize-design-system';
+import { Box, Button, CodeBlock, Flex } from 'opize-design-system';
 import { useUser } from '../../../../../../hooks/useUser';
 import { GetUserResponse } from '@opize/calendar2notion-object';
 

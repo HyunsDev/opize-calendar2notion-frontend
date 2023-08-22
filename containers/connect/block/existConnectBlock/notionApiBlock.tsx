@@ -1,5 +1,4 @@
 import { Button, Flex, SlideBox, useTopLoading } from 'opize-design-system';
-import { useUser } from '../../../../hooks/useUser';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { client } from '../../../../lib/client';
@@ -8,7 +7,6 @@ import { YoutubeEmbed } from '../../components/youtubeEmbed';
 import { BlockHeader } from '../../components/blockHeader';
 import { connectPageIndex } from '../../connectPageIndex';
 import { NotionSVG } from '../../components/notionSVG';
-import { MigrationGuideLink } from '../../components/migrationGuideLink';
 import { ExistConnectGuideLink } from '../../components/existConnectGuideLink';
 import { useSlideBox } from '../../state/page.state';
 

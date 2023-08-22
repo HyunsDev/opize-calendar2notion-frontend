@@ -1,24 +1,4 @@
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import {
-    PageLayout,
-    H1,
-    Flex,
-    Text,
-    PageHead,
-    Box,
-    Button,
-    A,
-    Switch,
-    Span,
-    Divider,
-    H3,
-    H2,
-    useModal,
-    Modal,
-} from 'opize-design-system';
-import styled from 'styled-components';
+import { Flex, Text, Box, Button, A, Switch, Span, H3, useModal, Modal } from 'opize-design-system';
 import { toast } from 'react-toastify';
 import { APIResponseError } from 'endpoint-client';
 import { client } from '../../../../../../lib/client';
@@ -30,7 +10,6 @@ function BoxSyncNoticeEmail() {
             title="동기화 알림"
             footer={
                 <>
-                    <div />
                     <Button variant="primary">적용</Button>
                 </>
             }

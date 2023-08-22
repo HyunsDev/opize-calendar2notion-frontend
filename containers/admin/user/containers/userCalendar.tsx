@@ -1,6 +1,5 @@
-import { Badge, CodeBlock, Flex, H3, ItemsTable, Menu, useCodeModal, useModal } from 'opize-design-system';
+import { Badge, Flex, H3, ItemsTable, Menu, useCodeModal } from 'opize-design-system';
 import { useAdminUser } from '../hooks/useAdminUser';
-import { DotsThreeVertical } from 'phosphor-react';
 
 function CalendarRow({ calendar }: { calendar: any }) {
     const codeModal = useCodeModal();

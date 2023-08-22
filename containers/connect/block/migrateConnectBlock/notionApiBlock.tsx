@@ -1,5 +1,4 @@
 import { Button, Flex, A, SlideBox, useTopLoading } from 'opize-design-system';
-import { useUser } from '../../../../hooks/useUser';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { client } from '../../../../lib/client';

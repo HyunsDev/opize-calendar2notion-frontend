@@ -2,7 +2,7 @@ import { Button, Flex, SlideBox, Input, useModal } from 'opize-design-system';
 import { connectPageIndex } from '../../connectPageIndex';
 import { ConnectBlockBase } from '../../components/blockBase';
 import { BlockHeader } from '../../components/blockHeader';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Image from 'next/image';
 import Img from '../../../../assets/connect/Calendar2notion.png';

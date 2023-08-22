@@ -1,5 +1,4 @@
-import { A, Flex, cv } from 'opize-design-system';
-import styled from 'styled-components';
+import { A, Flex } from 'opize-design-system';
 
 export function ExistConnectGuideLink() {
     return (

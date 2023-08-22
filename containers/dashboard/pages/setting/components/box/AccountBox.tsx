@@ -4,7 +4,6 @@ import { useUser } from '../../../../../../hooks/useUser';
 import NotionImage from '../../../../../../assets/notion.png';
 import Image from 'next/image';
 import { GCalIcon } from '../../../../../../components/GCalIcon';
-import styled from 'styled-components';
 
 export function AccountBox() {
     const { user } = useUser();

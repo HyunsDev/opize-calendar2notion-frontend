@@ -23,7 +23,6 @@ export function AdminFooter() {
 
                 <Footer.Nav.Item>
                     <Footer.Nav.Title>블로그</Footer.Nav.Title>
-                    {/* <Footer.Nav.A href="/">Opize 블로그</Footer.Nav.A> */}
                     <Footer.Nav.A href="https://velog.io/@phw3071">개발자 블로그</Footer.Nav.A>
                 </Footer.Nav.Item>
 

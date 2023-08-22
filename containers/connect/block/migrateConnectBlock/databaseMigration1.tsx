@@ -1,10 +1,8 @@
-import { useRouter } from 'next/router';
-import { Button, Flex, Modal, SlideBox, Text, useModal } from 'opize-design-system';
+import { Button, Flex, Modal, SlideBox, useModal } from 'opize-design-system';
 import { connectPageIndex } from '../../connectPageIndex';
 import { ConnectBlockBase } from '../../components/blockBase';
 import { BlockHeader } from '../../components/blockHeader';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 import Image from 'next/image';
 import Img from '../../../../assets/connect/Calendar2notion.png';

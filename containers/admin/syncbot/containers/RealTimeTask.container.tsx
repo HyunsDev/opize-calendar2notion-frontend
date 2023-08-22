@@ -1,16 +1,5 @@
 import { useRouter } from 'next/router';
-import {
-    CodeBlock,
-    Flex,
-    H3,
-    ItemsTable,
-    Text,
-    Badge,
-    Tooltip,
-    useModal,
-    useCodeModal,
-    Menu,
-} from 'opize-design-system';
+import { Flex, H3, ItemsTable, Text, Badge, Tooltip, useModal, useCodeModal, Menu } from 'opize-design-system';
 import { useCallback, useEffect, useState } from 'react';
 import { simpleResponseParser } from '../utils/simpleResponseParser';
 import { Info } from 'phosphor-react';

@@ -1,5 +1,4 @@
-import { cv, H2, PageLayout, Spacer, Spinner, useColorTheme } from 'opize-design-system';
-import { GetServerSideProps } from 'next';
+import { BoxLayout, cv, PageLayout, Spacer, Spinner, useColorTheme } from 'opize-design-system';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
@@ -10,7 +9,6 @@ import { Equation } from 'react-notion-x/build/third-party/equation';
 import { Modal } from 'react-notion-x/build/third-party/modal';
 
 import 'react-notion-x/src/styles.css';
-import axios from 'axios';
 import { notionCacher } from '../../lib/react-notion-cacher';
 
 const NotionRendererDiv = styled.div`
@@ -109,10 +107,9 @@ export function NotionPage({
     try {
         return (
             <>
-                <Spacer height="32px" />
-                <PageLayout backgroundColor={cv.background} minHeight={minHeight}>
+                <BoxLayout backgroundColor={cv.background} minHeight={minHeight}>
                     {page}
-                </PageLayout>
+                </BoxLayout>
             </>
         );
     } catch (err) {

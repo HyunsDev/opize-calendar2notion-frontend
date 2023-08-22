@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { AdminHeader } from '../../components/pages/admin/header';
+import { AdminHeader } from '../../containers/admin/components/AdminHeader';
 import { AdminSyncBotContainer } from '../../containers/admin/syncbot/index.container';
 import { Footer } from '../../components/footer';
 

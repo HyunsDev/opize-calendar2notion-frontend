@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import { Footer } from '../components/footer';
-import { IndexHeader } from '../components/pages/index/header';
-import React from 'react';
+import { IndexHeader } from '../containers/index/components/IndexHeader';
 import { NotionPage } from '../components/notionPage';
 
 const Home: NextPage = () => {

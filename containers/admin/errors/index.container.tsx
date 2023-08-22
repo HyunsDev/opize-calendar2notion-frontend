@@ -7,7 +7,6 @@ import {
     Avatar,
     Button,
     Flex,
-    PageLayout,
     Span,
     Table,
     Text,
@@ -31,7 +30,6 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
 import timeZone from 'dayjs/plugin/timezone';
 import { ModalUserUpdate } from './model/userUpdateModal';
-import styled from 'styled-components';
 import { DotsThreeVertical } from 'phosphor-react';
 dayjs.extend(relativeTime);
 dayjs.extend(utc);

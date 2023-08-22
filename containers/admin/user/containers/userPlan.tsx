@@ -1,4 +1,4 @@
-import { A, Box, Button, Flex, Select, Input } from 'opize-design-system';
+import { Box, Button, Flex, Select, Input } from 'opize-design-system';
 import { useAdminUser } from '../hooks/useAdminUser';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';

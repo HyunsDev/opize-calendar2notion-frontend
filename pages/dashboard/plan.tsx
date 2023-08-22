@@ -1,13 +1,10 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import { PageLayout, H1, Flex, Text, cv, BoxLayout, Spacer } from 'opize-design-system';
+import { Flex, cv, BoxLayout, Spacer } from 'opize-design-system';
 import styled from 'styled-components';
-import { GCalNotionCircle } from '../../components/GCalNotionCircle';
 import { Footer } from '../../components/footer';
-import { DashboardHeader } from '../../components/pages/dashboard/header';
+import { DashboardHeader } from '../../containers/dashboard/components/DashboardHeader';
 import { NotionPage } from '../../components/notionPage';
-import { PlanCardFree, PlanCardPro, PlanCardSponsor } from '../../components/Plan/PlanCard/planCard';
+import { PlanCardFree, PlanCardPro, PlanCardSponsor } from '../../components/PlanCard/planCard';
 import { useUser } from '../../hooks/useUser';
 
 const Title = styled.div`

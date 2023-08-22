@@ -1,4 +1,4 @@
-import { Flex, PageLayout, A, Spacer, PaneList } from 'opize-design-system';
+import { Flex, PageLayout, Spacer, PaneList } from 'opize-design-system';
 import { AdminSearchUser } from './containers/userSearch';
 import { AdminUserInfoContainer } from './containers/userInfo';
 import { AdminUserCalendarContainer } from './containers/userCalendar';

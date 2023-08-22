@@ -1,7 +1,6 @@
-import { BoxLayout, Flex, Text, cv } from 'opize-design-system';
-import styled, { keyframes } from 'styled-components';
+import { BoxLayout, Text } from 'opize-design-system';
+import styled from 'styled-components';
 import { GCalNotionCircle } from '../../../components/GCalNotionCircle';
-import { IndexOpizeToken } from '../../../components/opizeToken';
 import Link from 'next/link';
 
 const Title = styled.h1`

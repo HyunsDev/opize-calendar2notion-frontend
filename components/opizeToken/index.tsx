@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { cv } from 'opize-design-system';
 import styled from 'styled-components';
 import OpizeFoxImage from '../../assets/opize_fox_transparent.png';
 

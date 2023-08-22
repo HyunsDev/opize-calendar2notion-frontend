@@ -2,20 +2,8 @@
 import { useQuery } from 'react-query';
 import { client } from '../../../../lib/client';
 import { toast } from 'react-toastify';
-import { GetSyncBotsResponse, SyncBotStatusDto } from '@opize/calendar2notion-object';
-import {
-    Badge,
-    Button,
-    CodeBlock,
-    Flex,
-    H3,
-    ItemsTable,
-    Menu,
-    Modal,
-    TabNav,
-    useCodeModal,
-    useModal,
-} from 'opize-design-system';
+import { GetSyncBotsResponse } from '@opize/calendar2notion-object';
+import { Badge, Button, Flex, H3, ItemsTable, Menu, Modal, useCodeModal, useModal } from 'opize-design-system';
 import Image from 'next/image';
 
 import dayjs from 'dayjs';
@@ -28,7 +16,6 @@ import Logo from '../../../../assets/logo.png';
 import { APIResponseError } from '../../../../lib/old-client';
 import { LogModal } from '../modal/LogModal';
 import { useRouter } from 'next/router';
-import { DotsThreeVertical } from 'phosphor-react';
 
 function SyncBotRow({ syncBot }: { syncBot: GetSyncBotsResponse[number] }) {
     const codeModal = useCodeModal();

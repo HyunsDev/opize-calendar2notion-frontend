@@ -1,4 +1,4 @@
-import { BoxLayout, Button, Flex, PageHead, PageLayout, Spacer, useModal } from 'opize-design-system';
+import { BoxLayout, Button, Flex, PageHead, Spacer, useModal } from 'opize-design-system';
 import { useQuery } from 'react-query';
 import { client } from '../../../lib/client';
 import { AddSyncBotModal } from './modal/AddSyncBotModal';
@@ -7,11 +7,6 @@ import { SyncBotsContainer } from './containers/SyncBots.container';
 
 export function AdminSyncBotContainer() {
     const modal = useModal();
-    const { data: syncBots, refetch: refetchSyncBots } = useQuery(
-        ['admin', 'syncBot'],
-        () => client.syncbot.list({}),
-        {}
-    );
 
     return (
         <>

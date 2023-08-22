@@ -1,4 +1,4 @@
-import { Flex, PageLayout, PaneList, Spacer } from 'opize-design-system';
+import { PageLayout, PaneList, Spacer } from 'opize-design-system';
 import Link from 'next/link';
 import { useUser } from '../../../../../hooks/useUser';
 

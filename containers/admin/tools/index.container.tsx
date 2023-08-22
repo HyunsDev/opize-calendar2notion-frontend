@@ -1,5 +1,4 @@
-import { BoxLayout, Button, Spacer, TabNav } from 'opize-design-system';
-import { client } from '../../../lib/client';
+import { BoxLayout, Spacer } from 'opize-design-system';
 
 export function AdminToolsContainer() {
     return (

@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router';
 import { useUser } from '../../hooks/useUser';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import { A, Button, CenterLayout, Flex, SlideBox, Text, Input, cv, ButtonGroup } from 'opize-design-system';
+import { useEffect } from 'react';
+import { A, Button, CenterLayout, Flex, SlideBox, cv, ButtonGroup } from 'opize-design-system';
 import styled from 'styled-components';
 import Image from 'next/image';
 

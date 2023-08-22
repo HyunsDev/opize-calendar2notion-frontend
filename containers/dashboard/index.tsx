@@ -1,31 +1,12 @@
 import { useUser } from '../../hooks/useUser';
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import {
-    PageLayout,
-    H1,
-    Flex,
-    Text,
-    cv,
-    Button,
-    useModal,
-    Tooltip,
-    Spinner,
-    Note,
-    A,
-    Box,
-    Spacer,
-    BoxLayout,
-} from 'opize-design-system';
+import { Flex, Button, Note, A, Spacer, BoxLayout } from 'opize-design-system';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';
-import { Info } from 'phosphor-react';
 import { DashboardText, DashboardTextSkeleton } from './components/DashboardText';
 import { GetUserResponse } from '@opize/calendar2notion-object';
 dayjs.extend(relativeTime);

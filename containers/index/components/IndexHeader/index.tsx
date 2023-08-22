@@ -1,15 +1,13 @@
-import axios, { AxiosError } from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { SimpleHeader, Flex, Button, cv, Spinner, Menu } from 'opize-design-system';
+import { SimpleHeader, Flex, Button, Menu } from 'opize-design-system';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import C2NLogo from '../../../../assets/logo.png';
 import { client } from '../../../../lib/client';
 import { APIResponseError } from '../../../../lib/old-client';
-import { isClient } from '../../../../utils/isClient';
 import { useUser } from '../../../../hooks/useUser';
 import SkeletonIcon from '../../../../assets/logo.png';
 
