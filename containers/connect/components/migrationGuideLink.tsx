@@ -2,7 +2,7 @@ import { Flex, cv } from 'opize-design-system';
 import styled from 'styled-components';
 
 const Link = styled.a`
-    color: ${cv.blue1};
+    color: ${cv.blue};
     text-decoration: none;
 
     &:hover {

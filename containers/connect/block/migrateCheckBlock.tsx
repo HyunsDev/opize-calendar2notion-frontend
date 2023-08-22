@@ -3,12 +3,13 @@ import { client } from '../../../lib/client';
 import { ConnectBlockBase } from '../components/blockBase';
 import { BlockHeader } from '../components/blockHeader';
 import { ConnectButton } from '../components/connectBtn';
-import { Button, Flex, Link, SlideBox, Spinner, useSlideBox } from 'opize-design-system';
+import { Button, Flex, SlideBox, Spinner } from 'opize-design-system';
 import { MigrateV1CheckUser } from '@opize/calendar2notion-object';
 import { MigrationPreview, MigrationPreviewSkeleton } from '../components/migratePreview';
 import { connectPageIndex } from '../connectPageIndex';
 import { toast } from 'react-toastify';
 import { MigrationGuideLink } from '../components/migrationGuideLink';
+import { useSlideBox } from '../state/page.state';
 
 export function MigrateCheckConnectBlock() {
     const page = connectPageIndex.CHECK_MIGRATION;
@@ -33,18 +34,23 @@ export function MigrateCheckConnectBlock() {
     useEffect(() => {
         (async () => {
             if (now === page) {
-                setIsLoading(true);
-                const canMigration = await client.migrate.v1.check({ userId: 'me' });
-                setIsLoading(false);
-                if (canMigration.canMigrate) {
-                    setMigrateUser(canMigration.user);
+                try {
+                    setIsLoading(true);
+                    const canMigration = await client.migrate.v1.check({ userId: 'me' });
+                    setIsLoading(false);
+                    if (canMigration.canMigrate) {
+                        setMigrateUser(canMigration.user);
 
-                    if (canMigration.user?.status === 'finish' && canMigration.user?.notionDatabaseId) {
+                        if (canMigration.user?.status === 'finish' && canMigration.user?.notionDatabaseId) {
+                        } else {
+                            onClick('new');
+                        }
                     } else {
-                        onClick('new');
+                        move(connectPageIndex.NEW_CONNECT.NOTION_API);
                     }
-                } else {
-                    move(connectPageIndex.NEW_CONNECT.NOTION_API);
+                } catch (err) {
+                    setIsLoading(false);
+                    toast.error('마이그레이션 확인에 문제가 발생했어요.');
                 }
             }
         })();
@@ -71,7 +77,7 @@ export function MigrateCheckConnectBlock() {
     };
 
     return (
-        <SlideBox.Page pos={page}>
+        <SlideBox.Page index={page}>
             <ConnectBlockBase>
                 {migrateUser ? <MigrationPreview migrateUser={migrateUser} /> : <MigrationPreviewSkeleton />}
                 <BlockHeader
@@ -80,10 +86,10 @@ export function MigrateCheckConnectBlock() {
                 />
 
                 <Flex.Column gap="8px">
-                    <Button onClick={() => onClick('new')} width="100%" size="large" variant="outlined">
+                    <Button onClick={() => onClick('new')} width="100%" size="large" variant="secondary">
                         마이그레이션 하지 않고 새로 시작
                     </Button>
-                    <Button onClick={() => onClick('migrate')} width="100%" size="large" variant="contained">
+                    <Button onClick={() => onClick('migrate')} width="100%" size="large" variant="primary">
                         이전 Calendar2notion 이어 사용하기
                     </Button>
 

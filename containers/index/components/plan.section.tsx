@@ -15,7 +15,7 @@ const Cards = styled.div`
 const Title = styled.h2`
     font-weight: 700;
     font-family: 'Noto Sans KR', sans-serif;
-    color: ${cv.text1};
+    color: ${cv.foreground};
     font-size: 24px;
 `;
 

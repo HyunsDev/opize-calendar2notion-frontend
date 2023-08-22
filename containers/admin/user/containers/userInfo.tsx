@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { AdminUserSearchState } from '../state/adminUser.state';
 import {
-    ActionMenu,
+    Menu,
     Button,
     Flex,
     H3,
@@ -9,13 +9,13 @@ import {
     Switch,
     Table,
     Text,
-    TextField,
+    Input,
     cv,
     useCodeModal,
     useModal,
 } from 'opize-design-system';
 import { useState } from 'react';
-import { UserStatusToken, getUserStatus } from '../components/userStatusToken';
+import { UserStatusBadge, getUserStatus } from '../components/userStatusToken';
 import { UserDto } from '@opize/calendar2notion-object';
 import { Check, DotsThreeVertical, Eye, PenNib, X } from 'phosphor-react';
 import { useAdminUser } from '../hooks/useAdminUser';
@@ -80,11 +80,11 @@ function UserInfoTableRowEditMode({
     let Field = <></>;
 
     if (editableProps[key] === 'string') {
-        Field = <TextField value={value} onChange={(e) => setValue(e.target.value)} />;
+        Field = <Input value={value} onChange={(e) => setValue(e.target.value)} />;
     }
 
     if (editableProps[key] === 'number') {
-        Field = <TextField value={value} onChange={(e) => setValue(e.target.value)} type="number" />;
+        Field = <Input value={value} onChange={(e) => setValue(e.target.value)} type="number" />;
     }
 
     if (editableProps[key] === 'boolean') {
@@ -95,9 +95,9 @@ function UserInfoTableRowEditMode({
         Field = (
             <Select value={value} onChange={(e) => setValue(e.target.value)}>
                 {(editableProps[key] as string[]).map((e, i) => (
-                    <Select.Option key={i} value={e}>
+                    <option key={i} value={e}>
                         {e}
-                    </Select.Option>
+                    </option>
                 ))}
             </Select>
         );
@@ -105,12 +105,16 @@ function UserInfoTableRowEditMode({
 
     return (
         <Table.Row>
-            <Table.Data width="200px">{key}</Table.Data>
-            <Table.Data>{Field}</Table.Data>
-            <Table.Data $align="flex-end" width="100px">
-                <Button icon={<Check color={cv.green1} />} onClick={() => mutate()} variant="text" />
-                <Button icon={<X color={cv.red1} />} onClick={() => setIsEditMode(false)} variant="text" />
-            </Table.Data>
+            <Table.Cell>{key}</Table.Cell>
+            <Table.Cell>{Field}</Table.Cell>
+            <Table.Cell align="right">
+                <Button onClick={() => mutate()} variant="tertiary" iconOnly shape="round">
+                    <Check color={cv.green} />
+                </Button>
+                <Button onClick={() => setIsEditMode(false)} variant="tertiary" iconOnly shape="round">
+                    <X color={cv.red} />
+                </Button>
+            </Table.Cell>
         </Table.Row>
     );
 }
@@ -123,10 +127,13 @@ function UserInfoTableRow({ _key: key, value }: { _key: string; value: any }) {
         let code = value;
         try {
             code = JSON.parse(value);
-        } catch {
+        } catch (err) {
             code = value;
         }
-        codeModal(key, code);
+
+        codeModal.open(String(code), {
+            language: 'json',
+        });
     };
 
     if (isEditMode && key in editableProps) {
@@ -141,48 +148,47 @@ function UserInfoTableRow({ _key: key, value }: { _key: string; value: any }) {
 
     return (
         <Table.Row>
-            <Table.Data width="200px">{key}</Table.Data>
-            <Table.Data>
-                <Text
-                    style={{
-                        wordBreak: 'break-all',
-                    }}
-                >
-                    {JSON.stringify(value)}
-                </Text>
-            </Table.Data>
-            <Table.Data $align="flex-end" width="100px">
+            <Table.Cell>{key}</Table.Cell>
+            <Table.Cell>{JSON.stringify(value)}</Table.Cell>
+            <Table.Cell align="right">
                 {Object.keys(editableProps).includes(key) && (
-                    <Button
-                        icon={<PenNib color={cv.text3} />}
-                        onClick={() => setIsEditMode(!isEditMode)}
-                        variant="text"
-                    />
+                    <Button shape="round" iconOnly onClick={() => setIsEditMode(!isEditMode)} variant="tertiary">
+                        <PenNib color={cv.default400} />
+                    </Button>
                 )}
-                <Button icon={<Eye color={cv.text3} />} onClick={() => openValueModal()} variant="text" />
-            </Table.Data>
+                <Button shape="round" iconOnly onClick={() => openValueModal()} variant="tertiary">
+                    <Eye color={cv.default400} />
+                </Button>
+            </Table.Cell>
         </Table.Row>
     );
 }
 
 function UserInfoTable({ user, isOpenFullInfo }: { user: UserDto; isOpenFullInfo: boolean }) {
     return (
-        <Table>
-            <Table.THead>
-                <Table.Row>
-                    <Table.Head width="200px">Key</Table.Head>
-                    <Table.Head>Value</Table.Head>
-                    <Table.Head $align="flex-end" width="100px"></Table.Head>
-                </Table.Row>
-            </Table.THead>
-            <Table.TBody>
-                {Object.entries(user)
-                    .filter((e) => isOpenFullInfo || favoriteProps.includes(e[0]))
-                    .map(([key, value]) => (
-                        <UserInfoTableRow key={key} _key={key} value={value} />
-                    ))}
-            </Table.TBody>
-        </Table>
+        <Flex
+            style={{
+                width: '100%',
+                overflowX: 'auto',
+            }}
+        >
+            <Table>
+                <Table.Head>
+                    <Table.Row>
+                        <Table.Column>Key</Table.Column>
+                        <Table.Column>Value</Table.Column>
+                        <Table.Column align="right"> </Table.Column>
+                    </Table.Row>
+                </Table.Head>
+                <Table.Body>
+                    {Object.entries(user)
+                        .filter((e) => isOpenFullInfo || favoriteProps.includes(e[0]))
+                        .map(([key, value]) => (
+                            <UserInfoTableRow key={key} _key={key} value={value} />
+                        ))}
+                </Table.Body>
+            </Table>
+        </Flex>
     );
 }
 
@@ -194,12 +200,14 @@ export function AdminUserInfoContainer() {
 
     return (
         <Flex.Column gap="8px" id="user-user">
-            <Flex.Between>
+            <Flex.Between width="100%">
                 <Flex.Row gap="8px">
                     <H3>User</H3>
-                    <UserStatusToken status={getUserStatus(adminUser.user)} />
+                    <UserStatusBadge status={getUserStatus(adminUser.user)} />
                 </Flex.Row>
-                <Switch text="전체 속성" checked={isOpenFullInfo} onChange={() => setIsOpenFullInfo(!isOpenFullInfo)} />
+                <Switch checked={isOpenFullInfo} onChange={() => setIsOpenFullInfo(!isOpenFullInfo)}>
+                    전체 속성
+                </Switch>
             </Flex.Between>
             <UserInfoTable user={adminUser.user} isOpenFullInfo={isOpenFullInfo} />
         </Flex.Column>

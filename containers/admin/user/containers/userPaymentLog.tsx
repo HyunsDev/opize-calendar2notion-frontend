@@ -1,14 +1,15 @@
-import { CodeBlock, Flex, H3, ItemsTable, useModal } from 'opize-design-system';
+import { CodeBlock, Flex, H3, ItemsTable, Menu, useCodeModal, useModal } from 'opize-design-system';
 import { useAdminUser } from '../hooks/useAdminUser';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { DotsThreeVertical } from 'phosphor-react';
 dayjs.extend(relativeTime);
 dayjs.locale('ko');
 
 function PaymentLogRow({ paymentLog }: { paymentLog: any }) {
-    const modal = useModal();
+    const codeModal = useCodeModal();
 
     return (
         <ItemsTable.Row key={paymentLog.id}>
@@ -23,19 +24,9 @@ function PaymentLogRow({ paymentLog }: { paymentLog: any }) {
             />
             <ItemsTable.Row.Text text={paymentLog.memo} subText={'memo'} />
 
-            <ItemsTable.Row.Buttons
-                buttons={[
-                    [
-                        {
-                            label: 'Raw',
-                            onClick: () =>
-                                modal.open(<CodeBlock>{JSON.stringify(paymentLog, null, 2)}</CodeBlock>, {
-                                    width: 400,
-                                }),
-                        },
-                    ],
-                ]}
-            />
+            <ItemsTable.Row.Menu>
+                <Menu.Option onClick={() => codeModal.open(paymentLog)}>Raw</Menu.Option>
+            </ItemsTable.Row.Menu>
         </ItemsTable.Row>
     );
 }

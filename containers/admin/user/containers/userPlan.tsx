@@ -1,4 +1,4 @@
-import { A, Box, Button, Flex, Select, TextField } from 'opize-design-system';
+import { A, Box, Button, Flex, Select, Input } from 'opize-design-system';
 import { useAdminUser } from '../hooks/useAdminUser';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
@@ -66,7 +66,7 @@ export function AdminUserPlanContainer() {
                 footer={
                     <>
                         <p />
-                        <Button variant="contained" type="submit">
+                        <Button variant="primary" type="submit">
                             적용
                         </Button>
                     </>
@@ -74,39 +74,39 @@ export function AdminUserPlanContainer() {
             >
                 <Flex.Column gap="4px" id="플랜 업그레이드">
                     <Select label="plan" {...register('plan')}>
-                        <Select.Option value="FREE">free</Select.Option>
-                        <Select.Option value="PRO">pro</Select.Option>
+                        <option value="FREE">free</option>
+                        <option value="PRO">pro</option>
                     </Select>
-                    <TextField
+                    <Input
                         label="months"
                         {...register('months', {
                             required: '필수 항목이에요.',
                         })}
                         defaultValue="12"
                         error={errors.months?.message}
-                    ></TextField>
-                    <TextField
+                    ></Input>
+                    <Input
                         label="price"
                         {...register('price', {
                             required: '필수 항목이에요.',
                         })}
                         defaultValue="24000"
                         error={errors.price?.message}
-                    ></TextField>
-                    <TextField
+                    ></Input>
+                    <Input
                         label="priceKind"
                         {...register('priceKind', {
                             required: '필수 항목이에요.',
                         })}
                         defaultValue="KRW"
                         error={errors.priceKind?.message}
-                    ></TextField>
+                    ></Input>
                     <Select label="paymentKind" {...register('paymentKind')}>
-                        <Select.Option value="kakaopay">카카오페이</Select.Option>
-                        <Select.Option value="bankTransfer">계좌이체</Select.Option>
-                        <Select.Option value="other">기타</Select.Option>
+                        <option value="kakaopay">카카오페이</option>
+                        <option value="bankTransfer">계좌이체</option>
+                        <option value="other">기타</option>
                     </Select>
-                    <TextField label="memo" {...register('memo')}></TextField>
+                    <Input label="memo" {...register('memo')}></Input>
                 </Flex.Column>
             </Box>
         </form>

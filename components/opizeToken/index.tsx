@@ -25,7 +25,7 @@ const Text = styled.div`
     display: flex;
     align-items: center;
     color: #ffffff;
-    font-weight: ${cv.fontWeightSemiBold};
+    font-weight: 600;
 `;
 
 export function IndexOpizeToken() {

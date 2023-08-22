@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { Button, Flex, Select, TextField } from 'opize-design-system';
+import { Button, Flex, Select, Input } from 'opize-design-system';
 import { useRecoilState } from 'recoil';
 import { AdminUserSearchState } from '../state/adminUser.state';
 import { useAdminUser } from '../hooks/useAdminUser';
@@ -49,31 +49,20 @@ export function AdminSearchUser() {
 
     return (
         <Flex.Between gap="8px" id="user-search">
-            <Select
-                onChange={(e) => setSelect(e.target.value)}
-                value={adminUserSearch.select}
-                style={{
-                    width: '120px',
-                }}
-            >
-                <Select.Option value="id">id</Select.Option>
-                <Select.Option value="opizeId">opizeId</Select.Option>
-                <Select.Option value="email">email</Select.Option>
-                <Select.Option value="googleEmail">googleEmail</Select.Option>
+            <Select onChange={(e) => setSelect(e.target.value)} value={adminUserSearch.select} width="120px">
+                <option value="id">id</option>
+                <option value="opizeId">opizeId</option>
+                <option value="email">email</option>
+                <option value="googleEmail">googleEmail</option>
             </Select>
-            <TextField
+            <Input
                 placeholder={adminUserSearch.select}
                 onChange={(e) => setText(e.target.value)}
                 value={adminUserSearch.text}
                 onKeyDown={onkeydown}
                 ref={ref}
             />
-            <Button
-                variant={'contained'}
-                width="100px"
-                onClick={() => refetchAdminUser()}
-                isLoading={isAdminUserLoading}
-            >
+            <Button variant={'primary'} width="100px" onClick={() => refetchAdminUser()} isLoading={isAdminUserLoading}>
                 조회
             </Button>
         </Flex.Between>

@@ -15,7 +15,7 @@ function NotionDatabaseNotFoundErrorBox({ user }: { user: GetUserResponse }) {
                             해결 가이드 열기
                         </Button>
                         <Button
-                            variant="contained"
+                            variant="primary"
                             onClick={() =>
                                 window.open(`https://notion.so/${user.notionDatabaseId.replaceAll('-', '')}`)
                             }
@@ -43,7 +43,7 @@ function NotionValidationErrorBox({ user }: { user: GetUserResponse }) {
                     <Flex.Row gap="8px">
                         <Button onClick={() => window.open('/guide-notion-validation-error')}>해결 가이드 열기</Button>
                         <Button
-                            variant="contained"
+                            variant="primary"
                             onClick={() =>
                                 window.open(`https://notion.so/${user.notionDatabaseId.replaceAll('-', '')}`)
                             }

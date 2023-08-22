@@ -3,20 +3,23 @@ import { pageState } from './state/page.state';
 import { useQuery } from 'react-query';
 import { client } from '../../../lib/client';
 import {
-    ActionMenu,
+    Menu,
     Avatar,
     Button,
     Flex,
     PageLayout,
     Span,
-    StatusBadge,
     Table,
     Text,
-    TextField,
-    ToolTip,
     cv,
-    useCodeModal,
     useModal,
+    Input,
+    Badge,
+    Tooltip,
+    useCodeModal,
+    Spacer,
+    BoxLayout,
+    ColorDot,
 } from 'opize-design-system';
 import { userIdState } from './state/userId.state';
 import { useRouter } from 'next/router';
@@ -36,14 +39,6 @@ dayjs.extend(timeZone);
 dayjs.locale('ko');
 
 dayjs.tz.setDefault('Asia/Seoul');
-
-const Pre = styled.pre`
-    color: ${cv.text2};
-    font-size: 12px;
-    word-wrap: break-word;
-    white-space: pre-wrap;
-    word-break: break-all;
-`;
 
 const errorQuery = async (page: number, userId?: string) => {
     if (page < 1) return [];
@@ -74,18 +69,12 @@ function Head() {
         <Flex.Column gap="20px">
             <Flex.Between>
                 <Flex.Row gap="8px">
-                    <TextField
-                        type="number"
-                        min={1}
-                        value={page}
-                        onChange={(e) => setPage(+e.target.value)}
-                        label="Page"
-                    />
-                    <TextField type="text" value={userId} onChange={(e) => inputUserId(e)} label="Search User" />
+                    <Input type="number" min={1} value={page} onChange={(e) => setPage(+e.target.value)} label="Page" />
+                    <Input type="text" value={userId} onChange={(e) => inputUserId(e)} label="Search User" />
                 </Flex.Row>
                 <Flex.Row gap="8px">
                     <Text>{page} 페이지</Text>
-                    <Button onClick={() => refetch()} variant="contained" isLoading={isLoading}>
+                    <Button onClick={() => refetch()} variant="primary" isLoading={isLoading}>
                         조회
                     </Button>
                 </Flex.Row>
@@ -95,7 +84,7 @@ function Head() {
 }
 
 const colorMap = {
-    NOTICE: 'gray',
+    NOTICE: 'default',
     WARN: 'yellow',
     ERROR: 'red',
     CRIT: 'red',
@@ -116,90 +105,95 @@ function ErrorTableRow({
 
     return (
         <Table.Row key={error.id}>
-            <Table.Data width="70px">{`${error.id}`}</Table.Data>
-            <Table.Data>
+            <Table.Cell>{`${error.id}`}</Table.Cell>
+            <Table.Cell>
                 <Flex.Row gap="4px">
-                    {error.user && <Avatar src={error.user?.imageUrl} size={28} />}
+                    {error.user && <Avatar src={error.user?.imageUrl} size={'28px'} />}
                     {error.user ? (
-                        <StatusBadge
-                            color={error.user.isConnected ? 'green' : error.user.lastSyncStatus ? 'red' : 'yellow'}
-                            text={error.user.name}
-                        />
+                        <>
+                            <ColorDot
+                                color={error.user.isConnected ? 'green' : error.user.lastSyncStatus ? 'red' : 'yellow'}
+                            />
+                            {error.user.name}
+                        </>
                     ) : (
-                        <Span color={cv.text4}>(알 수 없음)</Span>
+                        <Span color={cv.default600}>(알 수 없음)</Span>
                     )}
                 </Flex.Row>
-            </Table.Data>
-            <Table.Data>
-                <ToolTip text={error.description}>{error.code}</ToolTip>
-            </Table.Data>
-            <Table.Data>{error.from}</Table.Data>
-            <Table.Data>
-                <StatusBadge color={colorMap[error.level]} text={error.level} />
-            </Table.Data>
-            <Table.Data>
+            </Table.Cell>
+            <Table.Cell>
+                <Tooltip content={error.description}>{error.code}</Tooltip>
+            </Table.Cell>
+            <Table.Cell>{error.from}</Table.Cell>
+            <Table.Cell>
+                <Badge color={colorMap[error.level]} variant="secondary">
+                    {error.level}
+                </Badge>
+            </Table.Cell>
+            <Table.Cell>
                 {dayjs.tz(error.createdAt).tz('Asia/Seoul', true).format('MM.DD HH:mm:ss')} (
                 {dayjs.tz(error.createdAt).fromNow()})
-            </Table.Data>
-            <Table.Data $align="flex-end" width="50px">
-                <ActionMenu
-                    actions={[
-                        [
-                            {
-                                label: 'Detail',
-                                onClick: () => {
-                                    let code: string;
-                                    try {
-                                        code = JSON.stringify(JSON.parse(error.detail || ''), null, 2);
-                                    } catch (err) {
-                                        code = error.detail || '(Detail이 포함되어 있지 않습니다)';
-                                    }
-
-                                    modal.open(<Pre>{code}</Pre>, {
-                                        width: 500,
-                                    });
-                                },
-                            },
-                            {
-                                label: 'Stack',
-                                onClick: () =>
-                                    modal.open(<Pre>{error.stack}</Pre>, {
-                                        width: '80vw',
-                                    }),
-                            },
-                            {
-                                label: 'Raw',
-                                onClick: () => codeModal('Raw', error, 800),
-                            },
-                            {
-                                label: '유저 조회',
-                                onClick: () => router.push(`/admin/user?userId=${error.user.id || 0}`),
-                            },
-                            {
-                                label: '동기화 상태 변경',
-                                onClick: () =>
-                                    modal.open(
-                                        <ModalUserUpdate
-                                            userId={error.user.id}
-                                            close={modal.close}
-                                            refresh={() => refetch()}
-                                            initValue={error.user.isConnected}
-                                        />,
-                                        {
-                                            title: '유저 동기화 상태 변경',
-                                        }
-                                    ),
-                            },
-                            {
-                                label: '에러 삭제',
-                                onClick: () => deleteError(error.id),
-                            },
-                        ],
-                    ]}
-                    icon={<DotsThreeVertical />}
-                    variant="text"
-                />
-            </Table.Data>
+            </Table.Cell>
+            <Table.Cell align="right">
+                <Menu>
+                    <Menu.Trigger variant="tertiary" iconOnly shape="round">
+                        <DotsThreeVertical />
+                    </Menu.Trigger>
+                    <Menu.Content>
+                        <Menu.Option
+                            onClick={() => {
+                                let code: string;
+                                try {
+                                    code = JSON.stringify(JSON.parse(error.detail || ''), null, 2);
+                                } catch (err) {
+                                    code = error.detail || '(Detail이 포함되어 있지 않습니다)';
+                                }
+                                codeModal.open(code, {
+                                    stringify: false,
+                                });
+                            }}
+                        >
+                            Detail
+                        </Menu.Option>
+                        <Menu.Option
+                            onClick={() =>
+                                codeModal.open(error.stack, {
+                                    stringify: false,
+                                })
+                            }
+                        >
+                            Stack
+                        </Menu.Option>
+                        <Menu.Option
+                            onClick={() =>
+                                codeModal.open(error, {
+                                    stringify: false,
+                                })
+                            }
+                        >
+                            Raw
+                        </Menu.Option>
+                        <Menu.Option onClick={() => router.push(`/admin/user?userId=${error.user.id || 0}`)}>
+                            유저 조회
+                        </Menu.Option>
+                        <Menu.Option
+                            onClick={() =>
+                                modal.open(
+                                    <ModalUserUpdate
+                                        userId={error.user.id}
+                                        close={modal.close}
+                                        refresh={() => refetch()}
+                                        initValue={error.user.isConnected}
+                                    />
+                                )
+                            }
+                        >
+                            동기화 상태 변경
+                        </Menu.Option>
+                        <Menu.Option onClick={() => deleteError(error.id)}>에러 삭제</Menu.Option>
+                    </Menu.Content>
+                </Menu>
+            </Table.Cell>
         </Table.Row>
     );
 }
@@ -220,22 +214,22 @@ function ErrorTable() {
     return (
         <Flex.Column gap="8px">
             <Table>
-                <Table.THead>
+                <Table.Head>
                     <Table.Row>
-                        <Table.Head width="70px">아이디</Table.Head>
-                        <Table.Head>유저</Table.Head>
-                        <Table.Head>에러 코드 및 설명</Table.Head>
-                        <Table.Head>에러 위치</Table.Head>
-                        <Table.Head>레벨</Table.Head>
-                        <Table.Head>발생한 시간</Table.Head>
-                        <Table.Head $align="flex-end" width="50px"></Table.Head>
+                        <Table.Column>아이디</Table.Column>
+                        <Table.Column>유저</Table.Column>
+                        <Table.Column>에러 코드 및 설명</Table.Column>
+                        <Table.Column>에러 위치</Table.Column>
+                        <Table.Column>레벨</Table.Column>
+                        <Table.Column>발생한 시간</Table.Column>
+                        <Table.Column align="right"> </Table.Column>
                     </Table.Row>
-                </Table.THead>
-                <Table.TBody>
+                </Table.Head>
+                <Table.Body>
                     {errors &&
                         (errors.length === 0 ? (
                             <Table.Row>
-                                <Table.Data>데이터가 없습니다.</Table.Data>
+                                <Table.Cell>데이터가 없습니다.</Table.Cell>
                             </Table.Row>
                         ) : (
                             errors.map((error) => (
@@ -247,7 +241,7 @@ function ErrorTable() {
                                 />
                             ))
                         ))}
-                </Table.TBody>
+                </Table.Body>
             </Table>
         </Flex.Column>
     );
@@ -259,11 +253,14 @@ export function ErrorsContainer() {
     const { data: errors, refetch, isLoading } = useQuery(['errors', page], async () => errorQuery(page, userId));
 
     return (
-        <PageLayout marginTop="32px" minHeight="calc(100vh - 131px - 128px - 337px)">
-            <Flex.Column gap="8px">
-                <Head />
-                <ErrorTable />
-            </Flex.Column>
-        </PageLayout>
+        <>
+            <Spacer height="32px" />
+            <BoxLayout minHeight="calc(100vh - 131px - 128px - 337px)">
+                <Flex.Column gap="8px">
+                    <Head />
+                    <ErrorTable />
+                </Flex.Column>
+            </BoxLayout>
+        </>
     );
 }

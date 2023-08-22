@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ActionMenu, Footer, useColorTheme } from 'opize-design-system';
+import { Menu, Footer, useColorTheme } from 'opize-design-system';
 import { Atom, Moon, Sun } from 'phosphor-react';
 import styled from 'styled-components';
 import Logo from '../../../../assets/logo.png';
@@ -14,36 +14,32 @@ export function AdminFooter() {
 
     return (
         <Footer>
-            <Footer.Navigation>
-                <Footer.Navigation.Item>
-                    <Footer.Navigation.Item.Title>소개</Footer.Navigation.Item.Title>
-                    <Footer.Navigation.Item.Link to="/about">소개</Footer.Navigation.Item.Link>
-                    <Footer.Navigation.Item.Link to="/guide">도움말</Footer.Navigation.Item.Link>
-                </Footer.Navigation.Item>
+            <Footer.Nav>
+                <Footer.Nav.Item>
+                    <Footer.Nav.Title>소개</Footer.Nav.Title>
+                    <Footer.Nav.A href="/about">소개</Footer.Nav.A>
+                    <Footer.Nav.A href="/guide">도움말</Footer.Nav.A>
+                </Footer.Nav.Item>
 
-                <Footer.Navigation.Item>
-                    <Footer.Navigation.Item.Title>블로그</Footer.Navigation.Item.Title>
-                    {/* <Footer.Navigation.Item.Link to="/">Opize 블로그</Footer.Navigation.Item.Link> */}
-                    <Footer.Navigation.Item.Link to="https://velog.io/@phw3071">
-                        개발자 블로그
-                    </Footer.Navigation.Item.Link>
-                </Footer.Navigation.Item>
+                <Footer.Nav.Item>
+                    <Footer.Nav.Title>블로그</Footer.Nav.Title>
+                    {/* <Footer.Nav.A href="/">Opize 블로그</Footer.Nav.A> */}
+                    <Footer.Nav.A href="https://velog.io/@phw3071">개발자 블로그</Footer.Nav.A>
+                </Footer.Nav.Item>
 
-                <Footer.Navigation.Item>
-                    <Footer.Navigation.Item.Title>이용 및 약관</Footer.Navigation.Item.Title>
-                    <Footer.Navigation.Item.Link to="/terms">개인정보 처리방침</Footer.Navigation.Item.Link>
-                    <Footer.Navigation.Item.Link to="/terms">서비스 약관</Footer.Navigation.Item.Link>
-                </Footer.Navigation.Item>
+                <Footer.Nav.Item>
+                    <Footer.Nav.Title>이용 및 약관</Footer.Nav.Title>
+                    <Footer.Nav.A href="/terms">개인정보 처리방침</Footer.Nav.A>
+                    <Footer.Nav.A href="/terms">서비스 약관</Footer.Nav.A>
+                </Footer.Nav.Item>
 
-                <Footer.Navigation.Item>
-                    <Footer.Navigation.Item.Title>개발</Footer.Navigation.Item.Title>
-                    <Footer.Navigation.Item.Link to="/">개발자</Footer.Navigation.Item.Link>
-                    <Footer.Navigation.Item.Link to="https://design.hyuns.dev">
-                        디자인 시스템
-                    </Footer.Navigation.Item.Link>
-                    <Footer.Navigation.Item.Link to="/">브랜드 리소스</Footer.Navigation.Item.Link>
-                </Footer.Navigation.Item>
-            </Footer.Navigation>
+                <Footer.Nav.Item>
+                    <Footer.Nav.Title>개발</Footer.Nav.Title>
+                    <Footer.Nav.A href="/">개발자</Footer.Nav.A>
+                    <Footer.Nav.A href="https://design.hyuns.dev">디자인 시스템</Footer.Nav.A>
+                    <Footer.Nav.A href="/">브랜드 리소스</Footer.Nav.A>
+                </Footer.Nav.Item>
+            </Footer.Nav>
             <Footer.Menu>
                 <Footer.Menu.Item>
                     <StyledLogo>
@@ -52,30 +48,22 @@ export function AdminFooter() {
                 </Footer.Menu.Item>
                 <Footer.Menu.Item>{''}</Footer.Menu.Item>
                 <Footer.Menu.Item>
-                    <ActionMenu
-                        actions={[
-                            [
-                                {
-                                    label: 'Light',
-                                    onClick: () => setColorTheme('light'),
-                                    icon: <Sun />,
-                                },
-                                {
-                                    label: 'Dark',
-                                    onClick: () => setColorTheme('dark'),
-                                    icon: <Moon />,
-                                },
-                                {
-                                    label: 'System',
-                                    onClick: () => setColorTheme('system'),
-                                    icon: <Atom />,
-                                },
-                            ],
-                        ]}
-                        icon={nowColorTheme === 'light' ? <Sun /> : <Moon />}
-                    >
-                        {colorTheme.replace(/\b[a-z]/, (letter) => letter.toUpperCase())}
-                    </ActionMenu>
+                    <Menu>
+                        <Menu.Trigger variant="secondary" suffix={nowColorTheme === 'light' ? <Sun /> : <Moon />}>
+                            {colorTheme.replace(/\b[a-z]/, (letter) => letter.toUpperCase())}
+                        </Menu.Trigger>
+                        <Menu.Content>
+                            <Menu.Option onClick={() => setColorTheme('light')} suffix={<Sun />}>
+                                Light
+                            </Menu.Option>
+                            <Menu.Option onClick={() => setColorTheme('dark')} suffix={<Moon />}>
+                                Dark
+                            </Menu.Option>
+                            <Menu.Option onClick={() => setColorTheme('system')} suffix={<Atom />}>
+                                System
+                            </Menu.Option>
+                        </Menu.Content>
+                    </Menu>
                 </Footer.Menu.Item>
                 <Footer.Menu.Item>
                     © 2022-2023 Opize Corp. <br />

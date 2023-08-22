@@ -8,7 +8,7 @@ const Divver = styled.div`
 
     width: 100%;
     height: 180px;
-    background: ${cv.bg_element1};
+    background: ${cv.background};
     border: solid 2px #a279f5;
     margin-top: 10px;
     box-shadow: 0px 0px 10px rgba(151, 100, 255, 0.4);

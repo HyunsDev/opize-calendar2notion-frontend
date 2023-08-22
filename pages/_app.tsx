@@ -5,7 +5,6 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { Flip, ToastContainer } from 'react-toastify';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
-import 'opize-design-system/dist/style/font.css';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';

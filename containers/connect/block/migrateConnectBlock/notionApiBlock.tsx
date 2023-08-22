@@ -1,4 +1,4 @@
-import { Button, Flex, Link, SlideBox, useSlideBox, useTopLoading } from 'opize-design-system';
+import { Button, Flex, A, SlideBox, useTopLoading } from 'opize-design-system';
 import { useUser } from '../../../../hooks/useUser';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -9,10 +9,11 @@ import { BlockHeader } from '../../components/blockHeader';
 import { connectPageIndex } from '../../connectPageIndex';
 import { NotionSVG } from '../../components/notionSVG';
 import { MigrationGuideLink } from '../../components/migrationGuideLink';
+import { useSlideBox } from '../../state/page.state';
 
 const NOTION_API_STATE = 'migrate_connect';
 export function MigrateConnectNotionApiBlock({}) {
-    const { start: loadingStart, end: loadingEnd } = useTopLoading();
+    const { start: loadingStart, finish: loadingFinish } = useTopLoading();
     const router = useRouter();
     const { move } = useSlideBox();
 
@@ -37,13 +38,13 @@ export function MigrateConnectNotionApiBlock({}) {
                     redirectUrl,
                 });
             })();
-            loadingEnd();
+            loadingFinish();
             move(connectPageIndex.MIGRATE_CONNECT.MIGRATION);
         }
-    }, [loadingEnd, loadingStart, router, router.query.code, router.query.state, move, redirectUrl]);
+    }, [loadingFinish, loadingStart, router, router.query.code, router.query.state, move, redirectUrl]);
 
     return (
-        <SlideBox.Page pos={connectPageIndex.MIGRATE_CONNECT.NOTION_API}>
+        <SlideBox.Page index={connectPageIndex.MIGRATE_CONNECT.NOTION_API}>
             <ConnectBlockBase>
                 <YoutubeEmbed url="https://www.youtube.com/embed/S9A5o_enKak" />
                 <BlockHeader
@@ -55,11 +56,10 @@ export function MigrateConnectNotionApiBlock({}) {
                         onClick={() => {
                             window.location.href = notion_auth_url;
                         }}
-                        icon={NotionSVG}
-                        iconPosition="start"
+                        prefix={NotionSVG}
                         size="large"
                         width="100%"
-                        variant="outlined"
+                        variant="secondary"
                     >
                         노션 통합 추가하기
                     </Button>

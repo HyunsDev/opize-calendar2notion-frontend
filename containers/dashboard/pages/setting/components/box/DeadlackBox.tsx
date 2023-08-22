@@ -23,13 +23,7 @@ export function DeadlockBox() {
             footer={
                 <>
                     <A href="">자세히 알아보기</A>
-                    <Button
-                        variant="contained"
-                        color="red"
-                        isLoading={isLoading}
-                        disabled={isLoading}
-                        onClick={onClick}
-                    >
+                    <Button variant="primary" color="red" isLoading={isLoading} disabled={isLoading} onClick={onClick}>
                         교착상태 해결
                     </Button>
                 </>

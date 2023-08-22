@@ -1,4 +1,4 @@
-import { Flex, Text, ToolTip, cv } from 'opize-design-system';
+import { Flex, Skeleton, Text, Tooltip, cv } from 'opize-design-system';
 import { Info } from 'phosphor-react';
 
 export function DashboardText({
@@ -8,7 +8,7 @@ export function DashboardText({
 }: {
     title: {
         text: string;
-        tooltip?: string;
+        Tooltip?: string;
     };
     description: React.ReactNode;
     button?: React.ReactNode;
@@ -19,16 +19,25 @@ export function DashboardText({
                 <Text weight="semibold" size="28px" style={{ textAlign: 'center' }}>
                     {title.text}
                 </Text>
-                {title.tooltip && (
-                    <ToolTip text={title.tooltip}>
-                        <Info size={20} color={cv.text2} />
-                    </ToolTip>
+                {title.Tooltip && (
+                    <Tooltip content={title.Tooltip}>
+                        <Info size={20} color={cv.default600} />
+                    </Tooltip>
                 )}
             </Flex.Center>
-            <Text color={cv.text3} style={{ textAlign: 'center' }}>
+            <Text color={cv.default400} style={{ textAlign: 'center' }}>
                 {description}
             </Text>
             <Flex.Center>{button}</Flex.Center>
         </Flex.Column>
+    );
+}
+
+export function DashboardTextSkeleton() {
+    return (
+        <Flex direction="column" justify="center" align="center" gap="8px">
+            <Skeleton width="300px" height="32px" />
+            <Skeleton width="200px" height="20px" />
+        </Flex>
     );
 }

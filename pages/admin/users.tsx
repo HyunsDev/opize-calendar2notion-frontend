@@ -4,21 +4,22 @@ import {
     PageLayout,
     Flex,
     PageHead,
-    ActionList,
     useModal,
     Table,
     Avatar,
     Span,
     cv,
-    StatusBadge,
     Text,
     Button,
-    ActionMenu,
     useCodeModal,
     Select,
     Checkbox,
-    TextField,
+    Input,
     Switch,
+    Badge,
+    Menu,
+    Spacer,
+    ColorDot,
 } from 'opize-design-system';
 import styled from 'styled-components';
 import { AdminFooter } from '../../components/pages/admin/footer';
@@ -73,7 +74,8 @@ const Home: NextPage = () => {
         <>
             <AdminHeader now="users" />
             <PageHead title="유저 리스트"></PageHead>
-            <PageLayout panPosition="start" marginTop="32px">
+            <Spacer height="32px" />
+            <PageLayout>
                 <PageLayout.Pane>
                     <Flex.Column gap="8px">
                         <Flex.Column gap="8px">
@@ -98,9 +100,9 @@ const Home: NextPage = () => {
                                             })
                                         }
                                     >
-                                        <Select.Option value={''}>-</Select.Option>
-                                        <Select.Option value={'FIRST'}>FIRST</Select.Option>
-                                        <Select.Option value={'GOOGLE_SET'}>GOOGLE_SET</Select.Option>
+                                        <option value={''}>-</option>
+                                        <option value={'FIRST'}>FIRST</option>
+                                        <option value={'GOOGLE_SET'}>GOOGLE_SET</option>
                                     </Select>
                                     <Select
                                         label="연결 여부 (isConnected)"
@@ -119,9 +121,9 @@ const Home: NextPage = () => {
                                             })
                                         }
                                     >
-                                        <Select.Option value={''}>-</Select.Option>
-                                        <Select.Option value={'true'}>연결됨</Select.Option>
-                                        <Select.Option value={'false'}>연결하지 않음</Select.Option>
+                                        <option value={''}>-</option>
+                                        <option value={'true'}>연결됨</option>
+                                        <option value={'false'}>연결하지 않음</option>
                                     </Select>
                                     <Select
                                         label="플랜 (userPlan)"
@@ -140,10 +142,10 @@ const Home: NextPage = () => {
                                             })
                                         }
                                     >
-                                        <Select.Option value={''}>-</Select.Option>
-                                        <Select.Option value={'FREE'}>FREE</Select.Option>
-                                        <Select.Option value={'PRO'}>PRO</Select.Option>
-                                        <Select.Option value={'SPONSOR'}>SPONSOR</Select.Option>
+                                        <option value={''}>-</option>
+                                        <option value={'FREE'}>FREE</option>
+                                        <option value={'PRO'}>PRO</option>
+                                        <option value={'SPONSOR'}>SPONSOR</option>
                                     </Select>
                                     <Select
                                         label="동기화 상태 여부 (isWork)"
@@ -162,9 +164,9 @@ const Home: NextPage = () => {
                                             })
                                         }
                                     >
-                                        <Select.Option value={''}>-</Select.Option>
-                                        <Select.Option value={'true'}>동기화중</Select.Option>
-                                        <Select.Option value={'false'}>동기화중이 아님</Select.Option>
+                                        <option value={''}>-</option>
+                                        <option value={'true'}>동기화중</option>
+                                        <option value={'false'}>동기화중이 아님</option>
                                     </Select>
                                     <Select
                                         label="운영진 (isAdmin)"
@@ -183,11 +185,11 @@ const Home: NextPage = () => {
                                             })
                                         }
                                     >
-                                        <Select.Option value={''}>-</Select.Option>
-                                        <Select.Option value={'true'}>운영진</Select.Option>
-                                        <Select.Option value={'false'}>운영진이 아님</Select.Option>
+                                        <option value={''}>-</option>
+                                        <option value={'true'}>운영진</option>
+                                        <option value={'false'}>운영진이 아님</option>
                                     </Select>
-                                    <TextField
+                                    <Input
                                         placeholder="페이지"
                                         label="페이지"
                                         value={page}
@@ -206,70 +208,79 @@ const Home: NextPage = () => {
                             />
                         </Flex.Column>
 
-                        <Button onClick={() => findUsers()} width="100%" variant="contained" disabled={isLoading}>
+                        <Button onClick={() => findUsers()} width="100%" variant="primary" disabled={isLoading}>
                             조회
                         </Button>
                     </Flex.Column>
                 </PageLayout.Pane>
                 <PageLayout.Content>
                     <Table>
-                        <Table.THead>
+                        <Table.Head>
                             <Table.Row>
-                                <Table.Head width="70px">아이디</Table.Head>
-                                <Table.Head>유저 정보</Table.Head>
+                                <Table.Column>아이디</Table.Column>
+                                <Table.Column>유저 정보</Table.Column>
+                                <Table.Column> </Table.Column>
                             </Table.Row>
-                        </Table.THead>
-                        <Table.TBody>
+                        </Table.Head>
+                        <Table.Body>
                             {users.length === 0 ? (
                                 <Table.Row>
-                                    <Table.Data>데이터가 없습니다.</Table.Data>
+                                    <Table.Cell>데이터가 없습니다.</Table.Cell>
                                 </Table.Row>
                             ) : (
                                 users.map((user) => (
                                     <Table.Row key={user.id}>
-                                        <Table.Data width="70px">{user.id}</Table.Data>
-                                        <Table.Data>
+                                        <Table.Cell>{user.id}</Table.Cell>
+                                        <Table.Cell>
                                             <Flex.Row gap="4px">
-                                                {user && <Avatar src={user?.imageUrl} size={28} />}
+                                                {user && <Avatar src={user?.imageUrl} size={'28px'} />}
                                                 {user ? (
-                                                    <StatusBadge
-                                                        color={
-                                                            user.isConnected
-                                                                ? 'green'
-                                                                : user.lastSyncStatus
-                                                                ? 'red'
-                                                                : 'yellow'
-                                                        }
-                                                        text={`${user.name} (${user.email})`}
-                                                    />
+                                                    <>
+                                                        <ColorDot
+                                                            color={
+                                                                user.isConnected
+                                                                    ? 'green'
+                                                                    : user.lastSyncStatus
+                                                                    ? 'red'
+                                                                    : 'yellow'
+                                                            }
+                                                        />
+                                                        {user.name} ({user.email})
+                                                    </>
                                                 ) : (
-                                                    <Span color={cv.text4}>(알 수 없음)</Span>
+                                                    <Span color={cv.default300}>(알 수 없음)</Span>
                                                 )}
                                             </Flex.Row>
-                                        </Table.Data>
-                                        <Table.Data $align="flex-end" width="50px">
-                                            <ActionMenu
-                                                actions={[
-                                                    [
-                                                        {
-                                                            label: 'Raw',
-                                                            onClick: () => codeModal('Raw', user, 800),
-                                                        },
-                                                        {
-                                                            label: '유저 조회',
-                                                            onClick: () =>
-                                                                router.push(`/admin/user?userId=${user.id || 0}`),
-                                                        },
-                                                    ],
-                                                ]}
-                                                icon={<DotsThreeVertical />}
-                                                variant="text"
-                                            />
-                                        </Table.Data>
+                                        </Table.Cell>
+                                        <Table.Cell align="right">
+                                            <Menu>
+                                                <Menu.Trigger iconOnly variant="tertiary" shape="round">
+                                                    <DotsThreeVertical />
+                                                </Menu.Trigger>
+                                                <Menu.Content>
+                                                    <Menu.Option
+                                                        onClick={() =>
+                                                            codeModal.open(user, {
+                                                                stringify: true,
+                                                            })
+                                                        }
+                                                    >
+                                                        Raw
+                                                    </Menu.Option>
+                                                    <Menu.Option
+                                                        onClick={() =>
+                                                            router.push(`/admin/user?userId=${user.id || 0}`)
+                                                        }
+                                                    >
+                                                        유저 조회
+                                                    </Menu.Option>
+                                                </Menu.Content>
+                                            </Menu>
+                                        </Table.Cell>
                                     </Table.Row>
                                 ))
                             )}
-                        </Table.TBody>
+                        </Table.Body>
                     </Table>
                 </PageLayout.Content>
             </PageLayout>

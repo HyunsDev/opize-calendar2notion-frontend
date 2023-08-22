@@ -1,4 +1,4 @@
-import { cv, H2, PageLayout, Spinner, useColorTheme } from 'opize-design-system';
+import { cv, H2, PageLayout, Spacer, Spinner, useColorTheme } from 'opize-design-system';
 import { GetServerSideProps } from 'next';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
@@ -109,18 +109,22 @@ export function NotionPage({
     try {
         return (
             <>
-                <PageLayout backgroundColor={cv.bg_page2} marginTop="32px" minHeight={minHeight}>
+                <Spacer height="32px" />
+                <PageLayout backgroundColor={cv.background} minHeight={minHeight}>
                     {page}
                 </PageLayout>
             </>
         );
     } catch (err) {
         return (
-            <PageLayout backgroundColor={cv.bg_page2} marginTop="32px" minHeight={minHeight}>
-                <CenterPageOuter>
-                    <CenterPage>문제가 발생했어요</CenterPage>
-                </CenterPageOuter>
-            </PageLayout>
+            <>
+                <Spacer height="32px" />
+                <PageLayout backgroundColor={cv.background} minHeight={minHeight}>
+                    <CenterPageOuter>
+                        <CenterPage>문제가 발생했어요</CenterPage>
+                    </CenterPageOuter>
+                </PageLayout>
+            </>
         );
     }
 }

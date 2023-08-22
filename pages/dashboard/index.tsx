@@ -2,20 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import {
-    PageLayout,
-    H1,
-    Flex,
-    Text,
-    cv,
-    Button,
-    useModal,
-    ToolTip,
-    Spinner,
-    Callout,
-    A,
-    Box,
-} from 'opize-design-system';
+import { PageLayout, H1, Flex, Text, cv, Button, useModal, Tooltip, Spinner, A, Box } from 'opize-design-system';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';

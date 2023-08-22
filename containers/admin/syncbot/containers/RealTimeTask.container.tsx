@@ -1,5 +1,16 @@
 import { useRouter } from 'next/router';
-import { CodeBlock, Flex, H3, ItemsTable, Text, Token, ToolTip, useModal } from 'opize-design-system';
+import {
+    CodeBlock,
+    Flex,
+    H3,
+    ItemsTable,
+    Text,
+    Badge,
+    Tooltip,
+    useModal,
+    useCodeModal,
+    Menu,
+} from 'opize-design-system';
 import { useCallback, useEffect, useState } from 'react';
 import { simpleResponseParser } from '../utils/simpleResponseParser';
 import { Info } from 'phosphor-react';
@@ -22,6 +33,7 @@ type LogType = {
 };
 
 function LogRow({ log }: { log: LogType }) {
+    const codeModal = useCodeModal();
     const modal = useModal();
     const router = useRouter();
 
@@ -34,32 +46,33 @@ function LogRow({ log }: { log: LogType }) {
                 text={
                     <Flex.Row gap="4px">
                         {log.simpleResponse}{' '}
-                        <ToolTip text={simpleResponseParser(log.simpleResponse)}>
+                        <Tooltip content={simpleResponseParser(log.simpleResponse)}>
                             <Info size={14} />
-                        </ToolTip>
+                        </Tooltip>
                     </Flex.Row>
                 }
                 subText={`${log.workerId} - ${dayjs(log.finishedAt).fromNow()}`}
             />
 
-            <ItemsTable.Row.Status flex={1} status={log.fail ? 'error' : 'done'} text={log.fail ? '실패' : '완료'} />
-            <ItemsTable.Row.Buttons
-                buttons={[
-                    [
-                        {
-                            label: '상세 정보',
-                            onClick: () =>
-                                modal.open(<CodeBlock>{JSON.stringify(log, null, 2)}</CodeBlock>, {
-                                    width: 500,
-                                }),
-                        },
-                        {
-                            label: '유저 조회',
-                            onClick: () => router.push(`/admin/user?userId=${log.userId}`),
-                        },
-                    ],
-                ]}
-            />
+            <ItemsTable.Row.Component>
+                <Badge variant="secondary" color={log.fail ? 'red' : 'blue'}>
+                    {log.fail ? '실패' : '완료'}
+                </Badge>
+            </ItemsTable.Row.Component>
+
+            <ItemsTable.Row.Component>
+                <Menu>
+                    <Menu.Trigger variant="tertiary" iconOnly>
+                        <Info size={16} />
+                    </Menu.Trigger>
+                    <Menu.Content>
+                        <Menu.Option onClick={() => codeModal.open(log)}>상세 정보</Menu.Option>
+                        <Menu.Option onClick={() => router.push(`/admin/user?userId=${log.userId}`)}>
+                            유저 조회
+                        </Menu.Option>
+                    </Menu.Content>
+                </Menu>
+            </ItemsTable.Row.Component>
         </ItemsTable.Row>
     );
 }
@@ -70,7 +83,7 @@ export function RealTimeTaskContainer() {
     const queryClient = useQueryClient();
 
     const addLog = useCallback(
-        (data: typeof logs[number]) => {
+        (data: (typeof logs)[number]) => {
             queryClient.invalidateQueries(['admin', 'syncBot']);
             setLogs((pre) => [data, ...pre].slice(0, 30));
         },
@@ -116,9 +129,9 @@ export function RealTimeTaskContainer() {
         <Flex.Column gap="8px">
             <Flex.Row gap="8px">
                 <H3>실시간 작업</H3>
-                <Token variant="outlined" color={isConnected ? 'blue' : 'red'}>
+                <Badge variant="secondary" color={isConnected ? 'blue' : 'red'}>
                     {isConnected ? '연결됨' : '연결 끊김'}
-                </Token>
+                </Badge>
             </Flex.Row>
             <ItemsTable>
                 {logs.length === 0 ? (

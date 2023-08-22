@@ -1,17 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import {
-    ActionMenu,
-    ActionMenuActionType,
-    Button,
-    cv,
-    Flex,
-    Header,
-    PageLayout,
-    Spacer,
-    useTopLoading,
-} from 'opize-design-system';
+import { Menu, Button, cv, Flex, Header, PageLayout, Spacer, useTopLoading } from 'opize-design-system';
 import styled from 'styled-components';
 import SkeletonIcon from '../../../../assets/logo.png';
 
@@ -26,7 +16,7 @@ const Img = styled(Image)`
 `;
 
 const Title = styled.div`
-    font-weight: ${cv.fontWeightSemiBold};
+    font-weight: 600;
     color: #9764ff;
     font-size: 16px;
     text-decoration: none;
@@ -50,25 +40,8 @@ function StyledDashboardHeader({ now }: { now: Path }) {
     const { user } = useUser();
     const router = useRouter();
 
-    const action: ActionMenuActionType[][] = [
-        [
-            {
-                label: '유저 대시보드',
-                onClick: () => router.push('/dashboard'),
-            },
-        ],
-        [
-            {
-                label: '로그아웃',
-                color: 'red',
-                onClick: () => logout(),
-            },
-        ],
-    ];
-
     return (
         <Header>
-            <Header.Notice />
             <Header.Nav>
                 <Header.Nav.Left>
                     <Link href={'/dashboard'} passHref>
@@ -81,45 +54,54 @@ function StyledDashboardHeader({ now }: { now: Path }) {
                     </Link>
                 </Header.Nav.Left>
                 <Header.Nav.Right>
-                    <ActionMenu
-                        variant="text"
-                        borderRadius={999}
-                        width="fit-content"
-                        actions={action}
-                        icon={
+                    <Menu>
+                        <Menu.Trigger variant="tertiary" iconOnly>
                             <Image src={user?.imageUrl || SkeletonIcon} alt="유저 프로필 사진" width={32} height={32} />
-                        }
-                    ></ActionMenu>
+                        </Menu.Trigger>
+                        <Menu.Content>
+                            <Menu.Option onClick={() => router.push('/dashboard')}>유저 대시보드</Menu.Option>
+                            <Menu.Option onClick={() => logout()} color="red">
+                                로그아웃
+                            </Menu.Option>
+                        </Menu.Content>
+                    </Menu>
                 </Header.Nav.Right>
             </Header.Nav>
-            <Header.SubMenu
+
+            <Header.Menu
                 selected={now}
-                menu={{
-                    dashboard: {
-                        text: '대시보드',
+                tabs={[
+                    {
+                        value: 'dashboard',
+                        title: '대시보드',
                         onClick: () => router.push('/admin'),
                     },
-                    users: {
-                        text: '유저 리스트',
+                    {
+                        value: 'users',
+                        title: '유저 리스트',
                         onClick: () => router.push('/admin/users'),
                     },
-                    user: {
-                        text: '유저',
+                    {
+                        value: 'user',
+                        title: '유저',
                         onClick: () => router.push('/admin/user'),
                     },
-                    syncbot: {
-                        text: '동기화봇',
+                    {
+                        value: 'syncbot',
+                        title: '동기화봇',
                         onClick: () => router.push('/admin/syncbot'),
                     },
-                    errors: {
-                        text: '에러',
+                    {
+                        value: 'errors',
+                        title: '에러',
                         onClick: () => router.push('/admin/errors'),
                     },
-                    tools: {
-                        text: '툴',
+                    {
+                        value: 'tools',
+                        title: '툴',
                         onClick: () => router.push('/admin/tools'),
                     },
-                }}
+                ]}
             />
         </Header>
     );

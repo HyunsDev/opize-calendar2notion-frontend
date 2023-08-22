@@ -11,8 +11,8 @@ import { PlanCardFree, PlanCardPro, PlanCardSponsor } from '../components/Plan/P
 const Title = styled.div`
     margin-top: 32px;
     font-size: 36px;
-    font-weight: ${cv.fontWeightSemiBold};
-    color: ${cv.text1};
+    font-weight: 600;
+    color: ${cv.foreground};
 `;
 
 const Cards = styled.div`

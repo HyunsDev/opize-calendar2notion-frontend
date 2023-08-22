@@ -18,26 +18,17 @@ const Buttons = styled.div`
     gap: 12px;
 `;
 
-const Button2Animation = keyframes`
-    0% {
-        background-position: 0% center;
-    }
-    100% {
-        background-position: 400% center;
-    }
-`;
-
 const Button2 = styled.button`
     color: #ffffff;
+    background-color: transparent;
     text-decoration: none;
     border-radius: 999px;
     padding: 10px 32px;
     font-size: 14px;
-    font-weight: ${cv.fontWeightSemiBold};
+    font-weight: 600;
     border: 2px solid #ffffff;
     outline: none;
     cursor: pointer;
-    border: 0;
 
     transition: 200ms;
 `;
@@ -48,7 +39,7 @@ const ButtonA = styled.a`
     border-radius: 999px;
     padding: 10px 32px;
     font-size: 14px;
-    font-weight: ${cv.fontWeightSemiBold};
+    font-weight: 600;
     border: 2px solid #ffffff;
 
     transition: 200ms;

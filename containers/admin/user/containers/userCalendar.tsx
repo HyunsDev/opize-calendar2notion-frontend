@@ -1,8 +1,9 @@
-import { CodeBlock, Flex, H3, ItemsTable, useModal } from 'opize-design-system';
+import { Badge, CodeBlock, Flex, H3, ItemsTable, Menu, useCodeModal, useModal } from 'opize-design-system';
 import { useAdminUser } from '../hooks/useAdminUser';
+import { DotsThreeVertical } from 'phosphor-react';
 
 function CalendarRow({ calendar }: { calendar: any }) {
-    const modal = useModal();
+    const codeModal = useCodeModal();
 
     return (
         <ItemsTable.Row>
@@ -10,23 +11,14 @@ function CalendarRow({ calendar }: { calendar: any }) {
                 text={`${calendar.googleCalendarName}`}
                 subText={calendar.id + ` ${calendar.accessRole === 'reader' && '(읽기 전용)'}`}
             />
-            <ItemsTable.Row.Status
-                status={calendar.status === 'CONNECTED' ? 'good' : 'stateless'}
-                text={calendar.status}
-            />
-            <ItemsTable.Row.Buttons
-                buttons={[
-                    [
-                        {
-                            label: 'Raw',
-                            onClick: () =>
-                                modal.open(<CodeBlock>{JSON.stringify(calendar, null, 2)}</CodeBlock>, {
-                                    width: 400,
-                                }),
-                        },
-                    ],
-                ]}
-            />
+            <ItemsTable.Row.Component>
+                <Badge variant="secondary" dot color={calendar.status === 'CONNECTED' ? 'green' : 'default'}>
+                    {calendar.status}
+                </Badge>
+            </ItemsTable.Row.Component>
+            <ItemsTable.Row.Menu>
+                <Menu.Option onClick={() => codeModal.open(calendar)}>Raw</Menu.Option>
+            </ItemsTable.Row.Menu>
         </ItemsTable.Row>
     );
 }
