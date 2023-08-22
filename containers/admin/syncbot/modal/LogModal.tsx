@@ -127,7 +127,7 @@ export function LogModal({ prefix }: { prefix: string }) {
                     logs[cursor]
                         .filter((log) => log !== 'error')
                         .map((log, i) => (
-                            <LogDownload key={i} onClick={(e) => getLog(`${log}`)}>
+                            <LogDownload key={i} onClick={() => getLog(`${log}`)}>
                                 {log}
                             </LogDownload>
                         ))}

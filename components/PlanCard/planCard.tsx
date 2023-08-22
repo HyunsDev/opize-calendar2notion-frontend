@@ -1,6 +1,6 @@
-import { Button, Flex, cv } from 'opize-design-system';
 import styled from 'styled-components';
 import { UserEntity } from '../../lib/old-client/endpoints/admin';
+import { Button, Flex, cv } from 'opize-design-system';
 
 const PlanName = styled.div`
     font-size: 40px;
@@ -74,11 +74,11 @@ export function PlanCardPro({ userPlan }: { userPlan?: UserEntity['userPlan'] })
             {userPlan ? (
                 <Flex.Column style={{ marginTop: '40px' }}>
                     {userPlan === 'PRO' ? (
-                        <Button variant="secondary" width="100%" size="large" color="blue">
+                        <Button variant="secondary" width="100%" size="large">
                             현재 사용중인 플랜이에요
                         </Button>
                     ) : (
-                        <Button variant="primary" width="100%" size="large" color="blue">
+                        <Button variant="primary" width="100%" size="large">
                             업그레이드
                         </Button>
                     )}
@@ -122,11 +122,12 @@ export function PlanCardFree({ userPlan }: { userPlan?: UserEntity['userPlan'] }
             </Flex.Column>
             {userPlan ? (
                 <Flex.Column style={{ marginTop: '40px' }}>
-                    {userPlan === 'PRO' ? (
+                    {userPlan === 'PRO' && (
                         <Button variant="secondary" width="100%" size="large">
                             상위 플랜을 이용중이에요
                         </Button>
-                    ) : (
+                    )}
+                    {userPlan !== 'PRO' && (
                         <Button variant="secondary" width="100%" size="large">
                             현재 사용중인 플랜이에요
                         </Button>
