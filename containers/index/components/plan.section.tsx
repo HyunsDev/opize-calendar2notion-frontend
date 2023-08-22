@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BoxLayout, H1, H2, cv } from 'opize-design-system';
-import { PlanCardFree, PlanCardPro, PlanCardSponsor } from '../../../components/Plan/PlanCard/planCard';
+import { PlanCardFree, PlanCardPro, PlanCardSponsor } from '../../../components/PlanCard/planCard';
 
 const Cards = styled.div`
     display: grid;
@@ -15,7 +15,7 @@ const Cards = styled.div`
 const Title = styled.h2`
     font-weight: 700;
     font-family: 'Noto Sans KR', sans-serif;
-    color: ${cv.text1};
+    color: ${cv.foreground};
     font-size: 24px;
 `;
 

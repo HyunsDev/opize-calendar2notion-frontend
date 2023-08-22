@@ -40,7 +40,7 @@ export function ModalUserUpdate({
     return (
         <Flex.Column gap="8px">
             <Switch checked={value} onChange={() => setValue(!value)} />
-            <Button onClick={() => apply()} variant="contained">
+            <Button onClick={() => apply()} variant="primary">
                 적용
             </Button>
         </Flex.Column>

@@ -1,20 +1,8 @@
-import { useRouter } from 'next/router';
-import {
-    Button,
-    Flex,
-    Link,
-    SlideBox,
-    Text,
-    useDialog,
-    useModal,
-    useSlideBox,
-    useTopLoading,
-} from 'opize-design-system';
+import { Button, Flex, Modal, SlideBox, useModal } from 'opize-design-system';
 import { connectPageIndex } from '../../connectPageIndex';
 import { ConnectBlockBase } from '../../components/blockBase';
 import { BlockHeader } from '../../components/blockHeader';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 import Image from 'next/image';
 import Img from '../../../../assets/connect/Calendar2notion.png';
@@ -23,6 +11,7 @@ import { APIResponseError } from 'endpoint-client';
 import { YoutubeEmbed } from '../../components/youtubeEmbed';
 import { MigrationGuideLink } from '../../components/migrationGuideLink';
 import styled from 'styled-components';
+import { useSlideBox } from '../../state/page.state';
 
 const Pre = styled.pre``;
 
@@ -38,23 +27,26 @@ function MigrationGuideModal({
     const modal = useModal();
 
     return (
-        <Flex.Column gap="12px">
-            <Flex.Column gap="4px">
-                {videoId && <YoutubeEmbed url={`https://www.youtube.com/embed/${videoId}`} />}
-                <Pre>{description}</Pre>
-            </Flex.Column>
-            <Flex.Between>
-                <Button onClick={() => window.open('/migration-guide', '_blank')} variant="outlined">
+        <Modal>
+            <Modal.Header>{description}</Modal.Header>
+            <Modal.Content>
+                <Flex.Column gap="4px">
+                    {videoId && <YoutubeEmbed url={`https://www.youtube.com/embed/${videoId}`} />}
+                    <Pre>{description}</Pre>
+                </Flex.Column>
+            </Modal.Content>
+            <Modal.Footer>
+                <Button onClick={() => window.open('/migration-guide', '_blank')} variant="secondary">
                     동기화 가이드
                 </Button>
                 <Flex.Row gap="4px">
-                    <Button onClick={() => window.open(notionDatabaseId, '_blank')} variant="outlined">
+                    <Button onClick={() => window.open(notionDatabaseId, '_blank')} variant="secondary">
                         노션 열기
                     </Button>
                     <Button onClick={() => modal.close()}>확인</Button>
                 </Flex.Row>
-            </Flex.Between>
-        </Flex.Column>
+            </Modal.Footer>
+        </Modal>
     );
 }
 
@@ -62,7 +54,6 @@ export function MigrateConnectMigrationBlock() {
     const { now, move } = useSlideBox();
     const [isLoading, setIsLoading] = useState(false);
     const [notionDatabaseId, setNotionDatabaseId] = useState<string>('');
-    const dialog = useDialog();
     const modal = useModal();
 
     useEffect(() => {
@@ -95,34 +86,31 @@ export function MigrateConnectMigrationBlock() {
 
             if (err instanceof APIResponseError) {
                 if (err.status === 500) {
-                    dialog({
-                        title: err.body.message,
-                        content: '일시적인 문제가 발생했어요. 다시 시도해주세요.',
-                        buttons: [
-                            {
-                                children: '노션 열기',
-                                onClick: () => {
-                                    window.open(notionDatabaseId, '_blank');
-                                },
-                                variant: 'outlined',
-                            },
-                            {
-                                children: '확인',
-                                onClick: () => {},
-                            },
-                        ],
-                    });
+                    modal.open(
+                        <Modal>
+                            <Modal.Header>{err.body.message}</Modal.Header>
+                            <Modal.Content>일시적인 문제가 발생했어요. 다시 시도해주세요.</Modal.Content>
+                            <Modal.Footer>
+                                <Button
+                                    variant="secondary"
+                                    onClick={() => {
+                                        window.open(notionDatabaseId, '_blank');
+                                        modal.close();
+                                    }}
+                                >
+                                    노션 열기
+                                </Button>
+                                <Button onClick={() => modal.close()}>확인</Button>
+                            </Modal.Footer>
+                        </Modal>
+                    );
                 } else {
                     modal.open(
                         <MigrationGuideModal
                             description={err.body.description}
                             videoId={err.body.videoId}
                             notionDatabaseId={notionDatabaseId}
-                        />,
-                        {
-                            title: err.body.message,
-                            width: '500px',
-                        }
+                        />
                     );
                 }
             }
@@ -130,7 +118,7 @@ export function MigrateConnectMigrationBlock() {
     };
 
     return (
-        <SlideBox.Page pos={connectPageIndex.MIGRATE_CONNECT.MIGRATION}>
+        <SlideBox.Page index={connectPageIndex.MIGRATE_CONNECT.MIGRATION}>
             <ConnectBlockBase>
                 <Image src={Img} height={720} width={1280} alt="" />
                 <BlockHeader
@@ -138,7 +126,7 @@ export function MigrateConnectMigrationBlock() {
                     text={'길게는 몇 분정도 걸릴 수 있어요'}
                 ></BlockHeader>
                 <Flex.Column gap="8px">
-                    <Button onClick={migrate} size="large" width="100%" variant="outlined" isLoading={isLoading}>
+                    <Button onClick={migrate} size="large" width="100%" variant="secondary" isLoading={isLoading}>
                         마이그레이션
                     </Button>
                     <MigrationGuideLink />

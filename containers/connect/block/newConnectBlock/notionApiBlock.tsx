@@ -1,4 +1,4 @@
-import { Button, SlideBox, useSlideBox, useTopLoading } from 'opize-design-system';
+import { Button, SlideBox, useTopLoading } from 'opize-design-system';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { client } from '../../../../lib/client';
@@ -7,10 +7,11 @@ import { YoutubeEmbed } from '../../components/youtubeEmbed';
 import { BlockHeader } from '../../components/blockHeader';
 import { connectPageIndex } from '../../connectPageIndex';
 import { NotionSVG } from '../../components/notionSVG';
+import { useSlideBox } from '../../state/page.state';
 
 const NOTION_API_STATE = 'new_connect';
 export function NewConnectNotionApiBlock() {
-    const { start: loadingStart, end: loadingEnd } = useTopLoading();
+    const { start: loadingStart, finish: loadingFinish } = useTopLoading();
     const router = useRouter();
     const { move } = useSlideBox();
 
@@ -25,6 +26,7 @@ export function NewConnectNotionApiBlock() {
         const state = router.query.state as string;
         if (code && state === NOTION_API_STATE) {
             router.replace('/connect');
+            console.log(code, state);
             move(connectPageIndex.NEW_CONNECT.NOTION_API);
             loadingStart();
             (async () => {
@@ -34,13 +36,13 @@ export function NewConnectNotionApiBlock() {
                     redirectUrl,
                 });
             })();
-            loadingEnd();
+            loadingFinish();
             move(connectPageIndex.NEW_CONNECT.FINISH);
         }
-    }, [loadingEnd, loadingStart, router, router.query.code, router.query.state, move, redirectUrl]);
+    }, [loadingFinish, loadingStart, router, router.query.code, router.query.state, move, redirectUrl]);
 
     return (
-        <SlideBox.Page pos={100}>
+        <SlideBox.Page index={100}>
             <ConnectBlockBase>
                 <YoutubeEmbed url="https://www.youtube.com/embed/IHtn-xdFr0g" />
                 <BlockHeader
@@ -51,11 +53,10 @@ export function NewConnectNotionApiBlock() {
                     onClick={() => {
                         window.location.href = notion_auth_url;
                     }}
-                    icon={NotionSVG}
-                    iconPosition="start"
+                    prefix={NotionSVG}
                     size="large"
                     width="100%"
-                    variant="outlined"
+                    variant="secondary"
                 >
                     노션 통합 추가하기
                 </Button>

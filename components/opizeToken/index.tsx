@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { cv } from 'opize-design-system';
 import styled from 'styled-components';
 import OpizeFoxImage from '../../assets/opize_fox_transparent.png';
 
@@ -25,7 +24,7 @@ const Text = styled.div`
     display: flex;
     align-items: center;
     color: #ffffff;
-    font-weight: ${cv.fontWeightSemiBold};
+    font-weight: 600;
 `;
 
 export function IndexOpizeToken() {

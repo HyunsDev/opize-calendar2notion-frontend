@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { client } from '../../lib/client';

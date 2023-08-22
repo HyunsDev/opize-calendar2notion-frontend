@@ -1,5 +1,5 @@
-import { Token } from 'opize-design-system';
 import { UserDto } from '@opize/calendar2notion-object';
+import { Badge } from 'opize-design-system';
 
 type UserStatus = 'setting' | 'connected' | 'disconnected' | 'working' | 'recovering' | 'error';
 export const getUserStatus = (user: UserDto): UserStatus => {
@@ -16,58 +16,58 @@ export const getUserStatus = (user: UserDto): UserStatus => {
     return user.lastCalendarSync ? 'error' : 'disconnected';
 };
 
-export function UserStatusToken({ status }: { status: UserStatus }) {
+export function UserStatusBadge({ status }: { status: UserStatus }) {
     if (status === 'setting') {
         return (
-            <Token variant="outlined" color="gray">
+            <Badge variant="secondary" color="default">
                 가입 중
-            </Token>
+            </Badge>
         );
     }
 
     if (status === 'connected') {
         return (
-            <Token variant="outlined" color="green">
+            <Badge variant="secondary" color="green">
                 연결됨
-            </Token>
+            </Badge>
         );
     }
 
     if (status === 'disconnected') {
         return (
-            <Token variant="outlined" color="yellow">
+            <Badge variant="secondary" color="yellow">
                 연결 해제됨
-            </Token>
+            </Badge>
         );
     }
 
     if (status === 'working') {
         return (
-            <Token variant="outlined" color="blue">
+            <Badge variant="secondary" color="blue">
                 동기화 작업 중
-            </Token>
+            </Badge>
         );
     }
 
     if (status === 'recovering') {
         return (
-            <Token variant="outlined" color="blue">
+            <Badge variant="secondary" color="blue">
                 동기화 복구 중
-            </Token>
+            </Badge>
         );
     }
 
     if (status === 'error') {
         return (
-            <Token variant="outlined" color="red">
+            <Badge variant="secondary" color="red">
                 오류로 인한 정지
-            </Token>
+            </Badge>
         );
     }
 
     return (
-        <Token variant="outlined" color="gray">
+        <Badge variant="secondary" color="default">
             정보 없음
-        </Token>
+        </Badge>
     );
 }

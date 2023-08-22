@@ -1,20 +1,17 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import { PageLayout, H1, Flex, Text, cv, BoxLayout, Callout } from 'opize-design-system';
+import { Flex, cv, BoxLayout, Spacer } from 'opize-design-system';
 import styled from 'styled-components';
-import { GCalNotionCircle } from '../../components/GCalNotionCircle';
 import { Footer } from '../../components/footer';
-import { DashboardHeader } from '../../components/pages/dashboard/header';
+import { DashboardHeader } from '../../containers/dashboard/components/DashboardHeader';
 import { NotionPage } from '../../components/notionPage';
-import { PlanCardFree, PlanCardPro, PlanCardSponsor } from '../../components/Plan/PlanCard/planCard';
+import { PlanCardFree, PlanCardPro, PlanCardSponsor } from '../../components/PlanCard/planCard';
 import { useUser } from '../../hooks/useUser';
 
 const Title = styled.div`
     margin-top: 32px;
     font-size: 36px;
-    font-weight: ${cv.fontWeightSemiBold};
-    color: ${cv.text1};
+    font-weight: 600;
+    color: ${cv.foreground};
 `;
 
 const Cards = styled.div`
@@ -35,7 +32,8 @@ const Home: NextPage = () => {
     return (
         <>
             <DashboardHeader now="plan" />
-            <BoxLayout minHeight="calc(100vh - 131px - 337px)" width="1000px" marginTop="8px">
+            <Spacer height="8px" />
+            <BoxLayout minHeight="calc(100vh - 131px - 337px)" width="1000px">
                 <Flex.Column>
                     <Title>더 빠르게, 더 다양하게 동기화 해보세요.</Title>
                     <Cards>

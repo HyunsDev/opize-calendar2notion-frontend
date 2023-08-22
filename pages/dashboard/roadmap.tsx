@@ -1,9 +1,8 @@
 import type { NextPage } from 'next';
 import { Footer } from '../../components/footer';
-import { IndexHeader } from '../../components/pages/index/header';
 import React from 'react';
 import { NotionPage } from '../../components/notionPage';
-import { DashboardHeader } from '../../components/pages/dashboard/header';
+import { DashboardHeader } from '../../containers/dashboard/components/DashboardHeader';
 
 const Home: NextPage = () => {
     return (

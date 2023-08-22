@@ -11,15 +11,15 @@ export function TimeZoneBox() {
             footer={
                 <>
                     <div />
-                    <Button variant="contained">적용</Button>
+                    <Button variant="primary">적용</Button>
                 </>
             }
         >
             <Select defaultValue={user?.userTimeZone}>
                 {timeZones.map((e) => (
-                    <Select.Option value={e.value} key={e.value}>
+                    <option value={e.value} key={e.value}>
                         {e.label}
-                    </Select.Option>
+                    </option>
                 ))}
             </Select>
         </Box>

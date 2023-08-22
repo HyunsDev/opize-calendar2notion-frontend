@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { client } from '../../../../lib/client';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 import { AdminUserSearchState } from '../state/adminUser.state';
 import { toast } from 'react-toastify';
