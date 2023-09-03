@@ -22,7 +22,7 @@ const Button1 = styled.button`
     text-decoration: none;
     background: #ffffff;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
-    border-radius: 8px;
+    border-radius: 5px;
     padding: 10px 32px;
     transition: 200ms;
     font-size: 14px;
@@ -51,7 +51,7 @@ const Button2 = styled.button`
     color: #dae7d3;
     text-decoration: none;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
-    border-radius: 8px;
+    border-radius: 5px;
     padding: 10px 32px;
     font-size: 14px;
     font-weight: 600;
@@ -79,7 +79,7 @@ const Button2A = styled.a`
     color: #dae7d3;
     text-decoration: none;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
-    border-radius: 8px;
+    border-radius: 5px;
     padding: 10px 32px;
     font-size: 14px;
     font-weight: 600;

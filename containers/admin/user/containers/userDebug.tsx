@@ -18,7 +18,7 @@ import { client } from '../../../../lib/client';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { UserDto } from '@opize/calendar2notion-object';
-import { Eye } from 'phosphor-react';
+import { Eye } from '@phosphor-icons/react';
 
 const TableContainer = styled.div`
     max-width: 100%;

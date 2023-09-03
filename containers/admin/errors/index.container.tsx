@@ -30,7 +30,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
 import timeZone from 'dayjs/plugin/timezone';
 import { ModalUserUpdate } from './model/userUpdateModal';
-import { DotsThreeVertical } from 'phosphor-react';
+import { DotsThreeVertical } from '@phosphor-icons/react';
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 dayjs.extend(timeZone);
@@ -248,7 +248,6 @@ function ErrorTable() {
 export function ErrorsContainer() {
     return (
         <>
-            <Spacer height="32px" />
             <BoxLayout minHeight="calc(100vh - 131px - 128px - 337px)">
                 <Flex.Column gap="8px">
                     <Head />

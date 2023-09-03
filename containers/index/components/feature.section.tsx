@@ -6,8 +6,8 @@ import Clock3DIcon from './assets/Clock_perspective_matte_s.png';
 import Notebook3DIcon from './assets/Notebook_perspective_matte_s.png';
 import Image from 'next/image';
 
-const FeatureDiv = styled.div<{ backgroundColor: string }>`
-    background: ${(props) => props.backgroundColor};
+const FeatureDiv = styled.div<{ $backgroundColor: string }>`
+    background: ${(props) => props.$backgroundColor};
     padding: 80px 60px;
     border-radius: 20px;
 
@@ -20,8 +20,8 @@ const FeatureDiv = styled.div<{ backgroundColor: string }>`
     }
 `;
 
-const FeatureSubtitle = styled.p<{ color: string }>`
-    color: ${(props) => props.color};
+const FeatureSubtitle = styled.p<{ $color: string }>`
+    color: ${(props) => props.$color};
     font-weight: 700;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 24px;
@@ -30,9 +30,9 @@ const FeatureSubtitle = styled.p<{ color: string }>`
     }
 `;
 
-const FeatureTitle = styled.p<{ color: string }>`
+const FeatureTitle = styled.p<{ $color: string }>`
     font-size: 40px;
-    color: ${(props) => props.color};
+    color: ${(props) => props.$color};
     line-height: 1.3;
     font-weight: 700;
     font-family: 'Noto Sans KR', sans-serif;
@@ -41,9 +41,9 @@ const FeatureTitle = styled.p<{ color: string }>`
     }
 `;
 
-const FeatureDescription = styled.p<{ color: string }>`
+const FeatureDescription = styled.p<{ $color: string }>`
     margin-top: 8px;
-    color: ${(props) => props.color};
+    color: ${(props) => props.$color};
 `;
 
 const FeatureIconDiv = styled.div`
@@ -75,11 +75,11 @@ const Feature = ({
     icon: any;
 }) => {
     return (
-        <FeatureDiv backgroundColor={backgroundColor}>
+        <FeatureDiv $backgroundColor={backgroundColor}>
             <Flex.Column style={{ width: '100%' }}>
-                <FeatureSubtitle color={subtitleColor}>{subtitle}</FeatureSubtitle>
-                <FeatureTitle color={titleColor}>{title}</FeatureTitle>
-                <FeatureDescription color={descriptionColor}>{description}</FeatureDescription>
+                <FeatureSubtitle $color={subtitleColor}>{subtitle}</FeatureSubtitle>
+                <FeatureTitle $color={titleColor}>{title}</FeatureTitle>
+                <FeatureDescription $color={descriptionColor}>{description}</FeatureDescription>
             </Flex.Column>
             <FeatureIconDiv>
                 <Image src={icon} width={200} height={200} alt="시계 이미지" />

@@ -15,8 +15,7 @@ export function AdminSyncBotContainer() {
                     동기화봇 추가
                 </Button>
             </PageHead>
-            <Spacer height="32px" />
-            <BoxLayout minHeight="calc(100vh - 131px - 128px - 337px)">
+            <BoxLayout>
                 <Flex.Column gap="20px">
                     <SyncBotsContainer />
                     <RealTimeTaskContainer />

@@ -1,5 +1,5 @@
 import { Flex, Skeleton, Text, Tooltip, cv } from 'opize-design-system';
-import { Info } from 'phosphor-react';
+import { Info } from '@phosphor-icons/react';
 
 export function DashboardText({
     title,

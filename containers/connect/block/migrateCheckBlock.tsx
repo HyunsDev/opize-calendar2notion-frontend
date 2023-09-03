@@ -9,6 +9,7 @@ import { connectPageIndex } from '../connectPageIndex';
 import { toast } from 'react-toastify';
 import { MigrationGuideLink } from '../components/migrationGuideLink';
 import { useSlideBox } from '../state/page.state';
+import { APIResponseError } from 'endpoint-client';
 
 export function MigrateCheckConnectBlock() {
     const page = connectPageIndex.CHECK_MIGRATION;
@@ -45,10 +46,17 @@ export function MigrateCheckConnectBlock() {
                             onClick('new');
                         }
                     } else {
-                        move(connectPageIndex.NEW_CONNECT.NOTION_API);
+                        move(connectPageIndex.CHECK_EXIST);
                     }
                 } catch (err) {
                     setIsLoading(false);
+                    if (err instanceof APIResponseError) {
+                        if (err.status === 404) {
+                            move(connectPageIndex.CHECK_EXIST);
+                            return;
+                        }
+                    }
+
                     toast.error('마이그레이션 확인에 문제가 발생했어요.');
                 }
             }
