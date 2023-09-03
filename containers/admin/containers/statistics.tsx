@@ -1,5 +1,5 @@
 import { ItemsTable } from 'opize-design-system';
-import { ChartPie, User } from 'phosphor-react';
+import { ChartPie, User } from '@phosphor-icons/react';
 import React, { useState, useEffect } from 'react';
 import { client } from '../../../lib/client';
 

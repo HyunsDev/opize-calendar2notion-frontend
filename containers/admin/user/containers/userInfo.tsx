@@ -17,7 +17,7 @@ import {
 import { useState } from 'react';
 import { UserStatusBadge, getUserStatus } from '../components/userStatusToken';
 import { UserDto } from '@opize/calendar2notion-object';
-import { Check, DotsThreeVertical, Eye, PenNib, X } from 'phosphor-react';
+import { Check, DotsThreeVertical, Eye, PenNib, X } from '@phosphor-icons/react';
 import { useAdminUser } from '../hooks/useAdminUser';
 import { editableProps } from '../const/editableProps';
 import { useMutation } from 'react-query';

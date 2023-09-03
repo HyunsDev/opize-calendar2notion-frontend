@@ -1,5 +1,5 @@
 import { Flex, ItemsTable, Button, cv, Tooltip, useModal, Modal } from 'opize-design-system';
-import { Info } from 'phosphor-react';
+import { Info } from '@phosphor-icons/react';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -150,14 +150,14 @@ function CalendarItem({ calendar, userCalendar }: { calendar: GoogleCalendarDto;
                             calendar.summary !== userCalendar.googleCalendarName &&
                             `(${userCalendar.googleCalendarName})`}{' '}
                         {userCalendar && calendar.summary !== userCalendar.googleCalendarName && (
-                            <Tooltip content="구글 캘린더의 이름이 변경되었어요. 노션에는 반영되지 않아요. 해당 기능은 추후 제공될 예정이에요.">
+                            <Tooltip content="구글 캘린더의 이름이 변경되었어요.">
                                 <NotiTag>
                                     이름 변경됨 <Info color={cv.default600} size={14} />
                                 </NotiTag>
                             </Tooltip>
                         )}{' '}
                         {calendar.accessRole === 'reader' && (
-                            <Tooltip content="이 캘린더에 속한 일정은 수정할 수 없어요. 필요하다면 구글 캘린더에서 수정 권한을 확인해주세요.">
+                            <Tooltip content="이 캘린더에 속한 일정은 수정할 수 없어요">
                                 <NotiTag>
                                     읽기 전용 <Info color={cv.default600} size={14} />
                                 </NotiTag>
@@ -171,7 +171,7 @@ function CalendarItem({ calendar, userCalendar }: { calendar: GoogleCalendarDto;
                 {calendar && userCalendar && userCalendar?.status !== 'DISCONNECTED' ? (
                     <>
                         {userCalendar?.status === 'PENDING' && (
-                            <Tooltip content="현재 캘린더가 동기화되기 위해 대기중이에요.">
+                            <Tooltip content="현재 캘린더가 동기화되기 위해 대기중이에요">
                                 <NotiTag>동기화 대기중</NotiTag>
                             </Tooltip>
                         )}

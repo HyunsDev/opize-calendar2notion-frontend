@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@opize/calendar2notion-object": "^1.4.0",
+    "@phosphor-icons/react": "^2.0.10",
     "@react-oauth/google": "^0.2.8",
     "@types/josa": "^3.0.2",
     "axios": "^1.1.2",
@@ -18,8 +19,7 @@
     "josa": "^3.0.1",
     "next": "12.3.1",
     "next-transpile-modules": "^9.1.0",
-    "opize-design-system": "^1.4.6",
-    "phosphor-react": "^1.4.1",
+    "opize-design-system": "^1.4.7",
     "react": "^18.2.0",
     "react-dom": "18.2.0",
     "react-google-login": "^5.2.2",

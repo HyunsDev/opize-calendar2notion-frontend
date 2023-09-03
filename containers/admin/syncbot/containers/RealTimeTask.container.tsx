@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { Flex, H3, ItemsTable, Text, Badge, Tooltip, useModal, useCodeModal, Menu } from 'opize-design-system';
 import { useCallback, useEffect, useState } from 'react';
 import { simpleResponseParser } from '../utils/simpleResponseParser';
-import { Info } from 'phosphor-react';
+import { Info } from '@phosphor-icons/react';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';

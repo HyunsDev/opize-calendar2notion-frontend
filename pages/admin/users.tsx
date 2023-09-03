@@ -24,7 +24,7 @@ import { client } from '../../lib/client';
 import { toast } from 'react-toastify';
 import { Footer } from '../../components/footer';
 import { UserDto } from '@opize/calendar2notion-object';
-import { DotsThreeVertical } from 'phosphor-react';
+import { DotsThreeVertical } from '@phosphor-icons/react';
 import { useRouter } from 'next/router';
 import { GetAdminFindUsersWhere } from '@opize/calendar2notion-object';
 
