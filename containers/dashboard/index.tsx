@@ -3,13 +3,18 @@ import { useRouter } from 'next/router';
 import { Flex, Button, Note, A, Spacer, BoxLayout } from 'opize-design-system';
 
 import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
+
 import Link from 'next/link';
 import { GCalNotionCircle } from '../../components/GCalNotionCircle';
 import { DashboardText, DashboardTextSkeleton } from './components/DashboardText';
 import { GetUserResponse } from '@opize/calendar2notion-object';
 dayjs.extend(relativeTime);
+dayjs.extend(timezone);
+dayjs.extend(utc);
 dayjs.locale('ko');
 
 type UserSyncState =
@@ -77,7 +82,7 @@ function DashboardContent() {
                 title={{
                     text: '지금 동기화가 진행 중이에요',
                 }}
-                description={`${dayjs(user?.lastCalendarSync).fromNow()}에 마지막으로 동기화되었어요`}
+                description={`${dayjs.tz(user?.lastCalendarSync, 'utc').fromNow()}에 마지막으로 동기화되었어요`}
             />
         );
     }
@@ -88,7 +93,7 @@ function DashboardContent() {
                 title={{
                     text: '정상적으로 동기화되고 있어요.',
                 }}
-                description={`${dayjs(user?.lastCalendarSync).fromNow()}에 마지막으로 동기화되었어요`}
+                description={`${dayjs.tz(user?.lastCalendarSync, 'utc').fromNow()}에 마지막으로 동기화되었어요`}
             />
         );
     }
@@ -131,7 +136,7 @@ export function DashboardContainer() {
             <Spacer height="8px" />
             <BoxLayout minHeight="calc(100vh - 420px)">
                 <Flex.Column gap="8px">
-                    {dayjs(user?.lastCalendarSync) < dayjs().add(-2, 'hours') && user?.isWork && (
+                    {dayjs.tz(user?.workStartedAt, 'utc') < dayjs().add(-2, 'hours') && user?.isWork && (
                         <>
                             <Note label="💡" color="yellow">
                                 교착 상태에 빠진 것 같나요?
