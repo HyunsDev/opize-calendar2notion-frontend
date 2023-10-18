@@ -19,8 +19,9 @@ import {
     Spacer,
     BoxLayout,
     ColorDot,
+    Select,
 } from 'opize-design-system';
-import { userIdState } from './state/userId.state';
+import { errorWhereState } from './state/userId.state';
 import { useRouter } from 'next/router';
 import { GetAdminErrorsResponse } from '@opize/calendar2notion-object';
 
@@ -31,6 +32,7 @@ import utc from 'dayjs/plugin/utc';
 import timeZone from 'dayjs/plugin/timezone';
 import { ModalUserUpdate } from './model/userUpdateModal';
 import { DotsThreeVertical } from '@phosphor-icons/react';
+
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 dayjs.extend(timeZone);
@@ -38,29 +40,52 @@ dayjs.locale('ko');
 
 dayjs.tz.setDefault('Asia/Seoul');
 
-const errorQuery = async (page: number, userId?: string) => {
+const errorQuery = async (
+    page: number,
+    where?: {
+        userId?: string;
+        errorCode?: string;
+        isUserConnected?: string;
+    }
+) => {
     if (page < 1) return [];
-
-    console.log(page);
 
     const res = await client.admin.error.list({
         page,
         pageSize: 60,
-        userId: userId ? +userId : undefined,
+        userId: where?.userId ? +where.userId : undefined,
+        errorCode: where?.errorCode,
+        isUserConnected: where?.isUserConnected ? (where.isUserConnected === 'true' ? 'true' : 'false') : undefined,
     });
-    console.log(res.errorLogs[0]);
     return res.errorLogs;
 };
 
 function Head() {
     const [page, setPage] = useRecoilState(pageState);
-    const [userId, setUserId] = useRecoilState(userIdState);
-    const { refetch, isLoading } = useQuery(['errors', page], async () => errorQuery(page, userId));
+    const [where, setWhere] = useRecoilState(errorWhereState);
+    const { refetch, isLoading } = useQuery(['errors', page, where], async () => errorQuery(page, where));
 
     const inputUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (/^[0-9]*$/.test(e.target.value)) {
-            setUserId(e.target.value);
+            setWhere({
+                ...where,
+                userId: e.target.value,
+            });
         }
+    };
+
+    const changeIsUserConnected = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setWhere({
+            ...where,
+            isUserConnected: e.target.value,
+        });
+    };
+
+    const changeErrorCode = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setWhere({
+            ...where,
+            errorCode: e.target.value ? e.target.value : undefined,
+        });
     };
 
     return (
@@ -68,7 +93,13 @@ function Head() {
             <Flex.Between>
                 <Flex.Row gap="8px">
                     <Input type="number" min={1} value={page} onChange={(e) => setPage(+e.target.value)} label="Page" />
-                    <Input type="text" value={userId} onChange={(e) => inputUserId(e)} label="Search User" />
+                    <Input type="text" value={where.userId} onChange={(e) => inputUserId(e)} label="userId" />
+                    <Input type="text" value={where.errorCode} onChange={(e) => changeErrorCode(e)} label="ErrorCode" />
+                    <Select label="유저 연결 여부" onChange={(e) => changeIsUserConnected(e)}>
+                        <option value="">선택 안 함</option>
+                        <option value="true">연결됨</option>
+                        <option value="false">연결되지 않음</option>
+                    </Select>
                 </Flex.Row>
                 <Flex.Row gap="8px">
                     <Text>{page} 페이지</Text>
@@ -198,9 +229,9 @@ function ErrorTableRow({
 
 function ErrorTable() {
     const [page] = useRecoilState(pageState);
-    const [userId] = useRecoilState(userIdState);
+    const [where] = useRecoilState(errorWhereState);
 
-    const { data: errors, refetch } = useQuery(['errors', page], async () => errorQuery(page, userId));
+    const { data: errors, refetch } = useQuery(['errors', page, where], async () => errorQuery(page, where));
 
     const deleteError = async (id: number) => {
         await client.admin.error.delete({
