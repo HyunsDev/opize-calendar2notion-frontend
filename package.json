@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@opize/calendar2notion-object": "^1.4.0",
+    "@opize/calendar2notion-object": "^2.2.1",
     "@phosphor-icons/react": "^2.0.10",
     "@react-oauth/google": "^0.2.8",
     "@types/josa": "^3.0.2",

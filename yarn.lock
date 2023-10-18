@@ -1257,10 +1257,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@opize/calendar2notion-object@^1.4.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@opize/calendar2notion-object/-/calendar2notion-object-1.5.0.tgz#cf99e31a7b3b10a83004a423a33ec712bd1ab4cc"
-  integrity sha512-Vsokc1+pGiqQmg4UQYUKiRktuzdd6N4K6PefE78Zh87b24ihv0ptBaRy0ZNvprJamOCWhn5TJlGwbHCZSHSUBg==
+"@opize/calendar2notion-object@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@opize/calendar2notion-object/-/calendar2notion-object-2.2.1.tgz#2c85327af37f0f4fb2eb34ab1e65a466fc166621"
+  integrity sha512-LCDZv7un/GlNYGo71UU+SOE1xzskUbLJ/Z/TGTFP9T57MTlZFlUxdRxHSU5CRmwYeqI1c161rcK14j9PUeh/vA==
   dependencies:
     class-transformer "^0.5.1"
     class-validator "^0.14.0"
