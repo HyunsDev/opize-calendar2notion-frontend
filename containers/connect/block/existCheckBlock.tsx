@@ -39,10 +39,10 @@ export function ExistCheckConnectBlock() {
                 />
 
                 <Flex.Column gap="8px">
-                    <Button onClick={() => onClick('exist')} width="100%" size="large" variant="secondary">
+                    <Button onClick={() => onClick('exist')} width="100%" size="medium" variant="secondary">
                         기존 노션 데이터베이스에 연결하기
                     </Button>
-                    <Button onClick={() => onClick('new')} width="100%" size="large" variant="primary">
+                    <Button onClick={() => onClick('new')} width="100%" size="medium" variant="primary">
                         새로운 노션 데이터베이스에 연결하기
                     </Button>
                 </Flex.Column>

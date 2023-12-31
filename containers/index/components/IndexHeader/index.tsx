@@ -19,11 +19,14 @@ const Title = styled.div`
     font-weight: 600;
     color: #9764ff;
     font-size: 16px;
+    font-family: 'Pretendard';
+    font-weight: 600;
 `;
 
 const TitleA = styled.a`
     display: flex;
     gap: 8px;
+    align-items: center;
     text-decoration: none;
 `;
 

@@ -63,7 +63,7 @@ function BoxAccount() {
                     >
                         취소
                     </Button>
-                    <Button variant="danger" onClick={deleteAccount}>
+                    <Button variant="primary" color="red" onClick={deleteAccount}>
                         삭제
                     </Button>
                 </Modal.Footer>
@@ -77,7 +77,7 @@ function BoxAccount() {
             footer={
                 <>
                     <div />
-                    <Button variant="danger" onClick={openDialog} size="small">
+                    <Button variant="primary" color="red" onClick={openDialog} size="small">
                         계정 삭제
                     </Button>
                 </>
@@ -137,7 +137,7 @@ function BoxNotion() {
                     >
                         취소
                     </Button>
-                    <Button variant="danger" onClick={resetAccount}>
+                    <Button variant="primary" color="red" onClick={resetAccount}>
                         초기화
                     </Button>
                 </Modal.Footer>
@@ -151,7 +151,7 @@ function BoxNotion() {
             footer={
                 <>
                     <div />
-                    <Button variant="danger" onClick={openDialog} size="small">
+                    <Button variant="primary" color="red" onClick={openDialog} size="small">
                         초기화
                     </Button>
                 </>

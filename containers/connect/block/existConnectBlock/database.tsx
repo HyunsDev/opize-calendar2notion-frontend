@@ -81,7 +81,7 @@ export function ExistConnectDatabaseBlock() {
                     />
                     <Button
                         onClick={() => connect()}
-                        size="large"
+                        size="medium"
                         width="100%"
                         variant="primary"
                         isLoading={isLoading}

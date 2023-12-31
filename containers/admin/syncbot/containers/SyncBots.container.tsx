@@ -52,7 +52,7 @@ function SyncBotRow({ syncBot }: { syncBot: GetSyncBotsResponse[number] }) {
                 </Modal.Content>
                 <Modal.Footer>
                     <Button onClick={() => modal.close()}>취소</Button>
-                    <Button onClick={() => stopSyncBot(prefix)} variant="danger">
+                    <Button onClick={() => stopSyncBot(prefix)} variant="primary" color="red">
                         동기화봇 정지
                     </Button>
                 </Modal.Footer>
@@ -83,7 +83,7 @@ function SyncBotRow({ syncBot }: { syncBot: GetSyncBotsResponse[number] }) {
                 </Modal.Content>
                 <Modal.Footer>
                     <Button onClick={() => modal.close()}>취소</Button>
-                    <Button onClick={() => exitSyncBot(prefix)} variant="danger">
+                    <Button onClick={() => exitSyncBot(prefix)} variant="primary" color="red">
                         동기화봇 강제 종료
                     </Button>
                 </Modal.Footer>

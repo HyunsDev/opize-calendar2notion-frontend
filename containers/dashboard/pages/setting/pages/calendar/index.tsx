@@ -126,7 +126,8 @@ function CalendarItem({ calendar, userCalendar }: { calendar: GoogleCalendarDto;
                         취소
                     </Button>
                     <Button
-                        variant="danger"
+                        variant="primary"
+                        color="red"
                         onClick={() => {
                             modal.close();
                             removeCalendar(calendarId, googleCalendarId);

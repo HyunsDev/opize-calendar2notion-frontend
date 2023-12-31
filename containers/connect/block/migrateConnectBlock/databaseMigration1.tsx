@@ -126,7 +126,7 @@ export function MigrateConnectMigrationBlock() {
                     text={'길게는 몇 분정도 걸릴 수 있어요'}
                 ></BlockHeader>
                 <Flex.Column gap="8px">
-                    <Button onClick={migrate} size="large" width="100%" variant="secondary" isLoading={isLoading}>
+                    <Button onClick={migrate} size="medium" width="100%" variant="secondary" isLoading={isLoading}>
                         마이그레이션
                     </Button>
                     <MigrationGuideLink />
