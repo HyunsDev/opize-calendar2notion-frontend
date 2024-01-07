@@ -51,24 +51,6 @@ export function Footer() {
                     </StyledFooter.Menu.Item>
                     <StyledFooter.Menu.Item>{''}</StyledFooter.Menu.Item>
                     <StyledFooter.Menu.Item>
-                        <Menu>
-                            <Menu.Trigger variant="secondary" suffix={nowColorTheme === 'light' ? <Sun /> : <Moon />}>
-                                {colorTheme.replace(/\b[a-z]/, (letter) => letter.toUpperCase())}
-                            </Menu.Trigger>
-                            <Menu.Content>
-                                <Menu.Option onClick={() => setColorTheme('light')} suffix={<Sun />}>
-                                    Light
-                                </Menu.Option>
-                                <Menu.Option onClick={() => setColorTheme('dark')} suffix={<Moon />}>
-                                    Dark
-                                </Menu.Option>
-                                <Menu.Option onClick={() => setColorTheme('system')} suffix={<Atom />}>
-                                    System
-                                </Menu.Option>
-                            </Menu.Content>
-                        </Menu>
-                    </StyledFooter.Menu.Item>
-                    <StyledFooter.Menu.Item>
                         © 2023 Opize Corp. <br />
                         오피즈 | 박현우
                     </StyledFooter.Menu.Item>

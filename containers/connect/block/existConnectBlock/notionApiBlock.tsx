@@ -56,7 +56,7 @@ export function ExistConnectNotionApiBlock({}) {
                             window.location.href = notion_auth_url;
                         }}
                         prefix={NotionSVG}
-                        size="large"
+                        size="medium"
                         width="100%"
                         variant="secondary"
                     >

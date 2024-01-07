@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BoxLayout, H1, H2, cv } from 'opize-design-system';
+import { BoxLayout, Flex, H1, H2, cv } from 'opize-design-system';
 import { PlanCardFree, PlanCardPro, PlanCardSponsor } from '../../../components/PlanCard/planCard';
 
 const Cards = styled.div`
@@ -22,13 +22,14 @@ const Title = styled.h2`
 export const IndexPlanSection = () => {
     return (
         <BoxLayout width="900px">
-            <Title>플랜</Title>
-
-            <Cards>
-                <PlanCardFree />
-                <PlanCardPro />
-                <PlanCardSponsor />
-            </Cards>
+            <Flex.Column gap="16px">
+                <Title>플랜</Title>
+                <Cards>
+                    <PlanCardFree />
+                    <PlanCardPro />
+                    <PlanCardSponsor />
+                </Cards>
+            </Flex.Column>
         </BoxLayout>
     );
 };

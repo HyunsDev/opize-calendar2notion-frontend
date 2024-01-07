@@ -244,7 +244,7 @@ const Home: NextPage = () => {
                                                         {user.name} ({user.email})
                                                     </>
                                                 ) : (
-                                                    <Span color={cv.default300}>(알 수 없음)</Span>
+                                                    <Span color={cv.gray300}>(알 수 없음)</Span>
                                                 )}
                                             </Flex.Row>
                                         </Table.Cell>

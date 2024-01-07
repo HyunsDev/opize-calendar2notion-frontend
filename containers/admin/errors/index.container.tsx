@@ -113,7 +113,7 @@ function Head() {
 }
 
 const colorMap = {
-    NOTICE: 'default',
+    NOTICE: 'gray',
     WARN: 'yellow',
     ERROR: 'red',
     CRIT: 'red',
@@ -146,7 +146,7 @@ function ErrorTableRow({
                             {error.user.name}
                         </>
                     ) : (
-                        <Span color={cv.default600}>(알 수 없음)</Span>
+                        <Span color={cv.gray600}>(알 수 없음)</Span>
                     )}
                 </Flex.Row>
             </Table.Cell>

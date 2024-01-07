@@ -12,7 +12,7 @@ export const ConnectButton = styled.button`
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    border: solid 1px ${cv.default200};
+    border: solid 1px ${cv.gray200};
     gap: 8px;
     transition: 200ms;
 

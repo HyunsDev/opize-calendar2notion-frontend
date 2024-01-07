@@ -37,7 +37,7 @@ export function MigrateConnectFinishBlock() {
                         disabled={isLoading}
                         isLoading={isLoading}
                         width="100%"
-                        size="large"
+                        size="medium"
                         variant="secondary"
                     >
                         {'동기화 시작하기'}

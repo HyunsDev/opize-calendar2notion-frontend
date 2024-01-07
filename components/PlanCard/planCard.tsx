@@ -14,13 +14,13 @@ const Price = styled.div`
 
     span {
         font-size: 14px;
-        color: ${cv.default400};
+        color: ${cv.gray400};
     }
 `;
 
 const PriceByYear = styled.div`
     font-size: 14px;
-    color: ${cv.default400};
+    color: ${cv.gray400};
 `;
 
 const Desc = styled.div`
@@ -42,10 +42,10 @@ const Dot = styled.div<{ color: string }>`
 
 const PlanCardProDiv = styled.div`
     padding: 28px;
-    border: solid 2px ${cv.blue};
+    border: solid 2px ${cv.statusBlue};
     border-radius: 8px;
     background-color: ${cv.background};
-    box-shadow: 0px 6px 20px ${cv.blue_background};
+    box-shadow: 0px 6px 20px ${cv.statusBlueBg};
     color: ${cv.foreground};
 `;
 export function PlanCardPro({ userPlan }: { userPlan?: UserEntity['userPlan'] }) {
@@ -59,26 +59,26 @@ export function PlanCardPro({ userPlan }: { userPlan?: UserEntity['userPlan'] })
             <Desc>다양한 캘린더와 공휴일 캘린더를 포함한 노션 전문가용 플랜</Desc>
             <Flex.Column gap="8px" style={{ marginTop: '40px' }}>
                 <Item>
-                    <Dot color={cv.blue} />
+                    <Dot color={cv.statusBlue} />
                     빠른 실시간 동기화
                 </Item>
                 <Item>
-                    <Dot color={cv.blue} />
+                    <Dot color={cv.statusBlue} />
                     다중 캘린더
                 </Item>
                 <Item>
-                    <Dot color={cv.blue} />
+                    <Dot color={cv.statusBlue} />
                     공휴일 캘린더
                 </Item>
             </Flex.Column>
             {userPlan ? (
                 <Flex.Column style={{ marginTop: '40px' }}>
                     {userPlan === 'PRO' ? (
-                        <Button variant="secondary" width="100%" size="large">
+                        <Button variant="secondary" width="100%" size="medium">
                             현재 사용중인 플랜이에요
                         </Button>
                     ) : (
-                        <Button variant="primary" width="100%" size="large">
+                        <Button variant="primary" width="100%" size="medium">
                             업그레이드
                         </Button>
                     )}
@@ -92,7 +92,7 @@ export function PlanCardPro({ userPlan }: { userPlan?: UserEntity['userPlan'] })
 
 const PlanCardFreeDiv = styled.div`
     padding: 28px;
-    border: solid 1px ${cv.default300};
+    border: solid 1px ${cv.gray300};
     border-radius: 8px;
     color: ${cv.foreground};
 `;
@@ -108,27 +108,27 @@ export function PlanCardFree({ userPlan }: { userPlan?: UserEntity['userPlan'] }
             <Desc>누구나 자유롭게 사용할 수 있는 무료 플랜</Desc>
             <Flex.Column gap="8px" style={{ marginTop: '40px' }}>
                 <Item>
-                    <Dot color={cv.default600} />
+                    <Dot color={cv.gray600} />
                     느린 동기화
                 </Item>
                 <Item>
-                    <Dot color={cv.default600} />
+                    <Dot color={cv.gray600} />
                     기본 캘린더만 동기화
                 </Item>
                 <Item>
-                    <Dot color={cv.default600} />
+                    <Dot color={cv.gray600} />
                     공휴일 캘린더 X
                 </Item>
             </Flex.Column>
             {userPlan ? (
                 <Flex.Column style={{ marginTop: '40px' }}>
                     {userPlan === 'PRO' && (
-                        <Button variant="secondary" width="100%" size="large">
+                        <Button variant="secondary" width="100%" size="medium">
                             상위 플랜을 이용중이에요
                         </Button>
                     )}
                     {userPlan !== 'PRO' && (
-                        <Button variant="secondary" width="100%" size="large">
+                        <Button variant="secondary" width="100%" size="medium">
                             현재 사용중인 플랜이에요
                         </Button>
                     )}
@@ -142,7 +142,7 @@ export function PlanCardFree({ userPlan }: { userPlan?: UserEntity['userPlan'] }
 
 const PlanCardSponsorDiv = styled.div`
     padding: 28px;
-    border: solid 2px ${cv.yellow};
+    border: solid 2px ${cv.statusYellow};
     border-radius: 8px;
     color: ${cv.foreground};
 `;
@@ -155,29 +155,29 @@ export function PlanCardSponsor({ userPlan }: { userPlan?: UserEntity['userPlan'
                 240000₩ + α<span>/연</span>
             </Price>
             <PriceByYear>20000₩ + α/개월</PriceByYear>
-            <Desc>대학교 1학년 1인 개발자를 후원하기 위한 플랜</Desc>
+            <Desc>대학생 1인 개발자를 후원하기 위한 플랜</Desc>
             <Flex.Column gap="8px" style={{ marginTop: '40px' }}>
                 <Item>
-                    <Dot color={cv.yellow} />
+                    <Dot color={cv.statusYellow} />
                     Pro 플랜의 모든 혜택
                 </Item>
                 <Item>
-                    <Dot color={cv.yellow} />
+                    <Dot color={cv.statusYellow} />
                     개발자의 대학 등록금 지원하기
                 </Item>
                 <Item>
-                    <Dot color={cv.yellow} />
+                    <Dot color={cv.statusYellow} />
                     개발 기록 공유
                 </Item>
             </Flex.Column>
             {userPlan ? (
                 <Flex.Column style={{ marginTop: '40px' }}>
                     {userPlan === 'SPONSOR' ? (
-                        <Button variant="secondary" width="100%" size="large">
+                        <Button variant="secondary" width="100%" size="medium">
                             현재 사용중인 플랜이에요
                         </Button>
                     ) : (
-                        <Button variant="primary" width="100%" size="large">
+                        <Button variant="primary" width="100%" size="medium">
                             업그레이드
                         </Button>
                     )}

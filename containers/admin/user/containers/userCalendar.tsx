@@ -11,7 +11,7 @@ function CalendarRow({ calendar }: { calendar: any }) {
                 subText={calendar.id + ` ${calendar.accessRole === 'reader' && '(읽기 전용)'}`}
             />
             <ItemsTable.Row.Component>
-                <Badge variant="secondary" dot color={calendar.status === 'CONNECTED' ? 'green' : 'default'}>
+                <Badge variant="secondary" dot color={calendar.status === 'CONNECTED' ? 'green' : 'gray'}>
                     {calendar.status}
                 </Badge>
             </ItemsTable.Row.Component>

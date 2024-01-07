@@ -86,7 +86,7 @@ function NotionDatabaseSummaryTable({ database }: { database: any }) {
                                 <Table.Cell>{property.type}</Table.Cell>
                                 <Table.Cell align="right">
                                     <Button
-                                        suffix={<Eye color={cv.default400} />}
+                                        suffix={<Eye color={cv.gray400} />}
                                         onClick={() => openValueModal(property.name, property)}
                                         variant="tertiary"
                                     />

@@ -63,7 +63,7 @@ function BoxAccount() {
                     >
                         취소
                     </Button>
-                    <Button variant="danger" onClick={deleteAccount}>
+                    <Button variant="primary" color="red" onClick={deleteAccount}>
                         삭제
                     </Button>
                 </Modal.Footer>
@@ -77,7 +77,7 @@ function BoxAccount() {
             footer={
                 <>
                     <div />
-                    <Button variant="danger" onClick={openDialog} size="small">
+                    <Button variant="primary" color="red" onClick={openDialog} size="small">
                         계정 삭제
                     </Button>
                 </>
@@ -137,7 +137,7 @@ function BoxNotion() {
                     >
                         취소
                     </Button>
-                    <Button variant="danger" onClick={resetAccount}>
+                    <Button variant="primary" color="red" onClick={resetAccount}>
                         초기화
                     </Button>
                 </Modal.Footer>
@@ -151,16 +151,18 @@ function BoxNotion() {
             footer={
                 <>
                     <div />
-                    <Button variant="danger" onClick={openDialog} size="small">
+                    <Button variant="primary" color="red" onClick={openDialog} size="small">
                         초기화
                     </Button>
                 </>
             }
         >
-            Calendar2notion을 사용하면서 문제가 발생한 경우 노션 데이터베이스를 초기화해서 해결할 수 있어요.
-            <br />
-            데이터베이스를 초기화하는 경우, 이전 데이터베이스와의 동기화가 해제되며 새로운 데이터베이터에 연결하게
-            됩니다.
+            <Text size="14px">
+                Calendar2notion을 사용하면서 문제가 발생한 경우 노션 데이터베이스를 초기화해서 해결할 수 있어요.
+                <br />
+                데이터베이스를 초기화하는 경우, 이전 데이터베이스와의 동기화가 해제되며 새로운 데이터베이터에 연결하게
+                됩니다.
+            </Text>
         </Box>
     );
 }

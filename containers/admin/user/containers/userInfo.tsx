@@ -109,10 +109,10 @@ function UserInfoTableRowEditMode({
             <Table.Cell>{Field}</Table.Cell>
             <Table.Cell align="right">
                 <Button onClick={() => mutate()} variant="tertiary" iconOnly shape="round">
-                    <Check color={cv.green} />
+                    <Check color={cv.statusGreen} />
                 </Button>
                 <Button onClick={() => setIsEditMode(false)} variant="tertiary" iconOnly shape="round">
-                    <X color={cv.red} />
+                    <X color={cv.statusRed} />
                 </Button>
             </Table.Cell>
         </Table.Row>
@@ -153,11 +153,11 @@ function UserInfoTableRow({ _key: key, value }: { _key: string; value: any }) {
             <Table.Cell align="right">
                 {Object.keys(editableProps).includes(key) && (
                     <Button shape="round" iconOnly onClick={() => setIsEditMode(!isEditMode)} variant="tertiary">
-                        <PenNib color={cv.default400} />
+                        <PenNib color={cv.gray400} />
                     </Button>
                 )}
                 <Button shape="round" iconOnly onClick={() => openValueModal()} variant="tertiary">
-                    <Eye color={cv.default400} />
+                    <Eye color={cv.gray400} />
                 </Button>
             </Table.Cell>
         </Table.Row>

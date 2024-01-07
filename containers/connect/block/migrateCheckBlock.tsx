@@ -93,10 +93,10 @@ export function MigrateCheckConnectBlock() {
                 />
 
                 <Flex.Column gap="8px">
-                    <Button onClick={() => onClick('new')} width="100%" size="large" variant="secondary">
+                    <Button onClick={() => onClick('new')} width="100%" size="medium" variant="secondary">
                         마이그레이션 하지 않고 새로 시작
                     </Button>
-                    <Button onClick={() => onClick('migrate')} width="100%" size="large" variant="primary">
+                    <Button onClick={() => onClick('migrate')} width="100%" size="medium" variant="primary">
                         이전 Calendar2notion 이어 사용하기
                     </Button>
 

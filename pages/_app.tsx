@@ -8,6 +8,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
+import '../styles/font.css';
 
 const queryClient = new QueryClient();
 

@@ -162,7 +162,7 @@ export const IndexHeroSection = ({ isLogin }: { isLogin: boolean }) => {
                 <GCalNotionCircle size={1} />
             </Between>
             <Flex.Center>
-                <Text size="12px" color={cv.default300} style={{ textAlign: 'center', lineHeight: '1.6' }}>
+                <Text size="12px" color={cv.gray300} style={{ textAlign: 'center', lineHeight: '1.6' }}>
                     사소한 불편함을 해결하기 위한
                     <br />
                     한 학생 개발자의 프로젝트

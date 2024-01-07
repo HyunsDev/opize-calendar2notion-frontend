@@ -11,7 +11,7 @@ export function AdminSyncBotContainer() {
     return (
         <>
             <PageHead title="동기화봇">
-                <Button variant="primary" size="large" onClick={() => modal.open(<AddSyncBotModal />)}>
+                <Button variant="primary" size="medium" onClick={() => modal.open(<AddSyncBotModal />)}>
                     동기화봇 추가
                 </Button>
             </PageHead>
