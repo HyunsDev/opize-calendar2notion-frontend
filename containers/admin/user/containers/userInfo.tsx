@@ -109,10 +109,10 @@ function UserInfoTableRowEditMode({
             <Table.Cell>{Field}</Table.Cell>
             <Table.Cell align="right">
                 <Button onClick={() => mutate()} variant="tertiary" iconOnly shape="round">
-                    <Check color={cv.green} />
+                    <Check color={cv.statusGreen} />
                 </Button>
                 <Button onClick={() => setIsEditMode(false)} variant="tertiary" iconOnly shape="round">
-                    <X color={cv.red} />
+                    <X color={cv.statusRed} />
                 </Button>
             </Table.Cell>
         </Table.Row>
