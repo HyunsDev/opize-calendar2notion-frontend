@@ -35,8 +35,8 @@ const NotiTag = styled.div`
     padding: 4px 8px;
     font-size: 12px;
     border-radius: 999px;
-    background-color: ${cv.default100};
-    color: ${cv.default600};
+    background-color: ${cv.gray100};
+    color: ${cv.gray600};
     display: flex;
     align-items: center;
     gap: 4px;
@@ -153,14 +153,14 @@ function CalendarItem({ calendar, userCalendar }: { calendar: GoogleCalendarDto;
                         {userCalendar && calendar.summary !== userCalendar.googleCalendarName && (
                             <Tooltip content="구글 캘린더의 이름이 변경되었어요.">
                                 <NotiTag>
-                                    이름 변경됨 <Info color={cv.default600} size={14} />
+                                    이름 변경됨 <Info color={cv.gray600} size={14} />
                                 </NotiTag>
                             </Tooltip>
                         )}{' '}
                         {calendar.accessRole === 'reader' && (
                             <Tooltip content="이 캘린더에 속한 일정은 수정할 수 없어요">
                                 <NotiTag>
-                                    읽기 전용 <Info color={cv.default600} size={14} />
+                                    읽기 전용 <Info color={cv.gray600} size={14} />
                                 </NotiTag>
                             </Tooltip>
                         )}{' '}

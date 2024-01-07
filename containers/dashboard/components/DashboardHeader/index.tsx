@@ -81,9 +81,11 @@ function StyledDashboardHeader({ now }: { now: Path }) {
                                 </Flex.Column>
                             </MenuProfileContainer>
                             {user?.isAdmin && (
-                                <Menu.Option onClick={() => router.push('/admin')}>운영진 대시보드</Menu.Option>
+                                <Menu.Option onClick={() => router.push('/admin')} size="medium">
+                                    운영진 대시보드
+                                </Menu.Option>
                             )}
-                            <Menu.Option onClick={() => logout()} color="red">
+                            <Menu.Option onClick={() => logout()} color="red" size="medium">
                                 로그아웃
                             </Menu.Option>
                         </Menu.Content>

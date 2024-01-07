@@ -9,7 +9,7 @@ export function BlockHeader({ title, text }: { title: React.ReactNode; text?: Re
     return (
         <Flex.Column>
             <StyledTitle>{title}</StyledTitle>
-            {text && <Text color={cv.default600}>{text}</Text>}
+            {text && <Text color={cv.gray600}>{text}</Text>}
         </Flex.Column>
     );
 }

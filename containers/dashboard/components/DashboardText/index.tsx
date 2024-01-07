@@ -21,11 +21,11 @@ export function DashboardText({
                 </Text>
                 {title.Tooltip && (
                     <Tooltip content={title.Tooltip}>
-                        <Info size={20} color={cv.default600} />
+                        <Info size={20} color={cv.gray600} />
                     </Tooltip>
                 )}
             </Flex.Center>
-            <Text color={cv.default400} style={{ textAlign: 'center' }}>
+            <Text color={cv.gray400} style={{ textAlign: 'center' }}>
                 {description}
             </Text>
             <Flex.Center>{button}</Flex.Center>

@@ -19,7 +19,7 @@ export const getUserStatus = (user: UserDto): UserStatus => {
 export function UserStatusBadge({ status }: { status: UserStatus }) {
     if (status === 'setting') {
         return (
-            <Badge variant="secondary" color="default">
+            <Badge variant="secondary" color="gray">
                 가입 중
             </Badge>
         );
@@ -66,7 +66,7 @@ export function UserStatusBadge({ status }: { status: UserStatus }) {
     }
 
     return (
-        <Badge variant="secondary" color="default">
+        <Badge variant="secondary" color="gray">
             정보 없음
         </Badge>
     );

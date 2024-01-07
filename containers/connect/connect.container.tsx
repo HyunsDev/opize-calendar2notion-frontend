@@ -20,7 +20,7 @@ import { ExistConnectFinishBlock } from './block/existConnectBlock/finishBlock';
 import { useSlideBox } from './state/page.state';
 
 const Box = styled.div`
-    border: solid 1px ${cv.default200};
+    border: solid 1px ${cv.gray200};
     border-radius: 8px;
     padding: 30px 0px;
     display: flex;
@@ -31,7 +31,7 @@ const Box = styled.div`
     width: 100%;
 
     @media (max-width: 767px) {
-        border: solid 0px ${cv.default200};
+        border: solid 0px ${cv.gray200};
     }
 `;
 
