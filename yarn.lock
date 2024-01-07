@@ -808,7 +808,7 @@ damerau-levenshtein@^1.0.8:
   resolved "https://registry.yarnpkg.com/damerau-levenshtein/-/damerau-levenshtein-1.0.8.tgz#b43d286ccbd36bc5b2f7ed41caf2d0aba1f8a6e7"
   integrity sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==
 
-dayjs@^1.11.5, dayjs@^1.11.9:
+dayjs@^1.11.10, dayjs@^1.11.5, dayjs@^1.11.9:
   version "1.11.10"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.10.tgz#68acea85317a6e164457d6d6947564029a6a16a0"
   integrity sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==
@@ -2355,10 +2355,10 @@ once@^1.3.0:
   dependencies:
     wrappy "1"
 
-opize-design-system@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/opize-design-system/-/opize-design-system-1.5.1.tgz#0d677c20b5e112b293c86b9fdcd8779397c9e7cc"
-  integrity sha512-91enCs2dioRAaTmqDp3k7remY32unZvx77qub4/uynuuuemeozURFz0IgDwSMZZJVO2bgZeFRE7CMZQ95ScJHQ==
+opize-design-system@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/opize-design-system/-/opize-design-system-1.5.2.tgz#b8ebac3bd614a8db12318352605a8dc67e06676a"
+  integrity sha512-AGBYFl9ERA4fGU+OxPG551gpe5BCvr6k68Q1r7DeWDlPuBRvZLvK07K06QPUB+HlxAhg5bKFnTWIR/Ta26ojaA==
   dependencies:
     react-syntax-highlighter "^15.5.0"
 
