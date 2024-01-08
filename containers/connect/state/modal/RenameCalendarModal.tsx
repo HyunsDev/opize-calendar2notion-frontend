@@ -141,7 +141,7 @@ export function RenameCalendarModal({
                         disabled={step !== 3}
                         isLoading={connectLoading}
                     >
-                        동기화 재게
+                        동기화 재시작
                     </Button>
                 </Flex.Column>
             </Modal.Content>
