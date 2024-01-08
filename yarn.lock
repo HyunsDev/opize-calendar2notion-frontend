@@ -190,10 +190,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@opize/calendar2notion-object@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@opize/calendar2notion-object/-/calendar2notion-object-2.3.0.tgz#89eb7b2529c62d12de6c6856d8d67e3bf088a22b"
-  integrity sha512-rbDG0A6XhPuArLXIIUO/Wn0vgLKklHEMzDJX8ocZIIubLvaxa3BmTo7+IPCxYwjYHIdmvzaOZtQMdkbPUXDYrw==
+"@opize/calendar2notion-object@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@opize/calendar2notion-object/-/calendar2notion-object-2.3.1.tgz#74eaa19ed56ee12914a02aaee981e94dc498d08f"
+  integrity sha512-DlkT1D1VJVT3P6pCYt02nkK7C1klaFzQ2weJO28yb/BbW1UTcscodhtXJL+g64m8+uoE4zKR/3xMgNpOZdlZog==
   dependencies:
     class-transformer "^0.5.1"
     class-validator "^0.14.0"
@@ -2355,10 +2355,10 @@ once@^1.3.0:
   dependencies:
     wrappy "1"
 
-opize-design-system@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/opize-design-system/-/opize-design-system-1.5.2.tgz#b8ebac3bd614a8db12318352605a8dc67e06676a"
-  integrity sha512-AGBYFl9ERA4fGU+OxPG551gpe5BCvr6k68Q1r7DeWDlPuBRvZLvK07K06QPUB+HlxAhg5bKFnTWIR/Ta26ojaA==
+opize-design-system@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/opize-design-system/-/opize-design-system-1.5.3.tgz#aacb9497d43c2d545d32f434faa9d0d484f501bb"
+  integrity sha512-YqoxzQazhQ2kMvxHZxnk+oyCqQM0L4vOPALBBhWs5FOjpeW4Rsu/D5xtwfoH47LeA8BKcC6ei1l2zR55ZsBo3Q==
   dependencies:
     react-syntax-highlighter "^15.5.0"
 

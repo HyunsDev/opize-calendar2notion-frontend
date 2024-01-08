@@ -34,6 +34,7 @@ import {
     postMigrateV1CalendarMigrate,
     getAdminToolsNotionDatabase,
     getAdminFindExpirationUsers,
+    postUserCalendarRename,
 } from '@opize/calendar2notion-object';
 
 export class Client extends EndpointClient {
@@ -55,6 +56,7 @@ export class Client extends EndpointClient {
         calendar: {
             post: this.endpointBuilder(postUserCalendar),
             delete: this.endpointBuilder(deleteUserCalendar),
+            rename: this.endpointBuilder(postUserCalendarRename),
         },
     };
 
