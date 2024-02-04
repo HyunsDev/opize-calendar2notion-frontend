@@ -1,4 +1,4 @@
-import { CenterLayout, Flex, Text, cv } from 'opize-design-system';
+import { A, CenterLayout, Flex, Note, Text, cv } from 'opize-design-system';
 import styled, { keyframes } from 'styled-components';
 import { GCalNotionCircle } from '../../../components/GCalNotionCircle';
 import { IndexOpizeToken } from '../../../components/opizeToken';
@@ -132,6 +132,13 @@ export const IndexHeroSection = ({ isLogin }: { isLogin: boolean }) => {
 
     return (
         <CenterLayout width="900px" minHeight="calc(100vh - 52px)">
+            <Note variant="error">
+                <div>
+                    2024년 3월 6일 서비스가 종료됩니다. 자세한 내용은 공지를 확인해주세요.
+                    <br />
+                    <A href="https://calendar2notion.opize.me/284e5acc418d40308b0a6d1f1410a8cc">공지 확인하기</A>
+                </div>
+            </Note>
             <Between>
                 <Texts>
                     <IndexOpizeToken />
